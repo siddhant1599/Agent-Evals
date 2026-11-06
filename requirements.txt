@@ -1,0 +1,51 @@
+# Agent-Evals pinned dependencies.
+#
+# Exact pins only. Every version below is one that is actually installed and imported in the
+# project venv -- nothing here is a version anyone guessed at. Resolved against Python 3.14.4
+# on Linux x86_64 (AWS g5.2xlarge, A10G, driver 595.91.07 / CUDA 13.2).
+#
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt && pip install -e .
+#   python -m nltk.downloader -d .venv/nltk_data punkt_tab     # data, not a pip package
+
+# --- runtime -----------------------------------------------------------------------------------
+# torch is pinned by vLLM: every vLLM release from 0.27.1 through 0.29.0 requires torch==2.13.0
+# exactly, so torch and numpy move with vLLM rather than independently (D-009). The default PyPI
+# wheel is the CUDA 13 build (2.13.0+cu130, with cudnn-cu13 9.20.0.48 / nccl-cu13 2.29.7), which
+# matches the instance driver, so no --index-url is needed.
+torch==2.13.0
+numpy==2.4.6
+datasets==5.0.1
+PyYAML==6.0.3
+
+# --- serving -----------------------------------------------------------------------------------
+# vLLM 0.27.1 is the last release with built-in bitsandbytes; 0.28.0 moved it to an out-of-tree
+# plugin. Serving quantizes in flight to 4-bit NF4 with double quantization (D-008).
+# transformers is pinned because vLLM only sets a lower bound on it.
+vllm==0.27.1
+bitsandbytes==0.50.2
+transformers==5.17.0
+
+# --- metrics -----------------------------------------------------------------------------------
+# D-018 to D-027. SummaC and AlignScore are ported into metrics/ rather than installed: its package requires
+# huggingface-hub<=0.17 and AlignScore's requires torch<2 and transformers<5, so neither can coexist
+# with this stack; both are deliberately absent.
+rouge-score==0.1.2
+bert-score==0.3.13
+nltk==3.10.3
+# MiniCheck installs from its repository at a pinned commit. The PyPI package named "minicheck" is
+# an unrelated model checker -- never install it by name.
+minicheck @ git+https://github.com/Liyan06/MiniCheck.git@b58b9fa69acbd1015ec970fa65dd752413a053d2
+
+# --- RL training -------------------------------------------------------------------------------
+# T5 GRPO on QLoRA adapters (D-046). Latest releases as of 2026-10-06; their declared requirements
+# (transformers>=4.56.2, datasets>=4.7.0, torch>=2.0.0) are met by the pins above, so none of them
+# moves torch or transformers. trl's optional vllm extra (vllm>=0.20.0,<=0.30.0) admits 0.27.1.
+trl==1.14.1
+peft==0.21.2
+accelerate==1.15.0
+
+# --- development -------------------------------------------------------------------------------
+pytest==9.1.1
+ruff==0.16.7
+black==26.5.1

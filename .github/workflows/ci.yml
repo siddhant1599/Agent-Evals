@@ -1,0 +1,63 @@
+# Runs the CPU test suite on every pull request and on every push to main.
+#
+# GitHub runners have no GPU. Tests marked gpu or vllm are already excluded by the addopts in
+# pyproject.toml, so plain `pytest` here runs exactly the default local suite.
+#
+# Only the packages the CPU suite imports are installed, at the exact versions pinned in
+# requirements.txt (read from that file, never restated here). transformers, trl, peft and
+# accelerate are installed for the GRPO trainer tests, which train a tiny model built in memory.
+# vLLM, bitsandbytes, bert-score and MiniCheck are only loaded by gpu-marked tests and are skipped
+# to keep the runner within its disk and time budget. torch comes from the CPU wheel index for the
+# same reason.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # The suite is offline by contract (AGENTS.md §8); fail rather than download a model.
+      HF_HUB_OFFLINE: "1"
+      HF_DATASETS_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          # requirements.txt is resolved against Python 3.14.
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pinned test dependencies
+        run: |
+          pins=$(grep -E '^(torch|numpy|datasets|PyYAML|rouge-score|nltk|pytest|transformers|trl|peft|accelerate)==' requirements.txt)
+          echo "$pins"
+          # Fail loudly if a pin was renamed or removed instead of installing an unpinned version.
+          test "$(echo "$pins" | wc -l)" -eq 11
+          python -m pip install --upgrade pip
+          python -m pip install \
+            --index-url https://download.pytorch.org/whl/cpu \
+            --extra-index-url https://pypi.org/simple \
+            $pins
+          python -m pip install -e . --no-deps
+
+      - name: Download NLTK sentence tokenizer data
+        # Same data as the README setup step; nltk searches <sys.prefix>/nltk_data.
+        run: python -m nltk.downloader -d "$(python -c 'import sys; print(sys.prefix)')/nltk_data" punkt_tab
+
+      - name: Run pytest
+        run: python -m pytest -ra

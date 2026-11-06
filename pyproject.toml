@@ -1,0 +1,38 @@
+# Packaging and tooling only. Runtime dependencies are pinned in requirements.txt, which is
+# human-owned -- this file deliberately declares none, so that installing the package never
+# silently resolves a version nobody chose.
+#
+# Install for development from the repository root:  pip install -e .
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-evals"
+version = "0.1.0"
+description = "Agentic AI evals: outcome, trajectory, efficiency and reliability evaluation of LLM agent architectures"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src/component"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+markers = [
+    "gpu: requires a CUDA device; excluded from the default run",
+    "vllm: requires a running vLLM server; excluded from the default run",
+]
+addopts = "-m 'not gpu and not vllm' --strict-markers"
