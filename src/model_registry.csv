@@ -1,0 +1,4 @@
+name,hf_path,hf_revision,gated,quantization,max_model_len,default_temperature,default_top_p,default_top_k,default_repetition_penalty,sampling_defaults_source,measured_throughput_tok_s
+qwen2.5-7b-instruct,Qwen/Qwen2.5-7B-Instruct,a09a35458c702b33eeacc393d103063234e8bc28,false,bitsandbytes,32768,0.7,0.8,20,1.05,model generation_config.json,
+mistral-7b-instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,c170c708c41dac9275d15a8fff4eca08d52bab71,false,bitsandbytes,32768,1.0,1.0,0,1.0,vllm neutral defaults (model ships none),
+llama-3.1-8b-instruct,meta-llama/Llama-3.1-8B-Instruct,0e9e39f249a16976918f6564b8830bc894c89659,true,bitsandbytes,32768,0.6,0.9,0,1.0,model generation_config.json for temperature and top_p; vllm neutral for top_k and repetition_penalty,
