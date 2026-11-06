@@ -1,0 +1,18 @@
+{
+  "run_id": "20261009_173514_grpo_xsum_memory_1536_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-09T17:35:14.633076+00:00",
+  "ended_at": "2026-10-09T17:40:11.595842+00:00",
+  "wall_clock_s": 296.963,
+  "records_written": 10,
+  "peak_vram_gib": 15.5,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 284.643,
+  "training_gpu_hours": 0.0791,
+  "adapter_path": "/tmp/factagent_memory_i1mkaw7m/20261009_173514_grpo_xsum_memory_1536_llama-3.1-8b-instruct_seed0/final",
+  "final_reward": 0.7580865025520325,
+  "final_kl": 0.0007560052908957005
+}

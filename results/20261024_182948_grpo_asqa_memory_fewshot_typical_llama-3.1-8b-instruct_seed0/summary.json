@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_182948_grpo_asqa_memory_fewshot_typical_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T18:29:48.393667+00:00",
+  "ended_at": "2026-10-24T18:38:18.017207+00:00",
+  "wall_clock_s": 509.624,
+  "records_written": 10,
+  "peak_vram_gib": 18.32,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 345.863,
+  "training_gpu_hours": 0.0961,
+  "adapter_path": "/tmp/factagent_memory_yxitzoa4/20261024_182948_grpo_asqa_memory_fewshot_typical_llama-3.1-8b-instruct_seed0/final",
+  "final_reward": 1.8333333730697632,
+  "final_kl": 0.0004488794656936079
+}

@@ -1,0 +1,489 @@
+{
+  "run_id": "20261029_185305_asqa_diagnostics_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-29T18:53:05.091108+00:00",
+  "ended_at": "2026-10-29T18:53:09.668508+00:00",
+  "wall_clock_s": 4.577,
+  "records_written": 13500,
+  "peak_vram_gib": 0.0,
+  "error": null,
+  "baseline": "t0_single_agent",
+  "n_seeds": {
+    "t0_single_agent": {
+      "llama-3.1-8b-instruct": 3,
+      "mistral-7b-instruct-v0.3": 3,
+      "qwen2.5-7b-instruct": 3
+    },
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": 3,
+      "mistral-7b-instruct-v0.3": 3,
+      "qwen2.5-7b-instruct": 3
+    },
+    "t5_rl_agent": {
+      "llama-3.1-8b-instruct": 3,
+      "mistral-7b-instruct-v0.3": 3,
+      "qwen2.5-7b-instruct": 3
+    }
+  },
+  "paired": {
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": {
+        "minicheck": {
+          "baseline": 0.7679126170139022,
+          "topology": 0.8031396729330429,
+          "gain": 0.03522705591914067,
+          "low": 0.021216806664888805,
+          "high": 0.049457489308408716
+        },
+        "alignscore": {
+          "baseline": 0.7862648843290905,
+          "topology": 0.8181459755709705,
+          "gain": 0.03188109124188001,
+          "low": 0.019536273660976437,
+          "high": 0.0444075245823323
+        },
+        "citation_recall": {
+          "baseline": 0.5776730158730159,
+          "topology": 0.604473202614379,
+          "gain": 0.026800186741363214,
+          "low": 0.003958842203548083,
+          "high": 0.0502449766573296
+        },
+        "citation_precision": {
+          "baseline": 0.6019777777777778,
+          "topology": 0.6143888888888889,
+          "gain": 0.012411111111111112,
+          "low": -0.011288888888888888,
+          "high": 0.03623333333333334
+        },
+        "str_em": {
+          "baseline": 0.38835555555555556,
+          "topology": 0.3759111111111111,
+          "gain": -0.012444444444444442,
+          "low": -0.02143361111111111,
+          "high": -0.0036111111111111096
+        }
+      },
+      "mistral-7b-instruct-v0.3": {
+        "minicheck": {
+          "baseline": 0.7313786574984271,
+          "topology": 0.7000686506092564,
+          "gain": -0.03131000688917082,
+          "low": -0.041603277769325306,
+          "high": -0.02088392201952886
+        },
+        "alignscore": {
+          "baseline": 0.7585356500868995,
+          "topology": 0.7212493713538473,
+          "gain": -0.03728627873305231,
+          "low": -0.04689528389507904,
+          "high": -0.027536539190790313
+        },
+        "citation_recall": {
+          "baseline": 0.5191880952380953,
+          "topology": 0.4489669162221794,
+          "gain": -0.07022117901591585,
+          "low": -0.08608556168003535,
+          "high": -0.05408412902399746
+        },
+        "citation_precision": {
+          "baseline": 0.49682730602730607,
+          "topology": 0.4469803040097158,
+          "gain": -0.04984700201759025,
+          "low": -0.06624262119416531,
+          "high": -0.033165920291582066
+        },
+        "str_em": {
+          "baseline": 0.38913333333333333,
+          "topology": 0.37317777777777783,
+          "gain": -0.015955555555555556,
+          "low": -0.02466694444444444,
+          "high": -0.007210833333333337
+        }
+      },
+      "qwen2.5-7b-instruct": {
+        "minicheck": {
+          "baseline": 0.8221195076248761,
+          "topology": 0.8261875028373722,
+          "gain": 0.004067995212496156,
+          "low": -0.003716345363071499,
+          "high": 0.01178449356036623
+        },
+        "alignscore": {
+          "baseline": 0.8166909020721601,
+          "topology": 0.8177989466393676,
+          "gain": 0.0011080445672074957,
+          "low": -0.0057506374894175675,
+          "high": 0.007504612442854947
+        },
+        "citation_recall": {
+          "baseline": 0.6757593073593073,
+          "topology": 0.6817481962481963,
+          "gain": 0.00598888888888889,
+          "low": -0.0027113888888888864,
+          "high": 0.014755555555555553
+        },
+        "citation_precision": {
+          "baseline": 0.6171775335775335,
+          "topology": 0.6220725071225071,
+          "gain": 0.004894973544973545,
+          "low": -0.004209007936507936,
+          "high": 0.014125575396825392
+        },
+        "str_em": {
+          "baseline": 0.35786666666666667,
+          "topology": 0.3525,
+          "gain": -0.005366666666666666,
+          "low": -0.0095,
+          "high": -0.0015888888888888886
+        }
+      }
+    },
+    "t5_rl_agent": {
+      "llama-3.1-8b-instruct": {
+        "minicheck": {
+          "baseline": 0.7679126170139022,
+          "topology": 0.908369260435303,
+          "gain": 0.14045664342140085,
+          "low": 0.12390763812976124,
+          "high": 0.1575017865631889
+        },
+        "alignscore": {
+          "baseline": 0.7862648843290905,
+          "topology": 0.9087851294452947,
+          "gain": 0.122520245116204,
+          "low": 0.10819198241651369,
+          "high": 0.13720407731587378
+        },
+        "citation_recall": {
+          "baseline": 0.5776730158730159,
+          "topology": 0.8182666666666667,
+          "gain": 0.2405936507936508,
+          "low": 0.21382996031746032,
+          "high": 0.2668663095238096
+        },
+        "citation_precision": {
+          "baseline": 0.6019777777777778,
+          "topology": 0.8266666666666668,
+          "gain": 0.2246888888888889,
+          "low": 0.1990552777777778,
+          "high": 0.24953361111111114
+        },
+        "str_em": {
+          "baseline": 0.38835555555555556,
+          "topology": 0.37002222222222225,
+          "gain": -0.01833333333333333,
+          "low": -0.029933611111111105,
+          "high": -0.006855000000000004
+        }
+      },
+      "mistral-7b-instruct-v0.3": {
+        "minicheck": {
+          "baseline": 0.7313786574984271,
+          "topology": 0.8867118088731237,
+          "gain": 0.15533315137469658,
+          "low": 0.1402381373934218,
+          "high": 0.17045165007494062
+        },
+        "alignscore": {
+          "baseline": 0.7585356500868995,
+          "topology": 0.8886281426660717,
+          "gain": 0.13009249257917208,
+          "low": 0.11757315168098237,
+          "high": 0.14290732354248564
+        },
+        "citation_recall": {
+          "baseline": 0.5191880952380953,
+          "topology": 0.8056946608946609,
+          "gain": 0.2865065656565657,
+          "low": 0.26558432299182294,
+          "high": 0.3074505068542568
+        },
+        "citation_precision": {
+          "baseline": 0.49682730602730607,
+          "topology": 0.8011752636252636,
+          "gain": 0.3043479575979576,
+          "low": 0.28413498996374,
+          "high": 0.3243539186276686
+        },
+        "str_em": {
+          "baseline": 0.38913333333333333,
+          "topology": 0.40726666666666667,
+          "gain": 0.018133333333333338,
+          "low": 0.005044166666666673,
+          "high": 0.03132277777777777
+        }
+      },
+      "qwen2.5-7b-instruct": {
+        "minicheck": {
+          "baseline": 0.8221195076248761,
+          "topology": 0.8647478184482457,
+          "gain": 0.042628310823369674,
+          "low": 0.031358020793475924,
+          "high": 0.05403871531558013
+        },
+        "alignscore": {
+          "baseline": 0.8166909020721601,
+          "topology": 0.8568832430013765,
+          "gain": 0.0401923409292164,
+          "low": 0.030759952738749177,
+          "high": 0.04993216352644764
+        },
+        "citation_recall": {
+          "baseline": 0.6757593073593073,
+          "topology": 0.7858860269360269,
+          "gain": 0.11012671957671959,
+          "low": 0.08828263227513228,
+          "high": 0.13212810846560846
+        },
+        "citation_precision": {
+          "baseline": 0.6171775335775335,
+          "topology": 0.7363787638287638,
+          "gain": 0.11920123025123024,
+          "low": 0.09711386243386244,
+          "high": 0.14126045634920634
+        },
+        "str_em": {
+          "baseline": 0.35786666666666667,
+          "topology": 0.35825555555555555,
+          "gain": 0.0003888888888888884,
+          "low": -0.009033333333333334,
+          "high": 0.009777777777777778
+        }
+      }
+    }
+  },
+  "length_adjusted": {
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": {
+        "str_em": {
+          "observed": -0.012444444444444442,
+          "mean_length_change_tokens": -2.536666666666667,
+          "slope_per_token": 0.0007826944669380524,
+          "adjusted": -0.01045900947997825,
+          "low": -0.01926579142692276,
+          "high": -0.0015344625718258912,
+          "dropped_resamples": 0
+        }
+      },
+      "mistral-7b-instruct-v0.3": {
+        "str_em": {
+          "observed": -0.015955555555555556,
+          "mean_length_change_tokens": 12.208,
+          "slope_per_token": 0.00043321746224185244,
+          "adjusted": -0.02124427433460409,
+          "low": -0.030611615615182934,
+          "high": -0.011976102670166442,
+          "dropped_resamples": 0
+        }
+      },
+      "qwen2.5-7b-instruct": {
+        "str_em": {
+          "observed": -0.005366666666666666,
+          "mean_length_change_tokens": -2.5593333333333335,
+          "slope_per_token": 0.0007574037425053897,
+          "adjusted": -0.0034282180216812057,
+          "low": -0.007030229286512238,
+          "high": 9.856548219884151e-05,
+          "dropped_resamples": 0
+        }
+      }
+    },
+    "t5_rl_agent": {
+      "llama-3.1-8b-instruct": {
+        "str_em": {
+          "observed": -0.01833333333333333,
+          "mean_length_change_tokens": -9.679333333333332,
+          "slope_per_token": 0.0004633157812476785,
+          "adjusted": -0.013848745448043301,
+          "low": -0.026872965308174953,
+          "high": -0.0010808160368736659,
+          "dropped_resamples": 0
+        }
+      },
+      "mistral-7b-instruct-v0.3": {
+        "str_em": {
+          "observed": 0.018133333333333338,
+          "mean_length_change_tokens": 5.525333333333332,
+          "slope_per_token": 0.0008305382226900301,
+          "adjusted": 0.013544332806896693,
+          "low": 0.00027319532170943085,
+          "high": 0.0266799825731972,
+          "dropped_resamples": 0
+        }
+      },
+      "qwen2.5-7b-instruct": {
+        "str_em": {
+          "observed": 0.0003888888888888884,
+          "mean_length_change_tokens": -3.4186666666666676,
+          "slope_per_token": 0.0014185603807461808,
+          "adjusted": 0.005238473977199833,
+          "low": -0.004595186452808514,
+          "high": 0.014907088701251469,
+          "dropped_resamples": 0
+        }
+      }
+    }
+  },
+  "feedback_replies": {
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": {
+        "n": 7472,
+        "stop": 11,
+        "bullets": 7451,
+        "stop_word_then_text": 0,
+        "prose": 10,
+        "hit_cap": 67
+      },
+      "mistral-7b-instruct-v0.3": {
+        "n": 4849,
+        "stop": 931,
+        "bullets": 1846,
+        "stop_word_then_text": 383,
+        "prose": 1689,
+        "hit_cap": 595
+      },
+      "qwen2.5-7b-instruct": {
+        "n": 2564,
+        "stop": 1269,
+        "bullets": 1203,
+        "stop_word_then_text": 0,
+        "prose": 92,
+        "hit_cap": 22
+      }
+    }
+  },
+  "first_feedback": {
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": {
+        "bullets": {
+          "n": 1493,
+          "mean_answers": 4.9919624916275955,
+          "minicheck_change": 0.0351733156848991,
+          "alignscore_change": 0.031774255838467644,
+          "citation_recall_change": 0.02641818057877316,
+          "citation_precision_change": 0.011576244697477133,
+          "str_em_change": -0.01198184118478827
+        },
+        "prose": {
+          "n": 3,
+          "mean_answers": 5.0,
+          "minicheck_change": 0.08822810884919903,
+          "alignscore_change": 0.09678892625702752,
+          "citation_recall_change": 0.2341269841269841,
+          "citation_precision_change": 0.3703703703703704,
+          "str_em_change": -0.16666666666666666
+        },
+        "stop": {
+          "n": 4,
+          "mean_answers": 1.0,
+          "minicheck_change": 0.0155348086522685,
+          "alignscore_change": 0.023076529304186494,
+          "citation_recall_change": 0.013888888888888895,
+          "citation_precision_change": 0.05555555555555558,
+          "str_em_change": -0.06944444444444445
+        }
+      },
+      "mistral-7b-instruct-v0.3": {
+        "bullets": {
+          "n": 448,
+          "mean_answers": 4.287946428571429,
+          "minicheck_change": -0.04936529161191749,
+          "alignscore_change": -0.03950629060584886,
+          "citation_recall_change": -0.08470684821131247,
+          "citation_precision_change": -0.07257511007511007,
+          "str_em_change": -0.020461309523809517
+        },
+        "prose": {
+          "n": 481,
+          "mean_answers": 4.058212058212058,
+          "minicheck_change": -0.04539219720926891,
+          "alignscore_change": -0.058882326598918774,
+          "citation_recall_change": -0.09347229984881807,
+          "citation_precision_change": -0.06531041417919245,
+          "str_em_change": -0.027489027489027488
+        },
+        "stop": {
+          "n": 420,
+          "mean_answers": 1.0,
+          "minicheck_change": 0.01263363447145442,
+          "alignscore_change": 0.0011156731004279782,
+          "citation_recall_change": -0.0070086923658352045,
+          "citation_precision_change": 0.00114135864135865,
+          "str_em_change": -0.0016137566137566105
+        },
+        "stop_word_then_text": {
+          "n": 151,
+          "mean_answers": 3.6821192052980134,
+          "minicheck_change": -0.05511151862231597,
+          "alignscore_change": -0.0687204206374702,
+          "citation_recall_change": -0.12900181128657948,
+          "citation_precision_change": -0.07497957034380873,
+          "str_em_change": -0.005739514348785866
+        }
+      },
+      "qwen2.5-7b-instruct": {
+        "bullets": {
+          "n": 305,
+          "mean_answers": 4.173770491803278,
+          "minicheck_change": -0.00233222663840228,
+          "alignscore_change": -0.019896451664752648,
+          "citation_recall_change": 0.012040072859745005,
+          "citation_precision_change": 0.007740046838407509,
+          "str_em_change": -0.015464480874316937
+        },
+        "prose": {
+          "n": 32,
+          "mean_answers": 4.0,
+          "minicheck_change": 0.047392690538739166,
+          "alignscore_change": 0.08066143755180141,
+          "citation_recall_change": -0.01874999999999999,
+          "citation_precision_change": 0.017390046296296324,
+          "str_em_change": -0.08402777777777778
+        },
+        "stop": {
+          "n": 1163,
+          "mean_answers": 1.0,
+          "minicheck_change": 0.004554390237504104,
+          "alignscore_change": 0.004427617030871156,
+          "citation_recall_change": 0.005082640680233121,
+          "citation_precision_change": 0.003805042605558523,
+          "str_em_change": -0.000554122480175792
+        }
+      }
+    }
+  },
+  "rewrites": {
+    "t1_self_refine": {
+      "llama-3.1-8b-instruct": {
+        "n_rewritten": 1496,
+        "draft_tokens": 67.60762032085562,
+        "draft_uncited_share": 0.0928928802926129,
+        "draft_hit_cap": 0.0,
+        "final_tokens": 65.08088235294117,
+        "final_uncited_share": 0.0660028048652616,
+        "final_hit_cap": 0.002005347593582888
+      },
+      "mistral-7b-instruct-v0.3": {
+        "n_rewritten": 1080,
+        "draft_tokens": 107.27685185185184,
+        "draft_uncited_share": 0.16627450184102227,
+        "draft_hit_cap": 0.004629629629629629,
+        "final_tokens": 124.75925925925925,
+        "final_uncited_share": 0.222914944898519,
+        "final_hit_cap": 0.07962962962962963
+      },
+      "qwen2.5-7b-instruct": {
+        "n_rewritten": 337,
+        "draft_tokens": 66.58753709198812,
+        "draft_uncited_share": 0.18086952612175164,
+        "draft_hit_cap": 0.0,
+        "final_tokens": 55.195845697329375,
+        "final_uncited_share": 0.17533045589425408,
+        "final_hit_cap": 0.0
+      }
+    }
+  }
+}

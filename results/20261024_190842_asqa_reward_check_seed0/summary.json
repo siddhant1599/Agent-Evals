@@ -1,0 +1,98 @@
+{
+  "run_id": "20261024_190842_asqa_reward_check_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T19:08:42.967911+00:00",
+  "ended_at": "2026-10-24T19:15:58.046428+00:00",
+  "wall_clock_s": 435.079,
+  "records_written": 3000,
+  "peak_vram_gib": 1.38,
+  "error": null,
+  "by_backbone": {
+    "mistral-7b-instruct-v0.3": {
+      "citation_recall": {
+        "n": 1500,
+        "mean_minicheck": 0.5191880952380953,
+        "mean_alignscore": 0.5851380952380952,
+        "mean_difference": 0.06595,
+        "pearson": 0.7354725578424482,
+        "spearman": 0.7384977091185477,
+        "exact_agreement": 0.6486666666666666
+      },
+      "citation_precision": {
+        "n": 1500,
+        "mean_minicheck": 0.49682730602730607,
+        "mean_alignscore": 0.5550127391127391,
+        "mean_difference": 0.05818543308543309,
+        "pearson": 0.6745179242271259,
+        "spearman": 0.6674343660737172,
+        "exact_agreement": 0.5653333333333334
+      },
+      "ties_str_em": {
+        "questions": 500,
+        "tied": 0.626
+      },
+      "ties_citation_recall_alignscore": {
+        "questions": 500,
+        "tied": 0.088
+      },
+      "ties_citation_precision_alignscore": {
+        "questions": 500,
+        "tied": 0.072
+      }
+    },
+    "qwen2.5-7b-instruct": {
+      "citation_recall": {
+        "n": 1500,
+        "mean_minicheck": 0.6757593073593073,
+        "mean_alignscore": 0.7184857142857144,
+        "mean_difference": 0.042726406926406925,
+        "pearson": 0.706653964783238,
+        "spearman": 0.7197036744659795,
+        "exact_agreement": 0.7886666666666666
+      },
+      "citation_precision": {
+        "n": 1500,
+        "mean_minicheck": 0.6171775335775336,
+        "mean_alignscore": 0.658368315018315,
+        "mean_difference": 0.04119078144078144,
+        "pearson": 0.6468522039098935,
+        "spearman": 0.6455708155092243,
+        "exact_agreement": 0.6793333333333333
+      },
+      "ties_str_em": {
+        "questions": 500,
+        "tied": 0.826
+      },
+      "ties_citation_recall_alignscore": {
+        "questions": 500,
+        "tied": 0.51
+      },
+      "ties_citation_precision_alignscore": {
+        "questions": 500,
+        "tied": 0.39
+      }
+    }
+  },
+  "all": {
+    "citation_recall": {
+      "n": 3000,
+      "mean_minicheck": 0.5974737012987013,
+      "mean_alignscore": 0.6518119047619048,
+      "mean_difference": 0.05433820346320346,
+      "pearson": 0.7308362852295046,
+      "spearman": 0.7380384089721486,
+      "exact_agreement": 0.7186666666666667
+    },
+    "citation_precision": {
+      "n": 3000,
+      "mean_minicheck": 0.5570024198024198,
+      "mean_alignscore": 0.6066905270655271,
+      "mean_difference": 0.04968810726310726,
+      "pearson": 0.6680733779253579,
+      "spearman": 0.6637394623287741,
+      "exact_agreement": 0.6223333333333333
+    }
+  }
+}

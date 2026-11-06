@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_172600_grpo_asqa_memory_fewshot_4096_forced_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T17:26:00.580215+00:00",
+  "ended_at": "2026-10-24T17:36:33.070501+00:00",
+  "wall_clock_s": 632.49,
+  "records_written": 10,
+  "peak_vram_gib": 19.75,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 491.332,
+  "training_gpu_hours": 0.1365,
+  "adapter_path": "/tmp/factagent_memory_6odj8hm_/20261024_172600_grpo_asqa_memory_fewshot_4096_forced_mistral-7b-instruct-v0.3_seed0/final",
+  "final_reward": 0.5644841194152832,
+  "final_kl": 0.0016308837803080678
+}

@@ -1,0 +1,18 @@
+{
+  "run_id": "20261025_202728_grpo_asqa_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-25T20:27:28.274498+00:00",
+  "ended_at": "2026-10-27T22:07:43.348184+00:00",
+  "wall_clock_s": 178815.074,
+  "records_written": 271,
+  "peak_vram_gib": 21.67,
+  "error": null,
+  "steps_completed": 271,
+  "train_runtime_s": 178662.525,
+  "training_gpu_hours": 49.6285,
+  "adapter_path": "/home/ubuntu/.cache/factagent_bench/adapters/20261025_202728_grpo_asqa_mistral-7b-instruct-v0.3_seed0/final",
+  "final_reward": 2.175155073404312,
+  "final_kl": 0.08671963214874268
+}

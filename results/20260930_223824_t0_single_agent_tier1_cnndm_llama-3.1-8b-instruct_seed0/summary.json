@@ -1,0 +1,33 @@
+{
+  "run_id": "20260930_223824_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-09-30T22:38:24.933528+00:00",
+  "ended_at": "2026-09-30T23:08:53.566070+00:00",
+  "wall_clock_s": 1828.633,
+  "records_written": 500,
+  "peak_vram_gib": 7.22,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 444722,
+  "completion_tokens": 63011,
+  "total_tokens": 507733,
+  "generation_wall_clock_s": 979.5307992960043,
+  "mean_example_wall_clock_s": 1.9590615985920086,
+  "metric_means": {
+    "summac_zs": -0.4066537442525228,
+    "summac_conv": 0.275239696264267,
+    "factcc": 0.1539496404489837,
+    "alignscore": 0.795418887168169,
+    "minicheck": 0.7632330732977639,
+    "rouge_l_precision": 0.17449937616351643,
+    "rouge_l_recall": 0.3459032647549981,
+    "rouge_l_f1": 0.22502464361895208,
+    "bertscore_precision": 0.8649464881420136,
+    "bertscore_recall": 0.8809442467689514,
+    "bertscore_f1": 0.8727709417343139
+  }
+}

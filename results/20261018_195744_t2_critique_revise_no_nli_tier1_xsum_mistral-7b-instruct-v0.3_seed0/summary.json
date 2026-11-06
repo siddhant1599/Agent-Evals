@@ -1,0 +1,33 @@
+{
+  "run_id": "20261018_195744_t2_critique_revise_no_nli_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "kartik",
+  "seed": 0,
+  "started_at": "2026-10-18T19:57:44.595093+00:00",
+  "ended_at": "2026-10-18T20:40:32.358469+00:00",
+  "wall_clock_s": 2567.763,
+  "records_written": 500,
+  "peak_vram_gib": 6.87,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.006,
+  "prompt_tokens": 1047800,
+  "completion_tokens": 142227,
+  "total_tokens": 1190027,
+  "generation_wall_clock_s": 1983.8060564440384,
+  "mean_example_wall_clock_s": 3.967612112888077,
+  "metric_means": {
+    "summac_zs": -0.21099559410337418,
+    "summac_conv": 0.2629858227968216,
+    "factcc": 0.1718856597274489,
+    "alignscore": 0.8498058158782078,
+    "minicheck": 0.6558411056973779,
+    "rouge_l_precision": 0.10424992736411387,
+    "rouge_l_recall": 0.2820597797442734,
+    "rouge_l_f1": 0.14655817535159282,
+    "bertscore_precision": 0.8511211864948273,
+    "bertscore_recall": 0.8912237972021103,
+    "bertscore_f1": 0.8705732697248458
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "20260930_205524_t0_single_agent_tier1_samsum_qwen2.5-7b-instruct_seed1",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 1,
+  "started_at": "2026-09-30T20:55:24.810828+00:00",
+  "ended_at": "2026-09-30T21:13:49.980902+00:00",
+  "wall_clock_s": 1105.17,
+  "records_written": 500,
+  "peak_vram_gib": 10.6,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 95440,
+  "completion_tokens": 39739,
+  "total_tokens": 135179,
+  "generation_wall_clock_s": 568.4717093900254,
+  "mean_example_wall_clock_s": 1.1369434187800507,
+  "metric_means": {
+    "summac_zs": -0.10872047209209866,
+    "summac_conv": 0.26452810806036,
+    "factcc": 0.2834798777378946,
+    "alignscore": 0.8977512862123549,
+    "minicheck": 0.6213048268864212,
+    "rouge_l_precision": 0.15704441412439826,
+    "rouge_l_recall": 0.4730147227504403,
+    "rouge_l_f1": 0.22600144023483087,
+    "bertscore_precision": 0.8659712165594101,
+    "bertscore_recall": 0.9135101233720779,
+    "bertscore_f1": 0.8889955892562866
+  }
+}

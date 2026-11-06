@@ -1,0 +1,33 @@
+{
+  "run_id": "20260913_182607_t0_single_agent_tier1_xsum_qwen2.5-7b-instruct_seed2",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 2,
+  "started_at": "2026-09-13T18:26:07.335615+00:00",
+  "ended_at": "2026-09-13T18:36:19.073488+00:00",
+  "wall_clock_s": 611.738,
+  "records_written": 500,
+  "peak_vram_gib": 5.07,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 259423,
+  "completion_tokens": 23412,
+  "total_tokens": 282835,
+  "generation_wall_clock_s": 398.5090032819953,
+  "mean_example_wall_clock_s": 0.7970180065639907,
+  "metric_means": {
+    "summac_zs": -0.30789468383789065,
+    "summac_conv": 0.23226391753554343,
+    "factcc": 0.21579374625478703,
+    "alignscore": 0.8496532017828431,
+    "minicheck": 0.6410831934176385,
+    "rouge_l_precision": 0.15127762176201878,
+    "rouge_l_recall": 0.26291149289747545,
+    "rouge_l_f1": 0.1884114225427169,
+    "bertscore_precision": 0.8736348203420639,
+    "bertscore_recall": 0.8996494950056076,
+    "bertscore_f1": 0.8863326182365417
+  }
+}

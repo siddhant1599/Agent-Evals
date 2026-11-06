@@ -1,0 +1,18 @@
+{
+  "run_id": "20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-11T06:48:22.921953+00:00",
+  "ended_at": "2026-10-12T18:58:33.079709+00:00",
+  "wall_clock_s": 130210.158,
+  "records_written": 625,
+  "peak_vram_gib": 18.64,
+  "error": null,
+  "steps_completed": 625,
+  "train_runtime_s": 130069.132,
+  "training_gpu_hours": 36.1303,
+  "adapter_path": "/home/ubuntu/.cache/factagent_bench/adapters/20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0/final",
+  "final_reward": 0.8933755829930305,
+  "final_kl": 0.00856640504207462
+}

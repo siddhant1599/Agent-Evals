@@ -1,0 +1,81 @@
+{
+  "run_id": "20260930_193530_t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed2",
+  "owner": "sameer",
+  "config_name": "t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3",
+  "started_at": "2026-09-30T19:35:30.861797+00:00",
+  "git": {
+    "sha": "f1a8654bfeafd97050d5b7543a704d22d2823e85",
+    "branch": "datasets-tier1-samsum",
+    "dirty": false,
+    "untracked_files": 9
+  },
+  "seeding": {
+    "seed": 2,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.91.07",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": null,
+    "peft": null,
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": null,
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1012-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-107",
+  "cell": {
+    "topology": "t0_single_agent",
+    "backbone": "mistral-7b-instruct-v0.3",
+    "task": "tier1_cnndm"
+  },
+  "backbone": {
+    "name": "mistral-7b-instruct-v0.3",
+    "hf_path": "mistralai/Mistral-7B-Instruct-v0.3",
+    "hf_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+    "gated": false,
+    "quantization": "bitsandbytes",
+    "max_model_len": 32768
+  },
+  "prompt_templates": {
+    "generator": {
+      "cnndm_three_sentences": "cnndm_three_sentences@v1"
+    }
+  },
+  "metric_suite": [
+    "summac",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l",
+    "bertscore"
+  ],
+  "metric_keys": [
+    "summac_zs",
+    "summac_conv",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l_precision",
+    "rouge_l_recall",
+    "rouge_l_f1",
+    "bertscore_precision",
+    "bertscore_recall",
+    "bertscore_f1"
+  ],
+  "n_examples": 500
+}

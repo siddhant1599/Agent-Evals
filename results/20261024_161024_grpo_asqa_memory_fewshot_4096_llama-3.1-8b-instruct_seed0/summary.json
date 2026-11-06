@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_161024_grpo_asqa_memory_fewshot_4096_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T16:10:24.554081+00:00",
+  "ended_at": "2026-10-24T16:19:32.668697+00:00",
+  "wall_clock_s": 548.115,
+  "records_written": 10,
+  "peak_vram_gib": 21.23,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 383.367,
+  "training_gpu_hours": 0.1065,
+  "adapter_path": "/tmp/factagent_memory_pecbdm3b/20261024_161024_grpo_asqa_memory_fewshot_4096_llama-3.1-8b-instruct_seed0/final",
+  "final_reward": 0.5,
+  "final_kl": 0.00043948774691671133
+}

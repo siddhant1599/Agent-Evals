@@ -1,0 +1,33 @@
+{
+  "run_id": "20261016_184526_t1_self_refine_tier1_xsum_llama-3.1-8b-instruct_seed1",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 1,
+  "started_at": "2026-10-16T18:45:26.223963+00:00",
+  "ended_at": "2026-10-16T20:59:53.056245+00:00",
+  "wall_clock_s": 8066.832,
+  "records_written": 500,
+  "peak_vram_gib": 6.61,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 10461384,
+  "completion_tokens": 524813,
+  "total_tokens": 10986197,
+  "generation_wall_clock_s": 7834.071799047975,
+  "mean_example_wall_clock_s": 15.66814359809595,
+  "metric_means": {
+    "summac_zs": -0.4532345091501872,
+    "summac_conv": 0.23238755670189856,
+    "factcc": 0.2506975855702358,
+    "alignscore": 0.6246152801517164,
+    "minicheck": 0.4221196028248562,
+    "rouge_l_precision": 0.11290133049635155,
+    "rouge_l_recall": 0.23028910016205295,
+    "rouge_l_f1": 0.14657272384668096,
+    "bertscore_precision": 0.8464792536497117,
+    "bertscore_recall": 0.8775440239906311,
+    "bertscore_f1": 0.861592781662941
+  }
+}

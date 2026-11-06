@@ -1,0 +1,33 @@
+{
+  "run_id": "20260914_033225_t0_single_agent_tier1_xsum_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "siddhanth",
+  "seed": 0,
+  "started_at": "2026-09-14T03:32:25.486135+00:00",
+  "ended_at": "2026-09-14T03:46:47.202111+00:00",
+  "wall_clock_s": 861.716,
+  "records_written": 500,
+  "peak_vram_gib": 6.33,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 257867,
+  "completion_tokens": 25599,
+  "total_tokens": 283466,
+  "generation_wall_clock_s": 431.2709480939884,
+  "mean_example_wall_clock_s": 0.8625418961879768,
+  "metric_means": {
+    "summac_zs": -0.31180160903930665,
+    "summac_conv": 0.23217351201176645,
+    "factcc": 0.2235728202180544,
+    "alignscore": 0.8774118331419304,
+    "minicheck": 0.6761013795193285,
+    "rouge_l_precision": 0.14890610251373604,
+    "rouge_l_recall": 0.27925031367604114,
+    "rouge_l_f1": 0.19098205662356835,
+    "bertscore_precision": 0.8704388520717621,
+    "bertscore_recall": 0.9007648673057557,
+    "bertscore_f1": 0.8852229155302048
+  }
+}

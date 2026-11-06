@@ -1,0 +1,16 @@
+{
+  "run_id": "20261020_052917_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed2",
+  "status": "failed",
+  "owner": "sameer",
+  "seed": 2,
+  "started_at": "2026-10-20T05:29:17.432383+00:00",
+  "ended_at": "2026-10-20T05:30:18.700168+00:00",
+  "wall_clock_s": 61.268,
+  "records_written": 0,
+  "peak_vram_gib": 0.0,
+  "error": {
+    "type": "ServingError",
+    "message": "vLLM exited with code 1 before becoming ready; see /tmp/factagent_vllm_20261020_052917_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed2.log",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/benchmarks/runner.py\", line 167, in run\n    results = self._generate(run.run_id, backbone, topology, agents, examples)\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/benchmarks/runner.py\", line 192, in _generate\n    with self.server_class(backbone, self._cfg.serving, log_path):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/serving/launch.py\", line 147, in __enter__\n    self._wait_until_healthy(url)\n    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/serving/launch.py\", line 194, in _wait_until_healthy\n    raise ServingError(\n        f\"vLLM exited with code {code} before becoming ready; see {self._log_path}\"\n    )\nfactagent_bench.serving.base.ServingError: vLLM exited with code 1 before becoming ready; see /tmp/factagent_vllm_20261020_052917_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed2.log\n"
+  }
+}

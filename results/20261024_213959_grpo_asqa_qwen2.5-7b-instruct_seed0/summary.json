@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_213959_grpo_asqa_qwen2.5-7b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T21:39:59.582244+00:00",
+  "ended_at": "2026-10-26T08:47:25.576870+00:00",
+  "wall_clock_s": 126445.995,
+  "records_written": 271,
+  "peak_vram_gib": 21.68,
+  "error": null,
+  "steps_completed": 271,
+  "train_runtime_s": 126433.9,
+  "training_gpu_hours": 35.1205,
+  "adapter_path": "/home/ubuntu/.cache/factagent_bench/adapters/20261024_213959_grpo_asqa_qwen2.5-7b-instruct_seed0/final",
+  "final_reward": 2.0523437722586095,
+  "final_kl": 0.04626932682003826
+}

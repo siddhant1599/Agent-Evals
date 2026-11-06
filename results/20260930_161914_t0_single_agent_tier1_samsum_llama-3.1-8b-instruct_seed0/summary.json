@@ -1,0 +1,33 @@
+{
+  "run_id": "20260930_161914_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-09-30T16:19:14.685970+00:00",
+  "ended_at": "2026-09-30T16:37:37.947283+00:00",
+  "wall_clock_s": 1103.261,
+  "records_written": 500,
+  "peak_vram_gib": 10.8,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 98197,
+  "completion_tokens": 39051,
+  "total_tokens": 137248,
+  "generation_wall_clock_s": 563.1446470719991,
+  "mean_example_wall_clock_s": 1.1262892941439981,
+  "metric_means": {
+    "summac_zs": -0.1147721953672076,
+    "summac_conv": 0.2509978127777576,
+    "factcc": 0.24586098027256595,
+    "alignscore": 0.8865560951046646,
+    "minicheck": 0.5858523440492088,
+    "rouge_l_precision": 0.16418558458801094,
+    "rouge_l_recall": 0.48043571088895254,
+    "rouge_l_f1": 0.23411728419139285,
+    "bertscore_precision": 0.8700004127025605,
+    "bertscore_recall": 0.9142143466472625,
+    "bertscore_f1": 0.8914543237686158
+  }
+}

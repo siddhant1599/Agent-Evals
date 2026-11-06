@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_164759_grpo_asqa_memory_zeroshot_4096_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T16:47:59.904533+00:00",
+  "ended_at": "2026-10-24T16:57:59.167206+00:00",
+  "wall_clock_s": 599.263,
+  "records_written": 10,
+  "peak_vram_gib": 17.8,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 447.468,
+  "training_gpu_hours": 0.1243,
+  "adapter_path": "/tmp/factagent_memory_i0g0gxfv/20261024_164759_grpo_asqa_memory_zeroshot_4096_mistral-7b-instruct-v0.3_seed0/final",
+  "final_reward": 0.7557719945907593,
+  "final_kl": 0.0026641623117029667
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "20260930_203516_t0_single_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-09-30T20:35:16.850043+00:00",
+  "ended_at": "2026-09-30T20:55:21.745676+00:00",
+  "wall_clock_s": 1204.896,
+  "records_written": 500,
+  "peak_vram_gib": 11.72,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.006,
+  "prompt_tokens": 94714,
+  "completion_tokens": 53338,
+  "total_tokens": 148052,
+  "generation_wall_clock_s": 662.1553843389775,
+  "mean_example_wall_clock_s": 1.324310768677955,
+  "metric_means": {
+    "summac_zs": -0.10211132257669346,
+    "summac_conv": 0.26367516040802,
+    "factcc": 0.21759357106150856,
+    "alignscore": 0.8991949198842049,
+    "minicheck": 0.6081655759167698,
+    "rouge_l_precision": 0.13648228327894393,
+    "rouge_l_recall": 0.49090652635632315,
+    "rouge_l_f1": 0.20548971498414437,
+    "bertscore_precision": 0.8599907319545745,
+    "bertscore_recall": 0.9116673370599747,
+    "bertscore_f1": 0.8849949642419815
+  }
+}

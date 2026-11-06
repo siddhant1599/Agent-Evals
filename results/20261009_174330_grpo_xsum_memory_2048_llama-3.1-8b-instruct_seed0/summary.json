@@ -1,0 +1,18 @@
+{
+  "run_id": "20261009_174330_grpo_xsum_memory_2048_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-09T17:43:30.494698+00:00",
+  "ended_at": "2026-10-09T17:47:12.837423+00:00",
+  "wall_clock_s": 222.343,
+  "records_written": 10,
+  "peak_vram_gib": 14.78,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 209.319,
+  "training_gpu_hours": 0.0581,
+  "adapter_path": "/tmp/factagent_memory_w8vvt_kr/20261009_174330_grpo_xsum_memory_2048_llama-3.1-8b-instruct_seed0/final",
+  "final_reward": 0.572625994682312,
+  "final_kl": 0.0009663752862252295
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "20261018_215959_t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct_seed0",
+  "status": "success",
+  "owner": "kartik",
+  "seed": 0,
+  "started_at": "2026-10-18T21:59:59.697340+00:00",
+  "ended_at": "2026-10-18T22:35:08.463307+00:00",
+  "wall_clock_s": 2108.766,
+  "records_written": 500,
+  "peak_vram_gib": 6.58,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.0,
+  "prompt_tokens": 937346,
+  "completion_tokens": 105468,
+  "total_tokens": 1042814,
+  "generation_wall_clock_s": 1706.5907814071688,
+  "mean_example_wall_clock_s": 3.4131815628143376,
+  "metric_means": {
+    "summac_zs": -0.2800083122253418,
+    "summac_conv": 0.23454966402053834,
+    "factcc": 0.2104001237118082,
+    "alignscore": 0.846081813357654,
+    "minicheck": 0.6748510450124741,
+    "rouge_l_precision": 0.1499199046654828,
+    "rouge_l_recall": 0.26589181184258326,
+    "rouge_l_f1": 0.18584531413327668,
+    "bertscore_precision": 0.865843755364418,
+    "bertscore_recall": 0.8954751174449921,
+    "bertscore_f1": 0.8802621216773987
+  }
+}

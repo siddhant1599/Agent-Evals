@@ -1,0 +1,18 @@
+{
+  "run_id": "20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-09T21:45:06.967414+00:00",
+  "ended_at": "2026-10-11T06:47:52.498010+00:00",
+  "wall_clock_s": 118965.531,
+  "records_written": 625,
+  "peak_vram_gib": 21.28,
+  "error": null,
+  "steps_completed": 625,
+  "train_runtime_s": 118952.621,
+  "training_gpu_hours": 33.0424,
+  "adapter_path": "/home/ubuntu/.cache/factagent_bench/adapters/20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0/final",
+  "final_reward": 0.8934691622853279,
+  "final_kl": 0.00834493177535478
+}

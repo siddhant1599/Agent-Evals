@@ -1,0 +1,88 @@
+{
+  "run_id": "20261023_194907_t5_rl_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed1",
+  "owner": "sameer",
+  "config_name": "t5_rl_agent_tier1_cnndm_mistral-7b-instruct-v0.3",
+  "started_at": "2026-10-23T19:49:07.384207+00:00",
+  "git": {
+    "sha": "cbb57f7992d817fc4a013d9015b05e25a6f3e34f",
+    "branch": "tier2-asqa-t0",
+    "dirty": false,
+    "untracked_files": 14
+  },
+  "seeding": {
+    "seed": 1,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.99.02",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": "1.14.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-107",
+  "cell": {
+    "topology": "t5_rl_agent",
+    "backbone": "mistral-7b-instruct-v0.3",
+    "task": "tier1_cnndm"
+  },
+  "backbone": {
+    "name": "mistral-7b-instruct-v0.3",
+    "hf_path": "mistralai/Mistral-7B-Instruct-v0.3",
+    "hf_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+    "gated": false,
+    "quantization": "bitsandbytes",
+    "max_model_len": 32768
+  },
+  "prompt_templates": {
+    "generator": {
+      "cnndm_three_sentences": "cnndm_three_sentences@v1",
+      "cnndm_critique_revise": "cnndm_critique_revise@v1"
+    }
+  },
+  "metric_suite": [
+    "summac",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l",
+    "bertscore",
+    "worked_example_overlap"
+  ],
+  "metric_keys": [
+    "summac_zs",
+    "summac_conv",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l_precision",
+    "rouge_l_recall",
+    "rouge_l_f1",
+    "bertscore_precision",
+    "bertscore_recall",
+    "bertscore_f1",
+    "worked_example_overlap"
+  ],
+  "n_examples": 500,
+  "lora_adapter": {
+    "path": "~/.cache/factagent_bench/adapters/20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0/checkpoint-625",
+    "sha256": "6f44cf14f4e4d4cdf0e4f5ec65867a219460a87ba9243ed297312fe709969791"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "run_id": "20261023_163448_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+  "owner": "sameer",
+  "config_name": "t0_single_agent_tier2_asqa_llama-3.1-8b-instruct",
+  "started_at": "2026-10-23T16:34:48.407125+00:00",
+  "git": {
+    "sha": "cbb57f7992d817fc4a013d9015b05e25a6f3e34f",
+    "branch": "tier2-asqa-t0",
+    "dirty": false,
+    "untracked_files": 6
+  },
+  "seeding": {
+    "seed": 1,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.99.02",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": "1.14.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-107",
+  "cell": {
+    "topology": "t0_single_agent",
+    "backbone": "llama-3.1-8b-instruct",
+    "task": "tier2_asqa"
+  },
+  "backbone": {
+    "name": "llama-3.1-8b-instruct",
+    "hf_path": "meta-llama/Llama-3.1-8B-Instruct",
+    "hf_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+    "gated": true,
+    "quantization": "bitsandbytes",
+    "max_model_len": 32768
+  },
+  "prompt_templates": {
+    "generator": {
+      "asqa_alce_vanilla": "asqa_alce_vanilla@v1",
+      "asqa_alce_vanilla_examples": "-3207884824372475669,3219470493874132834"
+    }
+  },
+  "metric_suite": [
+    "summac",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "str_em",
+    "citation",
+    "rouge_l",
+    "bertscore",
+    "asqa_worked_example_overlap"
+  ],
+  "metric_keys": [
+    "summac_zs",
+    "summac_conv",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "str_em",
+    "citation_recall",
+    "citation_precision",
+    "rouge_l_precision",
+    "rouge_l_recall",
+    "rouge_l_f1",
+    "bertscore_precision",
+    "bertscore_recall",
+    "bertscore_f1",
+    "worked_example_overlap"
+  ],
+  "n_examples": 500,
+  "lora_adapter": null
+}

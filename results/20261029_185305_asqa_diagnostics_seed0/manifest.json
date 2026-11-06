@@ -1,0 +1,178 @@
+{
+  "run_id": "20261029_185305_asqa_diagnostics_seed0",
+  "owner": "sameer",
+  "config_name": "asqa_diagnostics",
+  "started_at": "2026-10-29T18:53:05.091108+00:00",
+  "git": {
+    "sha": "3a90f60960f78f6d01f0b1d31fa8c0bb524f348f",
+    "branch": "asqa-analysis",
+    "dirty": false,
+    "untracked_files": 1
+  },
+  "seeding": {
+    "seed": 0,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.99.02",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": "1.14.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-107",
+  "source_runs": [
+    {
+      "run_id": "20261023_144555_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+      "metrics_sha256": "afca9ab8e712d5533c73455170102c553edabe9e0f4a30529329782c1c450124",
+      "trace_sha256": "ff0d2d1dd366af3596224b5935388cc411f68528e82a056648e47808f25a3224"
+    },
+    {
+      "run_id": "20261023_153956_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+      "metrics_sha256": "bd31ce270068028843385e3d9c75a237bc3d96c0d703721e97b01fa791f975d6",
+      "trace_sha256": "4b3a6cee556cb284781dfeb760b7b22eb7a4f5cf57b8f87ac0a71dbf7e27ca98"
+    },
+    {
+      "run_id": "20261023_163758_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed2",
+      "metrics_sha256": "244456185d071bb5d6dc022fb667a6e0ce9ec55404cdddb7ef9e5a0a80220e8a",
+      "trace_sha256": "ba245b493eca3ed40f3d4c5f2820155efdbe88e4869f116aad20a6dee90e2d29"
+    },
+    {
+      "run_id": "20261023_150629_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+      "metrics_sha256": "469b53649b2497d9f842c083286f8b871a88c58e16869b72378f9ee102e3400e",
+      "trace_sha256": "4e88f6a91a42f87e7e37676c2ea7e2c3508dc15ef2fc355c9c36e564889ffc43"
+    },
+    {
+      "run_id": "20261023_160249_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+      "metrics_sha256": "16b268577ac7458ef7d0678b491d916b286a8058bb3c291cf40992cda8b5f369",
+      "trace_sha256": "3649e034b69188d2f8f1c5b5cb61de241272f14bfec48f264ff9bb3e5134eb7a"
+    },
+    {
+      "run_id": "20261023_165920_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2",
+      "metrics_sha256": "3b6e7c0629dcbdf5ad84ced01be4d82c8fb87ce47ed862159842ff5de4f041c3",
+      "trace_sha256": "4f68bd74a2aa49b0dfd035964f15538832303d9ef76cbeec299e82a8e82dce96"
+    },
+    {
+      "run_id": "20261026_132201_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed0",
+      "metrics_sha256": "07b1b1e20f2ce75afea194d3dd02d749709c144d4942ca4c687268237b4c6e3c",
+      "trace_sha256": "b6088deec5cf1242e73c956884edf97eea82654c3d80d7900ab5ea41eeaa6dc7"
+    },
+    {
+      "run_id": "20261026_134546_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+      "metrics_sha256": "647ebb1e706fb2856f7a15deb8dad8f6aefc5a031d447eb7c5f84447b693ca05",
+      "trace_sha256": "f8fb18ac2e4feb567e9c7589cf3d8a90ff24fc5889a9a1bc6ce87027f921ce37"
+    },
+    {
+      "run_id": "20261026_140655_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed2",
+      "metrics_sha256": "b1d9cb66ed4515f0dfb89d14b41152b07a70d1314289ed4204c1f76345270d2d",
+      "trace_sha256": "2f4df5c1bc3f7ce1e7ead93dd68f7d34b68e02673dcd2a8ae1b55d2f25a6c92e"
+    },
+    {
+      "run_id": "20261026_182356_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed0",
+      "metrics_sha256": "7b86bbee4f36c37a500558717123cb94ddc0a1357e27a8f23892671f138ba4b4",
+      "trace_sha256": "868cb1eaa01e8c05c1a5f207c2c3617c2c9df0e924f42a32b46464be7265584c"
+    },
+    {
+      "run_id": "20261026_190239_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed1",
+      "metrics_sha256": "33940ee8b1d2c3e7c0a1ff73b8d7ae21834a198d84c80c04472b5b026075267a",
+      "trace_sha256": "37393a3a19717ab574d7b848266b2e0265f75db80f39a15c2caa297828e83131"
+    },
+    {
+      "run_id": "20261026_194132_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed2",
+      "metrics_sha256": "97365f6f5bff43fc4dfa8c799cd126be33a0fa41e2041fa5169ad1131f6c04c7",
+      "trace_sha256": "0d5dd1d8fe2f3a441bf7b8af3e7d6e1996224e5aaaea2820c41e1ac686597b06"
+    },
+    {
+      "run_id": "20261026_201800_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+      "metrics_sha256": "5b6c22a75d2b08d3f07336d03d7025ad37115f4cd0340d6ec320901d86e37c6c",
+      "trace_sha256": "cb049f15566158184bea547d889cc30243f70257234bfa1bc69c89312a2c9731"
+    },
+    {
+      "run_id": "20261026_220654_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+      "metrics_sha256": "33e61a6343ad2d15626f80a30ce4d9ccf35db51385581914c0198d39ca68652e",
+      "trace_sha256": "ad43fa32860feb9dd005c4c1a7c373552c6bf632fbc9f45bae7045e253ffd44d"
+    },
+    {
+      "run_id": "20261027_000618_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed2",
+      "metrics_sha256": "f629badeba38245a01dc0d17230c7691b98f2ff7e3db43b1149b4b577a29d871",
+      "trace_sha256": "1821c783ebb0f5f130848f6ba89b607135375d594a9beb717fdc699864a81020"
+    },
+    {
+      "run_id": "20261027_015610_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed0",
+      "metrics_sha256": "5f1f1dedc48e6a060b76ceeb2049e794a8e4d19a3ef3007f2a7bd1b7a8ef9a68",
+      "trace_sha256": "9b6763f2dcd13b7c51e3708c38bd7504fa2c5d1e95b3f76132b3338693a0e336"
+    },
+    {
+      "run_id": "20261027_041612_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed1",
+      "metrics_sha256": "65de25fc236683b05f4d5049ecfab8f36df439c75e87b659f64b0dde7a951ae8",
+      "trace_sha256": "c27d38f9d0f2f1850d249d719bb74ac8a1bb06a37921677b6b8a774dbb2db993"
+    },
+    {
+      "run_id": "20261027_064127_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed2",
+      "metrics_sha256": "41eda4289328e657e4675355ebad4d7ad85dd8865124421367151eb7b6c0602d",
+      "trace_sha256": "7fe3a48f13ca4fab79f70c4fb919eb985c52008b482ad3d6b46d586fe996b13b"
+    },
+    {
+      "run_id": "20261026_160800_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+      "metrics_sha256": "64cd1e5b5e55dcf2d97a055de288182c489be4553d32dc95edccd80442513143",
+      "trace_sha256": "a5b2f56fee058599634123f0155c64aca88b993c111e3fe3c7b0633287f7412c"
+    },
+    {
+      "run_id": "20261026_163028_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+      "metrics_sha256": "0d7762a83e7c14c0abda4b901d7d64a1a8b048ff996b81b273705df47b3d65f9",
+      "trace_sha256": "f3ceb71057799a8e356148527cd385afea9524b55ccc3ebc5c9553a8d60bb31c"
+    },
+    {
+      "run_id": "20261026_165035_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed2",
+      "metrics_sha256": "1cf7047416a99c92bd975d996218527d284454f6769fe7266e5b8863805f6eff",
+      "trace_sha256": "faba14bf623b827af8f887c48a5f2183d3c11a1f7c0ce0c944729ba432932073"
+    },
+    {
+      "run_id": "20261029_131518_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+      "metrics_sha256": "067cccb3622815ad1d484076aa17c35c6ce34f2495bb1c6f28c2eee80abba49f",
+      "trace_sha256": "494b14b13191444cc8b8b001f340a69451f086c3db105f3737fb2619c0306c49"
+    },
+    {
+      "run_id": "20261029_135144_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+      "metrics_sha256": "e97b97399f9a9247a6a0d266c53f608e7ad43770116f365f999abb7efde4e31d",
+      "trace_sha256": "5825029e15a42ee0f87ef24641826852c971770a9a7ed66dbd5f63f62ddcd853"
+    },
+    {
+      "run_id": "20261029_142439_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2",
+      "metrics_sha256": "e2e89909994a261eb899c56f29832bcdc80c1d69a7d279df6123680d3c9191dd",
+      "trace_sha256": "b9d688f6ff17e9e6698d045738b8fccbd239945c74fa76997552b806d57a0a1e"
+    },
+    {
+      "run_id": "20261027_205944_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed0",
+      "metrics_sha256": "15d8615a33cf6fadeb10893bc46093cbdd28b1801805e194e60b56f4d9599a01",
+      "trace_sha256": "b813666e4c9b8195891c7be69f7ff2f94cca3161f8f8dd6687c837cd204f65b6"
+    },
+    {
+      "run_id": "20261027_212417_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+      "metrics_sha256": "cb0abeac99f91b5bd0b75dfb4e44571e1248a974684468d05683cbeb918909b1",
+      "trace_sha256": "cfcb434791525690e0783600226dc746472ec178b2eb434ce223f5627f71d753"
+    },
+    {
+      "run_id": "20261027_214458_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed2",
+      "metrics_sha256": "1142a4b09400ba2ef5fce3af6893d247478741a9d91d00beacaed6126dd5fb1e",
+      "trace_sha256": "e0be91a824790f5a443849bbd68ceed3d8ced9409c5c5fe4ef7bda94513ab34a"
+    }
+  ]
+}

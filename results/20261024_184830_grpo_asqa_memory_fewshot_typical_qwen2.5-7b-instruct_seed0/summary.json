@@ -1,0 +1,18 @@
+{
+  "run_id": "20261024_184830_grpo_asqa_memory_fewshot_typical_qwen2.5-7b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-24T18:48:31.069467+00:00",
+  "ended_at": "2026-10-24T18:56:22.113361+00:00",
+  "wall_clock_s": 471.044,
+  "records_written": 10,
+  "peak_vram_gib": 21.7,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 311.692,
+  "training_gpu_hours": 0.0866,
+  "adapter_path": "/tmp/factagent_memory_49la8o_c/20261024_184830_grpo_asqa_memory_fewshot_typical_qwen2.5-7b-instruct_seed0/final",
+  "final_reward": 2.5,
+  "final_kl": 0.0006704633706249297
+}

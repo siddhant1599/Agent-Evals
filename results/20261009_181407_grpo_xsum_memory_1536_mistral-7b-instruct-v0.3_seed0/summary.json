@@ -1,0 +1,18 @@
+{
+  "run_id": "20261009_181407_grpo_xsum_memory_1536_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-09T18:14:07.992710+00:00",
+  "ended_at": "2026-10-09T18:18:36.850149+00:00",
+  "wall_clock_s": 268.857,
+  "records_written": 10,
+  "peak_vram_gib": 11.82,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 257.401,
+  "training_gpu_hours": 0.0715,
+  "adapter_path": "/tmp/factagent_memory_ea8lxje8/20261009_181407_grpo_xsum_memory_1536_mistral-7b-instruct-v0.3_seed0/final",
+  "final_reward": 0.986757755279541,
+  "final_kl": 0.003742268541827798
+}

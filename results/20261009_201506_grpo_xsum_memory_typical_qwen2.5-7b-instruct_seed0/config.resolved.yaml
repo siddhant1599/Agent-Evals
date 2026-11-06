@@ -1,0 +1,191 @@
+run:
+  owner: sameer
+  seed: 0
+  output_root: results
+  known_owners:
+  - sameer
+  - kartik
+  - siddhanth
+name: grpo_xsum_memory_typical_qwen2.5-7b-instruct
+logging:
+  console_level: INFO
+  file_level: DEBUG
+  flush_metrics_every: 1
+seeding:
+  deterministic: false
+sampling:
+  max_tokens: 256
+serving:
+  client: vllm_openai
+  model_registry: src/model_registry.csv
+  env_file: .env
+  endpoint_env: FACTAGENT_VLLM_URL
+  token_env: HF_TOKEN
+  request_timeout_s: 120.0
+  startup_timeout_s: 600.0
+  check_prompt: 'Reply with one word: ready.'
+metrics:
+  device: cuda
+  cache_dir: ~/.cache/factagent_bench/metrics
+  suite:
+  - summac
+  - factcc
+  - alignscore
+  - minicheck
+  - rouge_l
+  - bertscore
+  summac:
+    nli_model: tals/albert-xlarge-vitaminc-mnli
+    nli_revision: 3082ba54344bd9ddada2be1c5e9b4131721d2a5d
+    entailment_index: 0
+    contradiction_index: 1
+    min_sentence_chars: 10
+    max_document_sentences: 100
+    max_input_tokens: 500
+    truncation: longest_first
+    half_precision: true
+    batch_size: 128
+    conv_bins:
+    - 0.0
+    - 0.01
+    - 0.02
+    - 0.03
+    - 0.04
+    - 0.07
+    - 0.13
+    - 0.37
+    - 0.9
+    - 0.91
+    - 0.92
+    - 0.93
+    - 0.94
+    - 0.95
+    - 0.955
+    - 0.96
+    - 0.965
+    - 0.97
+    - 0.975
+    - 0.98
+    - 0.985
+    - 0.99
+    - 0.995
+    - 1.0
+    conv_max_summary_sentences: 10
+    conv_checkpoint_url: https://raw.githubusercontent.com/tingofurro/summac/525cb081993ad1c872d73a9d5d46ea3c3f73c24f/summac_conv_vitc_sent_perc_e.bin
+    conv_checkpoint_sha256: cd880581f59bd47b8968c7f48d754cd617dfe9b256d8d76fdcbc0fa4a3b3c6fe
+  alignscore:
+    checkpoint_repo: yzha/AlignScore
+    checkpoint_revision: 8509e78d25bb914939fc585c626500c9b2944249
+    checkpoint_file: AlignScore-large.ckpt
+    checkpoint_sha256: ff4336312b377edcbcdad5694a2d09d73dc4225422c0422d810aa7e78485e32d
+    backbone: FacebookAI/roberta-large
+    backbone_revision: 722cf37b1afa9454edce342e7895e588b6ff1d59
+    chunk_words: 350
+    batch_size: 32
+  minicheck:
+    model: lytang/MiniCheck-Flan-T5-Large
+    revision: 96eafd01cee2d16cf81aaa2fb226b14f422a37b3
+    chunk_words: 500
+    max_input_tokens: 2048
+    batch_size: 16
+    threshold: 0.5
+  factcc:
+    model: manueldeprada/FactCC
+    revision: c7b3148015d4ddc263f6e2acb2689e90ac061669
+    max_input_tokens: 512
+    batch_size: 16
+  rouge_l:
+    use_stemmer: false
+  bertscore:
+    model: FacebookAI/roberta-large
+    revision: 722cf37b1afa9454edce342e7895e588b6ff1d59
+    num_layers: 17
+  validation:
+    xsumfaith_url: https://raw.githubusercontent.com/google-research-datasets/xsum_hallucination_annotations/4abdbb2c807cb93c1df1188a1992d20a55cdcc34/hallucination_annotations_xsum_summaries.csv
+    xsumfaith_sha256: fa7fb66a36cc0f32ede4135985d0d65591dc2a8d21103a0bacd0583d77d4c8ea
+    xsum_path: EdinburghNLP/xsum
+    xsum_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+    threshold_percentile_step: 0.2
+    aggrefact_repo: lytang/LLM-AggreFact
+    aggrefact_revision: 981dfd0bd8e58e7238a9ab92b2e6ea44bce918e4
+    aggrefact_file: data/test-00000-of-00001.parquet
+    aggrefact_sha256: ba6976c3da990a9d7b11670efaf4e3c93c1bd0530061ec742afd6b2d5bce698c
+    aggrefact_dataset: AggreFact-XSum
+    target_summac_zs_bacc: 58.4
+    target_summac_conv_bacc: 66.4
+    target_alignscore_auc: 75.8
+    target_factcc_auc: 55.1
+    target_minicheck_bacc: 74.3
+data:
+  name: tier1_xsum
+  hf_path: EdinburghNLP/xsum
+  hf_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+  split: train
+  hf_config: null
+  dedupe_sources: true
+  exclude_sources_from_split: test
+  n_samples: 10
+  n_strata: 1
+  stratify_by: whitespace_words
+  sample_seed: 123
+  min_source_words: 20
+  max_source_words: null
+  sample_ids:
+  - '11951396'
+  - '13140243'
+  - '13306825'
+  - '14841749'
+  - '16576712'
+  - '17111092'
+  - '17214722'
+  - '19516100'
+  - '19530813'
+  - '20751650'
+reward:
+  name: alignscore
+  blank_reward: 0.0
+training:
+  num_generations: 8
+  per_device_train_batch_size: 8
+  gradient_accumulation_steps: 1
+  max_steps: 10
+  save_steps: 10
+  beta: 0.04
+  loss_type: dr_grpo
+  scale_rewards: none
+  epsilon: 0.2
+  num_iterations: 1
+  learning_rate: 1.0e-05
+  lr_scheduler_type: constant
+  warmup_steps: 0.0
+  optim: paged_adamw_32bit
+  max_grad_norm: 0.3
+  gradient_checkpointing: true
+  mask_truncated_completions: false
+  temperature: 1.0
+  top_p: 1.0
+  top_k: 0
+  repetition_penalty: 1.0
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.0
+  compute_dtype: bfloat16
+  lora_target_modules: all-linear
+  quant_type: nf4
+  double_quant: true
+  adapter_root: /tmp/factagent_memory_x_waasl2
+measurement:
+  backbones:
+  - llama-3.1-8b-instruct
+  - mistral-7b-instruct-v0.3
+  - qwen2.5-7b-instruct
+  prompt_caps:
+  - 1024
+  - 1536
+  - 2048
+  group_sizes:
+  - 2
+  - 4
+  - 8
+  typical_within_cap: 1536
+  typical_group_size: 8

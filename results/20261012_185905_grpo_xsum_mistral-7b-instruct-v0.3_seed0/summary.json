@@ -1,0 +1,18 @@
+{
+  "run_id": "20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-12T18:59:05.530370+00:00",
+  "ended_at": "2026-10-15T04:59:04.046738+00:00",
+  "wall_clock_s": 208798.516,
+  "records_written": 625,
+  "peak_vram_gib": 21.43,
+  "error": null,
+  "steps_completed": 625,
+  "train_runtime_s": 208656.883,
+  "training_gpu_hours": 57.9602,
+  "adapter_path": "/home/ubuntu/.cache/factagent_bench/adapters/20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0/final",
+  "final_reward": 0.9209270253777504,
+  "final_kl": 0.005882054712856188
+}

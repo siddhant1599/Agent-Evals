@@ -1,0 +1,18 @@
+{
+  "run_id": "20261009_184913_grpo_xsum_memory_1024_qwen2.5-7b-instruct_seed0",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 0,
+  "started_at": "2026-10-09T18:49:13.720696+00:00",
+  "ended_at": "2026-10-09T18:52:20.059611+00:00",
+  "wall_clock_s": 186.339,
+  "records_written": 10,
+  "peak_vram_gib": 10.39,
+  "error": null,
+  "steps_completed": 10,
+  "train_runtime_s": 112.964,
+  "training_gpu_hours": 0.0314,
+  "adapter_path": "/tmp/factagent_memory_s6_52_zq/20261009_184913_grpo_xsum_memory_1024_qwen2.5-7b-instruct_seed0/final",
+  "final_reward": 0.9506034851074219,
+  "final_kl": 0.0011079791001975536
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "20261026_160409_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+  "status": "failed",
+  "owner": "sameer",
+  "seed": 1,
+  "started_at": "2026-10-26T16:04:09.684475+00:00",
+  "ended_at": "2026-10-26T16:04:10.902177+00:00",
+  "wall_clock_s": 1.218,
+  "records_written": 0,
+  "peak_vram_gib": 0.0,
+  "error": {
+    "type": "ServingError",
+    "message": "environment variable FACTAGENT_VLLM_URL is not set; add a line such as FACTAGENT_VLLM_URL=http://127.0.0.1:8000 to .env",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/benchmarks/runner.py\", line 167, in run\n    results = self._generate(run.run_id, backbone, topology, agents, examples)\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/benchmarks/runner.py\", line 192, in _generate\n    with self.server_class(backbone, self._cfg.serving, log_path):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/serving/launch.py\", line 147, in __enter__\n    url = endpoint_url(self._endpoint_env)\n  File \"/home/ubuntu/fall-2026-group1-t5/src/component/factagent_bench/serving/base.py\", line 170, in endpoint_url\n    raise ServingError(\n    ...<2 lines>...\n    )\nfactagent_bench.serving.base.ServingError: environment variable FACTAGENT_VLLM_URL is not set; add a line such as FACTAGENT_VLLM_URL=http://127.0.0.1:8000 to .env\n"
+  }
+}

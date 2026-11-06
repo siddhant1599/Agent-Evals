@@ -1,0 +1,33 @@
+{
+  "run_id": "20261004_194653_t1_self_refine_tier1_xsum_mistral-7b-instruct-v0.3_seed2",
+  "status": "success",
+  "owner": "siddhanth",
+  "seed": 2,
+  "started_at": "2026-10-04T19:46:53.830292+00:00",
+  "ended_at": "2026-10-04T20:19:41.902526+00:00",
+  "wall_clock_s": 1968.072,
+  "records_written": 500,
+  "peak_vram_gib": 5.45,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.002,
+  "prompt_tokens": 620274,
+  "completion_tokens": 98818,
+  "total_tokens": 719092,
+  "generation_wall_clock_s": 1354.7762843270011,
+  "mean_example_wall_clock_s": 2.709552568654002,
+  "metric_means": {
+    "summac_zs": -0.1988505099977766,
+    "summac_conv": 0.268268210798502,
+    "factcc": 0.1785270470840278,
+    "alignscore": 0.865603950291872,
+    "minicheck": 0.6578003267161814,
+    "rouge_l_precision": 0.09633892069460577,
+    "rouge_l_recall": 0.28781946634111766,
+    "rouge_l_f1": 0.14021407636870567,
+    "bertscore_precision": 0.8475420573949813,
+    "bertscore_recall": 0.8922823127508164,
+    "bertscore_f1": 0.869214380979538
+  }
+}

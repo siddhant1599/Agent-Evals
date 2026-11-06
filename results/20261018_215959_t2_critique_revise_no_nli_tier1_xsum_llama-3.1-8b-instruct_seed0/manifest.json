@@ -1,0 +1,85 @@
+{
+  "run_id": "20261018_215959_t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct_seed0",
+  "owner": "kartik",
+  "config_name": "t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct",
+  "started_at": "2026-10-18T21:59:59.697340+00:00",
+  "git": {
+    "sha": "4df6f601b9cd4bb97ce3aa3d38c988fbbf9c3473",
+    "branch": "T2Script",
+    "dirty": true,
+    "untracked_files": 17
+  },
+  "seeding": {
+    "seed": 0,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.91.07",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": null,
+    "peft": null,
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": null,
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-187",
+  "cell": {
+    "topology": "t2_critique_revise_no_nli",
+    "backbone": "llama-3.1-8b-instruct",
+    "task": "tier1_xsum"
+  },
+  "backbone": {
+    "name": "llama-3.1-8b-instruct",
+    "hf_path": "meta-llama/Llama-3.1-8B-Instruct",
+    "hf_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+    "gated": true,
+    "quantization": "bitsandbytes",
+    "max_model_len": 32768
+  },
+  "prompt_templates": {
+    "generator": {
+      "xsum_one_sentence": "xsum_one_sentence@v1",
+      "xsum_critique_revise": "xsum_critique_revise@v1"
+    },
+    "critic_no_nli": {
+      "xsum_critique": "xsum_critique@v1"
+    }
+  },
+  "metric_suite": [
+    "summac",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l",
+    "bertscore"
+  ],
+  "metric_keys": [
+    "summac_zs",
+    "summac_conv",
+    "factcc",
+    "alignscore",
+    "minicheck",
+    "rouge_l_precision",
+    "rouge_l_recall",
+    "rouge_l_f1",
+    "bertscore_precision",
+    "bertscore_recall",
+    "bertscore_f1"
+  ],
+  "n_examples": 500
+}

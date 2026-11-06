@@ -1,0 +1,67 @@
+{
+  "run_id": "20261024_190842_asqa_reward_check_seed0",
+  "owner": "sameer",
+  "config_name": "asqa_reward_check",
+  "started_at": "2026-10-24T19:08:42.967911+00:00",
+  "git": {
+    "sha": "a66655dbe4e7c439da4eafe8f2eccb6da5a90508",
+    "branch": "t5-asqa",
+    "dirty": false,
+    "untracked_files": 1
+  },
+  "seeding": {
+    "seed": 0,
+    "python": true,
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu130",
+    "torch_cuda": true,
+    "deterministic": false
+  },
+  "gpu": {
+    "available": true,
+    "name": "NVIDIA A10G",
+    "total_vram_gib": 22.06,
+    "driver": "595.99.02",
+    "cuda": "13.0"
+  },
+  "libraries": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "vllm": "0.27.1",
+    "trl": "1.14.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "numpy": "2.4.6"
+  },
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.43",
+  "hostname": "ip-10-0-2-107",
+  "source_runs": [
+    {
+      "run_id": "20261023_144555_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+      "metrics_sha256": "afca9ab8e712d5533c73455170102c553edabe9e0f4a30529329782c1c450124"
+    },
+    {
+      "run_id": "20261023_150629_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+      "metrics_sha256": "469b53649b2497d9f842c083286f8b871a88c58e16869b72378f9ee102e3400e"
+    },
+    {
+      "run_id": "20261023_153956_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+      "metrics_sha256": "bd31ce270068028843385e3d9c75a237bc3d96c0d703721e97b01fa791f975d6"
+    },
+    {
+      "run_id": "20261023_160249_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+      "metrics_sha256": "16b268577ac7458ef7d0678b491d916b286a8058bb3c291cf40992cda8b5f369"
+    },
+    {
+      "run_id": "20261023_163758_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed2",
+      "metrics_sha256": "244456185d071bb5d6dc022fb667a6e0ce9ec55404cdddb7ef9e5a0a80220e8a"
+    },
+    {
+      "run_id": "20261023_165920_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2",
+      "metrics_sha256": "3b6e7c0629dcbdf5ad84ced01be4d82c8fb87ce47ed862159842ff5de4f041c3"
+    }
+  ]
+}

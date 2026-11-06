@@ -1,0 +1,33 @@
+{
+  "run_id": "20260930_193530_t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed2",
+  "status": "success",
+  "owner": "sameer",
+  "seed": 2,
+  "started_at": "2026-09-30T19:35:30.861797+00:00",
+  "ended_at": "2026-09-30T20:13:22.891291+00:00",
+  "wall_clock_s": 2272.03,
+  "records_written": 500,
+  "peak_vram_gib": 8.66,
+  "error": null,
+  "n_examples": 500,
+  "n_blank_outputs": 0,
+  "length_cap_rate": 0.014,
+  "prompt_tokens": 479715,
+  "completion_tokens": 76125,
+  "total_tokens": 555840,
+  "generation_wall_clock_s": 1037.2583715610017,
+  "mean_example_wall_clock_s": 2.0745167431220035,
+  "metric_means": {
+    "summac_zs": -0.18813118895878866,
+    "summac_conv": 0.3392246383726597,
+    "factcc": 0.15601436492731954,
+    "alignscore": 0.8324596484899521,
+    "minicheck": 0.7744176167436866,
+    "rouge_l_precision": 0.16170402755874602,
+    "rouge_l_recall": 0.3285155088760058,
+    "rouge_l_f1": 0.20874594506469427,
+    "bertscore_precision": 0.863569657444954,
+    "bertscore_recall": 0.8793956072330474,
+    "bertscore_f1": 0.8712909234762192
+  }
+}
