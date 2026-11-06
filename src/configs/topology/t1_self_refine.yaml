@@ -1,0 +1,6 @@
+# T1 Self-Refine (D-101). Merged by the runner for --topology t1_self_refine (D-100).
+topology:
+  name: t1_self_refine
+  # Maximum feedback -> refine iterations; feedback also runs on the final summary
+  # (Madaan et al. 2023, §3.1 and Algorithm 1; D-102). Safe range: >= 1.
+  max_rounds: 4

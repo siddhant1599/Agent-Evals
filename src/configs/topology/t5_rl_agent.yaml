@@ -1,0 +1,18 @@
+# T5 RL-trained single agent (D-111). Merged by the runner for --topology t5_rl_agent (D-100).
+# T0's single call, served with each backbone's GRPO adapter. The adapters are the final
+# checkpoint of each XSum fine-tune (D-060); they are not in git and live on the instance disk.
+topology:
+  name: t5_rl_agent
+  # Refuse to run a backbone with no adapter below, so T5 can never run as the base model.
+  requires_adapter: true
+serving:
+  # Each adapter's rank is 16 (adapter_config.json, D-054). Safe range: >= the adapters' rank.
+  max_lora_rank: 16
+  # D-112: vLLM's default reserve left too little room for LoRA's CUDA-graph capture (out of
+  # memory in 7 of 9 runs). Shrinks only the KV cache; outputs unchanged. Safe range: (0, 1].
+  gpu_memory_utilization: 0.85
+  # backbone=adapter directory. Run IDs from D-068; checkpoint-625 is the final step (D-060).
+  lora_adapters:
+    - llama-3.1-8b-instruct=~/.cache/agent_evals/adapters/20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0/checkpoint-625
+    - mistral-7b-instruct-v0.3=~/.cache/agent_evals/adapters/20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0/checkpoint-625
+    - qwen2.5-7b-instruct=~/.cache/agent_evals/adapters/20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0/checkpoint-625
