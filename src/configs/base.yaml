@@ -1,0 +1,152 @@
+# Base configuration. Every other config composes from this via `defaults: [base]`.
+#
+# This is the ONLY place experiment parameters live. Every field has a dataclass default and a
+# comment giving what it controls and its safe range. A key not defined in the dataclasses
+# raises on load rather than being silently ignored.
+#
+# Groups for backbone, dataset, topology, metric and reward arrive with their modules, each with
+# the parameter table approved for it. Nothing is added here speculatively.
+
+name: base
+
+run:
+  # `owner` is deliberately absent. It has no default, so loading this file alone raises and an
+  # unattributed run cannot start. Supply it in your own config or with
+  # `--set run.owner=<name>`. How this field is handled for anonymous review is still open.
+  #
+  # This run's seed. The reporting protocol is three seeds -- 0, 1, 2 -- reported as mean and
+  # standard deviation; the sweep driver supplies one per run.
+  seed: 0
+  # Where run directories are created, relative to the repository root. Committed to git (D-031).
+  output_root: results
+  # Accepted values for `owner`. An unknown name raises, so a typo or an agent-invented value
+  # fails loudly instead of being recorded as provenance.
+  known_owners: [sameer, kartik, siddhanth]
+
+logging:
+  # Level for the stream a human is watching.
+  console_level: INFO
+  # Level for run.log. More verbose than the console on purpose: it is the forensic record for a
+  # run that failed unattended.
+  file_level: DEBUG
+  # Flush metrics.csv every N records. 1 means every record, so a crashed or OOM run keeps its
+  # partial evidence -- which are exactly the runs the evidence is needed for. Safe range: >= 1.
+  flush_metrics_every: 1
+
+seeding:
+  # Request bitwise-deterministic torch kernels. Off pending a team decision: it does nothing
+  # for vLLM-served inference, which runs in a separate process, and may raise rather than
+  # merely slow down on 4-bit QLoRA kernels.
+  deterministic: false
+
+sampling:
+  # Completion cap per model call (D-012). The share of outputs stopped by it is reported per run.
+  # Temperature, top-p, top-k and repetition penalty are deliberately absent: every backbone
+  # decodes with its own shipped defaults (D-011). Safe range: >= 1.
+  max_tokens: 256
+
+serving:
+  # Registered serving client.
+  client: vllm_openai
+  # Per-backbone repository, pinned revision, quantization and context length.
+  model_registry: src/model_registry.csv
+  # Local secrets and endpoint, git-ignored. Config holds variable names, never values.
+  env_file: .env
+  endpoint_env: FACTAGENT_VLLM_URL
+  token_env: HF_TOKEN
+  # Seconds before a stuck model call is abandoned and recorded as failed (D-014). Safe range: > 0.
+  request_timeout_s: 120
+  # Seconds to wait for a vLLM server to report healthy (D-014). Safe range: > 0.
+  startup_timeout_s: 600
+  # Connectivity probe sent by check_backbone.py. Never scored, so not a benchmark prompt.
+  check_prompt: "Reply with one word: ready."
+
+metrics:
+  # Where scorer models run, and the cache for artifacts outside the HuggingFace cache.
+  device: cuda
+  cache_dir: ~/.cache/agent_evals/metrics
+  # Metrics every run scores, in order (D-022). summac emits SummaC-ZS and SummaC-Conv.
+  suite: [summac, factcc, alignscore, minicheck, rouge_l, bertscore, worked_example_overlap]
+  # D-018, D-028. Every value inherited from the official SummaC code and README.
+  summac:
+    nli_model: tals/albert-xlarge-vitaminc-mnli
+    nli_revision: 3082ba54344bd9ddada2be1c5e9b4131721d2a5d
+    entailment_index: 0
+    contradiction_index: 1
+    min_sentence_chars: 10
+    max_document_sentences: 100
+    max_input_tokens: 500
+    truncation: longest_first
+    half_precision: true
+    batch_size: 128
+    conv_bins: [0.0, 0.01, 0.02, 0.03, 0.04, 0.07, 0.13, 0.37, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.955, 0.96, 0.965, 0.97, 0.975, 0.98, 0.985, 0.99, 0.995, 1.0]
+    conv_max_summary_sentences: 10
+    conv_checkpoint_url: https://raw.githubusercontent.com/tingofurro/summac/525cb081993ad1c872d73a9d5d46ea3c3f73c24f/summac_conv_vitc_sent_perc_e.bin
+    conv_checkpoint_sha256: cd880581f59bd47b8968c7f48d754cd617dfe9b256d8d76fdcbc0fa4a3b3c6fe
+  # D-023, D-028. AlignScore-large, nli_sp mode, values from the official inference code.
+  alignscore:
+    checkpoint_repo: yzha/AlignScore
+    checkpoint_revision: 8509e78d25bb914939fc585c626500c9b2944249
+    checkpoint_file: AlignScore-large.ckpt
+    checkpoint_sha256: ff4336312b377edcbcdad5694a2d09d73dc4225422c0422d810aa7e78485e32d
+    backbone: FacebookAI/roberta-large
+    backbone_revision: 722cf37b1afa9454edce342e7895e588b6ff1d59
+    chunk_words: 350
+    batch_size: 32
+    # Support threshold where AlignScore judges citations (T5's ASQA reward, D-135): the
+    # midpoint of its range, the setting validated on long-form QA (D-129).
+    threshold: 0.5
+  # D-024, D-028. MiniCheck-Flan-T5-Large with the package's defaults for that model.
+  minicheck:
+    model: lytang/MiniCheck-Flan-T5-Large
+    revision: 96eafd01cee2d16cf81aaa2fb226b14f422a37b3
+    chunk_words: 500
+    max_input_tokens: 2048
+    batch_size: 16
+    threshold: 0.5
+  # D-025, D-030. HuggingFace conversion of the original FactCC checkpoint.
+  factcc:
+    model: manueldeprada/FactCC
+    revision: c7b3148015d4ddc263f6e2acb2689e90ac061669
+    max_input_tokens: 512
+    batch_size: 16
+  # D-026.
+  rouge_l:
+    use_stemmer: false
+  # D-019. The library's English default model and layer.
+  bertscore:
+    model: FacebookAI/roberta-large
+    revision: 722cf37b1afa9454edce342e7895e588b6ff1d59
+    num_layers: 17
+  # D-110. Flags an output sharing an 8-word sequence with a T1 worked example (Review #5).
+  worked_example_overlap:
+    ngram: 8
+  # D-120. ALCE reads at most 3 citations per sentence (eval.py, --at_most_citations).
+  citation:
+    max_citations_per_sentence: 3
+    # Reported citation scores are judged by MiniCheck (D-120); T5's ASQA reward sets alignscore
+    # in its own config, so MiniCheck stays held out (D-135).
+    judge: minicheck
+  # Published data and numbers the ports are validated against (D-018, D-023 to D-025).
+  validation:
+    xsumfaith_url: https://raw.githubusercontent.com/google-research-datasets/xsum_hallucination_annotations/4abdbb2c807cb93c1df1188a1992d20a55cdcc34/hallucination_annotations_xsum_summaries.csv
+    xsumfaith_sha256: fa7fb66a36cc0f32ede4135985d0d65591dc2a8d21103a0bacd0583d77d4c8ea
+    xsum_path: EdinburghNLP/xsum
+    xsum_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+    threshold_percentile_step: 0.2
+    aggrefact_repo: lytang/LLM-AggreFact
+    aggrefact_revision: 981dfd0bd8e58e7238a9ab92b2e6ea44bce918e4
+    aggrefact_file: data/test-00000-of-00001.parquet
+    aggrefact_sha256: ba6976c3da990a9d7b11670efaf4e3c93c1bd0530061ec742afd6b2d5bce698c
+    aggrefact_dataset: AggreFact-XSum
+    target_summac_zs_bacc: 58.4
+    target_summac_conv_bacc: 66.4
+    target_alignscore_auc: 75.8
+    target_factcc_auc: 55.1
+    target_minicheck_bacc: 74.3
+    # D-124. Long-form QA subsets (named as in the pinned file) and Tang et al. 2024 Table 2.
+    aggrefact_qa_subsets: [Lfqa, ClaimVerify]
+    target_minicheck_qa_bacc: [85.2, 74.6]
+    target_alignscore_qa_bacc: [84.5, 69.6]
+    # Midpoint of AlignScore's [0, 1] range, as Tang et al. set every checker's threshold (4.1).
+    alignscore_threshold: 0.5
