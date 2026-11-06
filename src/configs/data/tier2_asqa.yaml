@@ -1,0 +1,45 @@
+# ASQA evaluation policy: D-116, D-117, D-119, D-122, D-126. Owner remains required via an override.
+# The frozen 500-ID sample lives in tier2_asqa_sample.yaml and composes in below, so the
+# parameters here stay readable. Never set data.sample_ids in this file -- a file's own keys
+# beat its defaults, so a value here would silently override the frozen sample.
+defaults: [../base, tier2_asqa_sample]
+name: tier2_asqa
+
+data:
+  name: tier2_asqa
+  # ALCE's release (Gao et al. 2023): one archive holding ASQA's dev split with each question's
+  # top 100 GTR passages. Pinned revision and checksum; the file is never committed (D-116).
+  hf_path: princeton-nlp/ALCE-data
+  hf_revision: 334fa2e7dd32040c3fef931a123c4be1a81e91a0
+  hf_filename: ALCE-data.tar
+  hf_file_sha256: eda837bf659a91b3648dc6e7ab6b17197664d93593857e8fdf3800b6aa6a98f0
+  archive_member: ALCE-data/asqa_eval_gtr_top100.json
+  split: dev
+  # The model reads the first 5 retrieved passages (D-117).
+  n_passages: 5
+  # Answers cite passages as [1][2]; markers are removed before non-citation metrics (D-126).
+  strip_citations: true
+  # Two questions may retrieve the same passages, so identical sources are not duplicates.
+  dedupe_sources: false
+  # Three strata by number of sub-questions; equal draws, remainder to the first groups (D-122).
+  n_samples: 500
+  n_strata: 3
+  stratify_by: sub_questions
+  strata: [[2], [3, 4], [5, 6]]
+  # Independent of run.seed (D-002).
+  sample_seed: 123
+  # No length filter: every question keeps all 948 in the pool (D-122).
+  min_source_words: 0
+  max_source_words: null
+
+sampling:
+  # ALCE's completion cap; Tier 1 keeps 256 (D-119).
+  max_tokens: 300
+
+metrics:
+  # D-120: MiniCheck headline, exact-match recall, AlignScore, ALCE citation quality judged by
+  # MiniCheck. D-123: the rest of the XSum suite as secondary. D-128: the leak check against
+  # ALCE's four worked examples. D-151: the leak check against the text written for T1's ASQA
+  # examples, under its own key.
+  suite: [summac, factcc, alignscore, minicheck, str_em, citation, rouge_l, bertscore,
+    asqa_worked_example_overlap, asqa_self_refine_example_overlap]

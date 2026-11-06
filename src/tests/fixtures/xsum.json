@@ -1,0 +1,10 @@
+[
+  {"id": "FAKE_EXAMPLE_empty", "document": "", "summary": "Empty-source fixture.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_a", "document": "one", "summary": "One word.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_b", "document": "café\t東京", "summary": "Unicode words.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_c", "document": "one two three", "summary": "Three words.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_d", "document": "one two three four", "summary": "Four words.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_e", "document": "one two three four five", "summary": "Five words.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_f", "document": "one two three four five six", "summary": "Six words.", "extra": "drop"},
+  {"id": "FAKE_EXAMPLE_g", "document": "one two three four five six seven", "summary": "Seven words.", "extra": "drop"}
+]

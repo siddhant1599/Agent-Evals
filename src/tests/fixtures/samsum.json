@@ -1,0 +1,10 @@
+[
+  {"id": "FAKE_EXAMPLE_sam_g", "dialogue": "Ann: are you coming?\nBen: yes, five minutes", "summary": "Ben is coming in five minutes."},
+  {"id": "FAKE_EXAMPLE_sam_d", "dialogue": "Cara: I sent the file\nDev: <file_gif>\nDev: got it, thanks", "summary": "Cara sent Dev the file."},
+  {"id": "FAKE_EXAMPLE_sam_a", "dialogue": "Eve: lunch?\nFay: sure", "summary": "Eve and Fay will have lunch."},
+  {"id": "FAKE_EXAMPLE_sam_c", "dialogue": "Gus: Café at noon?\nHal: Ja, 東京 time or ours? 🙂", "summary": "Gus suggests the café at noon."},
+  {"id": "FAKE_EXAMPLE_sam_b-1", "dialogue": "Ivy: the meeting moved to Tuesday\nJon: which room\nIvy: same as last week", "summary": "The meeting moved to Tuesday.\nIt is in the same room."},
+  {"id": "FAKE_EXAMPLE_sam_f", "dialogue": "Kim: did you feed the cat\nLeo: no\nKim: please do it before you leave", "summary": "Kim asks Leo to feed the cat."},
+  {"id": "FAKE_EXAMPLE_sam_e", "dialogue": "Max: bus is late again\nNia: take the tram then\nMax: good idea\nNia: see you there", "summary": "Max will take the tram."},
+  {"id": "FAKE_EXAMPLE_sam_h", "dialogue": "Oli: happy birthday!!\nPam: thank you <3", "summary": "Oli wishes Pam a happy birthday."}
+]

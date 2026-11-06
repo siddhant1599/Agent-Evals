@@ -1,0 +1,10 @@
+[
+  {"id": "FAKE_EXAMPLE_cnn_g", "article": "one two three four five six seven", "highlights": "Seven words.\nSecond highlight."},
+  {"id": "FAKE_EXAMPLE_cnn_d", "article": "shared article text here", "highlights": "Shared article.\nSame highlights."},
+  {"id": "FAKE_EXAMPLE_cnn_a", "article": "one", "highlights": "One word."},
+  {"id": "FAKE_EXAMPLE_cnn_b", "article": "shared article text here", "highlights": "Shared article.\nSame highlights."},
+  {"id": "FAKE_EXAMPLE_cnn_c", "article": "café\t東京", "highlights": "Unicode words.\nCafé in 東京."},
+  {"id": "FAKE_EXAMPLE_cnn_e", "article": "one two three four five", "highlights": "Five words."},
+  {"id": "FAKE_EXAMPLE_cnn_f", "article": "one two three four five six", "highlights": "Six words."},
+  {"id": "FAKE_EXAMPLE_cnn_h", "article": "one two three", "highlights": "Three words."}
+]

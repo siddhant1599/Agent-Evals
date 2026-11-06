@@ -1,0 +1,22 @@
+# XSum evaluation policy: D-002, D-005, D-006. Owner remains required via an override.
+# The frozen 500-ID sample lives in tier1_xsum_sample.yaml and composes in below, so the
+# parameters here stay readable. Never set data.sample_ids in this file -- a file's own keys
+# beat its defaults, so a value here would silently override the frozen sample.
+defaults: [../base, tier1_xsum_sample]
+name: tier1_xsum
+
+data:
+  # Registered public dataset adapter and immutable upstream revision.
+  name: tier1_xsum
+  hf_path: EdinburghNLP/xsum
+  hf_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+  split: test
+  # Per-dataset length quantiles; boundary ties enter the shorter bucket.
+  n_samples: 500
+  n_strata: 3
+  stratify_by: whitespace_words
+  # Independent of run.seed. Remainders are allocated from shortest to longest.
+  sample_seed: 123
+  # Inclusive bounds. Serving handles context truncation; this loader never truncates.
+  min_source_words: 20
+  max_source_words: null

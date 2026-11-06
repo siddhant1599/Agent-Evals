@@ -1,0 +1,26 @@
+# SAMSum evaluation policy: D-002, D-042, D-043. Owner remains required via an override.
+# The frozen 500-ID sample lives in tier1_samsum_sample.yaml and composes in below, so the
+# parameters here stay readable. Never set data.sample_ids in this file -- a file's own keys
+# beat its defaults, so a value here would silently override the frozen sample.
+defaults: [../base, tier1_samsum_sample]
+name: tier1_samsum
+
+data:
+  # Registered public dataset adapter and immutable upstream revision. The original
+  # Samsung/samsum repository is no longer public; this copy was checked against the authors'
+  # arXiv release (D-042).
+  name: tier1_samsum
+  hf_path: knkarthick/samsum
+  hf_revision: 6b929ff10edec703164e3ddb2e94aae058c9ab5f
+  split: test
+  # No duplicate test dialogues were found; kept on so Tier 1 removes duplicates the same way.
+  dedupe_sources: true
+  # Per-dataset length quantiles; boundary ties enter the shorter bucket.
+  n_samples: 500
+  n_strata: 3
+  stratify_by: whitespace_words
+  # Independent of run.seed. Remainders are allocated from shortest to longest.
+  sample_seed: 123
+  # Inclusive bounds, the same as every Tier 1 dataset. This loader never truncates.
+  min_source_words: 20
+  max_source_words: null

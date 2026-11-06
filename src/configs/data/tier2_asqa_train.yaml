@@ -1,0 +1,44 @@
+# ASQA training split for T5's GRPO training (D-132). Evaluation stays tier2_asqa.yaml (D-116).
+# Questions, IDs and gold answers: the official ASQA release. Passages: Huang et al. 2024's
+# release of GTR top-5 passages for every training question (repository HCY123902/atg-w-fg-rw,
+# Google Drive data folder, Apache-2.0), retrieved as ALCE retrieved the dev split. Each file is
+# fetched from its original address once and checked against its SHA-256 on every load.
+defaults: [../base]
+name: tier2_asqa_train
+
+data:
+  name: tier2_asqa_train
+  hf_path: null
+  hf_revision: null
+  source_files:
+    - name: ASQA.json
+      url: https://storage.googleapis.com/gresearch/ASQA/data/ASQA.json
+      sha256: 8de0c824824372243b73b10314727dac1a02d9ecc729c34c752c30f8a3c1e58a
+    # Huang et al.'s asqa_train.json (3,853 questions) and asqa_dev.json (500): together every
+    # ASQA training question (D-132).
+    - name: huang2024_asqa_train.json
+      url: https://drive.usercontent.google.com/download?id=1yzdXbs-PvCEXZD6dCyScO0XQaCTegq-6&export=download&confirm=t
+      sha256: 62580fd30c64c907fe927c49f808b25c727a670cf64d674342bcbc0bb050e056
+    - name: huang2024_asqa_dev.json
+      url: https://drive.usercontent.google.com/download?id=1eNG4MI4fS_33RLZ2YwLdpZYQYl6toWNw&export=download&confirm=t
+      sha256: 4ea8ae12e06a765b43bf4f9733bb63f884a22eb2c88145712b138066361c28bd
+  split: train
+  # The model reads the first 5 passages, as in evaluation (D-117).
+  n_passages: 5
+  # Answers cite passages as [1][2]; the correctness reward reads them removed (D-126).
+  strip_citations: true
+  dedupe_sources: false
+  # ALCE's four worked examples are training questions; they never train T5 (D-132, D-118).
+  exclude_ids: ["-5117526355389369643", "-3207884824372475669", "3219470493874132834",
+    "-8254578338731748300"]
+  # 4,353 training questions less the 4 worked examples leave 4,349 (D-132). How many train T5,
+  # and which are held out to score checkpoints, is decided with the step count (Q-011); the
+  # training config sets data.n_samples then.
+  n_strata: 1
+  sample_seed: 123
+  min_source_words: 0
+  max_source_words: null
+
+sampling:
+  # ALCE's completion cap, as in evaluation (D-119).
+  max_tokens: 300

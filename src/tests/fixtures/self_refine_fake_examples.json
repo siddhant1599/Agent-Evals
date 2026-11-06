@@ -1,0 +1,23 @@
+[
+  {
+    "source_id": "FAKE_EXAMPLE_1",
+    "article": "FAKE_EXAMPLE_1 article: the mill reopened on Monday.",
+    "draft": "FAKE_EXAMPLE_1 draft: the mill reopened on Friday.",
+    "feedback": "- \"on Friday\": FAKE_EXAMPLE_1 feedback, the article says Monday.",
+    "revised": "FAKE_EXAMPLE_1 revised: the mill reopened on Monday."
+  },
+  {
+    "source_id": "FAKE_EXAMPLE_2",
+    "article": "FAKE_EXAMPLE_2 article: a bridge was painted blue.",
+    "draft": "FAKE_EXAMPLE_2 draft: a bridge was painted red.",
+    "feedback": "- \"red\": FAKE_EXAMPLE_2 feedback, the article says blue.",
+    "revised": "FAKE_EXAMPLE_2 revised: a bridge was painted blue."
+  },
+  {
+    "source_id": "FAKE_EXAMPLE_3",
+    "article": "FAKE_EXAMPLE_3 article: two owls hatched at the zoo.",
+    "draft": "FAKE_EXAMPLE_3 draft: three owls hatched at the zoo.",
+    "feedback": "- \"three owls\": FAKE_EXAMPLE_3 feedback, the article says two.",
+    "revised": "FAKE_EXAMPLE_3 revised: two owls hatched at the zoo."
+  }
+]
