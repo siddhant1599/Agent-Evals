@@ -1,0 +1,31 @@
+# Typical-length measurement articles -- evidence, not a parameter (D-056).
+#
+# The 10 eligible training articles whose T0 prompt, chat template included, is
+# closest to the median prompt (435 tokens, longest over backbones) among prompts
+# within 1536 tokens: a typical training step, for timing. Produced by
+# `python -m agent_evals.rl.memory select-typical`.
+#
+# adapter:          tier1_xsum
+# hf_revision:      7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+# split:            train
+# dedupe_sources:   True
+# exclude sources:  test
+# min_source_words: 20
+# prompt tokens:    435 to 435 (longest over backbones)
+# selected_on:      2026-10-09
+
+defaults: [grpo_xsum_memory]
+name: grpo_xsum_memory_typical
+
+data:
+  sample_ids:
+    - "11951396"
+    - "13140243"
+    - "13306825"
+    - "14841749"
+    - "16576712"
+    - "17111092"
+    - "17214722"
+    - "19516100"
+    - "19530813"
+    - "20751650"

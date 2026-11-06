@@ -1,0 +1,30 @@
+# Measurement articles for a 1536-token prompt cap -- evidence, not a parameter (D-055).
+#
+# The 10 longest eligible training articles whose T0 prompt, chat template
+# included, fits 1536 tokens under every measured backbone's tokenizer: the worst case
+# for memory at this cap. Produced by `python -m agent_evals.rl.memory select`.
+#
+# adapter:          tier1_xsum
+# hf_revision:      7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+# split:            train
+# dedupe_sources:   True
+# exclude sources:  test
+# min_source_words: 20
+# prompt tokens:    1536 to 1536 (longest over backbones)
+# selected_on:      2026-10-09
+
+defaults: [grpo_xsum_memory]
+name: grpo_xsum_memory_1536
+
+data:
+  sample_ids:
+    - "14702609"
+    - "18483788"
+    - "19847252"
+    - "30939774"
+    - "33424304"
+    - "34902884"
+    - "36213369"
+    - "36333032"
+    - "36824514"
+    - "37015026"

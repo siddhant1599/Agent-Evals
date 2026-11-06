@@ -1,0 +1,47 @@
+# ASQA GRPO memory test (D-136): what both settings share. Not run directly: each setting's file
+# composes this one and sets its prompt and group size.
+#
+# Each cell is a short training run with the approved GRPO settings (D-054) and the ASQA reward
+# (D-133 to D-135) on the training questions with the longest prompts. `select` freezes them next
+# to the setting's file; `sweep` runs a cell per backbone.
+defaults: [../data/tier2_asqa_train]
+name: grpo_asqa_memory
+
+data:
+  # One question per optimizer step, so the training.max_steps steps of a cell use this many
+  # questions, each once.
+  n_samples: 10
+  n_strata: 1
+
+metrics:
+  citation:
+    # The citation reward terms are judged by AlignScore, keeping MiniCheck held out (D-135).
+    judge: alignscore
+
+# Huang et al. 2024's three terms (D-133), weighted equally (D-135).
+reward:
+  name: null
+  terms: [str_em, citation_recall, citation_precision]
+  weights: [1.0, 1.0, 1.0]
+
+training:
+  # GDPO combines the terms (D-134); it divides by group standard deviations, which
+  # scale_rewards: group states.
+  multi_objective_aggregation: normalize_then_sum
+  scale_rewards: group
+  # Gradient accumulation adds no memory, so it stays 1 (D-055).
+  gradient_accumulation_steps: 1
+  # Ten steps; step 1 is left out of the seconds-per-step average (D-055).
+  max_steps: 10
+  # One checkpoint at the end of the cell. The sweep deletes adapters; it keeps only the run.
+  save_steps: 10
+
+measurement:
+  # Llama first (the largest model), then Mistral (the longest prompts), then Qwen (D-055).
+  backbones: [llama-3.1-8b-instruct, mistral-7b-instruct-v0.3, qwen2.5-7b-instruct]
+  # Not a training cap: above the longest training prompt measured (3,689 tokens, D-136), so the
+  # cells take the 10 longest training prompts overall, the worst case for memory (D-055).
+  prompt_caps: [4096]
+  # Timing and forced-length cells use the same bound: the median is over every training prompt.
+  typical_within_cap: 4096
+  forced_cap: 4096

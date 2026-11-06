@@ -1,0 +1,23 @@
+# ASQA GRPO memory test, setting 1 (D-136): the evaluation prompt, ALCE's instruction with two
+# worked examples as chat turns (D-118), at G = 4.
+#
+#   python -m agent_evals.rl.memory select \
+#       --config src/configs/rl/grpo_asqa_memory_fewshot.yaml --set run.owner=sameer
+#   python -m agent_evals.rl.memory sweep \
+#       --config src/configs/rl/grpo_asqa_memory_fewshot.yaml --set run.owner=sameer
+#
+# If G = 4 runs out of memory, the sweep is repeated with --set measurement.group_sizes=2.
+defaults: [grpo_asqa_memory]
+name: grpo_asqa_memory_fewshot
+
+training:
+  # Seed 2 draws the pair of worked examples that gives the longest prompts on every backbone,
+  # the worst case (D-136).
+  worked_examples_seed: 2
+  # num_generations = per_device_train_batch_size = G: one question's whole group per pass.
+  num_generations: 4
+  per_device_train_batch_size: 4
+
+measurement:
+  group_sizes: [4]
+  typical_group_size: 4

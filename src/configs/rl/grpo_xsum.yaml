@@ -1,0 +1,46 @@
+# T5 GRPO training on XSum (D-046 to D-058): one config for all three backbones.
+#
+#   python3 src/run_training.py --config src/configs/rl/grpo_xsum.yaml \
+#       --backbone qwen2.5-7b-instruct --set run.owner=sameer
+#
+# The 10,000 training articles are frozen in grpo_xsum_pool.yaml, composed below, by
+# `python -m agent_evals.rl.pool`. An interrupted run continues with
+# `python3 src/run_training.py --resume results/<run_id>` (D-059).
+defaults: [../base, grpo_xsum_pool]
+name: grpo_xsum
+
+data:
+  name: tier1_xsum
+  hf_path: EdinburghNLP/xsum
+  hf_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+  split: train
+  # The D-005 floor; duplicate articles dropped (D-035); no test article (D-055).
+  min_source_words: 20
+  max_source_words: null
+  dedupe_sources: true
+  exclude_sources_from_split: test
+  # The pool: 10,000 articles (D-058), a plain random draw with the project's seed (D-057). Never
+  # set data.sample_ids here: this file's own keys would override the frozen pool.
+  n_samples: 10000
+  n_strata: 1
+  sample_seed: 123
+
+# Prompts within 1,536 tokens under every backbone's tokenizer (D-057).
+pool:
+  prompt_cap: 1536
+  backbones: [llama-3.1-8b-instruct, mistral-7b-instruct-v0.3, qwen2.5-7b-instruct]
+
+# AlignScore against the article (D-048); a blank completion scores 0.0 (D-050).
+reward:
+  name: alignscore
+
+# Every setting not listed is the approved default in config/training.py (D-054).
+training:
+  # G = 8, one article's group per forward pass (D-057).
+  num_generations: 8
+  per_device_train_batch_size: 8
+  # 16 articles per optimizer step, 625 steps: one pass over the pool (D-058).
+  gradient_accumulation_steps: 16
+  max_steps: 625
+  # A checkpoint every 2,000 articles, each scored with MiniCheck afterwards (D-058).
+  save_steps: 125

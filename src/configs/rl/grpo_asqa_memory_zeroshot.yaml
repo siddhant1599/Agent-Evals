@@ -1,0 +1,19 @@
+# ASQA GRPO memory test, setting 2 (D-136): the same instruction with no worked examples, at
+# G = 8, the group size of D-057.
+#
+#   python -m agent_evals.rl.memory select \
+#       --config src/configs/rl/grpo_asqa_memory_zeroshot.yaml --set run.owner=sameer
+#   python -m agent_evals.rl.memory sweep \
+#       --config src/configs/rl/grpo_asqa_memory_zeroshot.yaml --set run.owner=sameer
+defaults: [grpo_asqa_memory]
+name: grpo_asqa_memory_zeroshot
+
+training:
+  prompt_template: asqa_alce_zero_shot
+  # num_generations = per_device_train_batch_size = G: one question's whole group per pass.
+  num_generations: 8
+  per_device_train_batch_size: 8
+
+measurement:
+  group_sizes: [8]
+  typical_group_size: 8

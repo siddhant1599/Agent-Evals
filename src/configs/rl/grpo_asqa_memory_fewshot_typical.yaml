@@ -1,0 +1,31 @@
+# Typical-length measurement articles -- evidence, not a parameter (D-056).
+#
+# The 10 eligible training articles whose T0 prompt, chat template included, is
+# closest to the median prompt (3242 tokens, longest over backbones) among prompts
+# within 4096 tokens: a typical training step, for timing. Produced by
+# `python -m agent_evals.rl.memory select-typical`.
+#
+# adapter:          tier2_asqa_train
+# hf_revision:      None
+# split:            train
+# dedupe_sources:   False
+# exclude sources:  None
+# min_source_words: 0
+# prompt tokens:    3242 to 3242 (longest over backbones)
+# selected_on:      2026-10-24
+
+defaults: [grpo_asqa_memory_fewshot]
+name: grpo_asqa_memory_fewshot_typical
+
+data:
+  sample_ids:
+    - "-1126943501696505401"
+    - "-2562932221079158072"
+    - "-3363197822832281011"
+    - "-3562941926415682447"
+    - "-3944463437279157003"
+    - "-4822789605010746268"
+    - "-4840976141866614246"
+    - "-4949067180314115176"
+    - "-5888892519760513244"
+    - "-6926705067608220856"

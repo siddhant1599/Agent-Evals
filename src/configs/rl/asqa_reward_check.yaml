@@ -1,0 +1,14 @@
+# ASQA reward-signal check (D-136): T0's ASQA outputs rescored with the reward's citation judge.
+#
+#   python -m agent_evals.rl.reward_check \
+#       --config src/configs/rl/asqa_reward_check.yaml --set run.owner=sameer \
+#       --runs <the completed T0 ASQA run directories>
+#
+# The T0 runs' own scores are MiniCheck-judged (D-120); this config sets the judge the reward uses,
+# AlignScore above 0.5 (D-135), and the evaluation sample the T0 runs answered.
+defaults: [../data/tier2_asqa]
+name: asqa_reward_check
+
+metrics:
+  citation:
+    judge: alignscore

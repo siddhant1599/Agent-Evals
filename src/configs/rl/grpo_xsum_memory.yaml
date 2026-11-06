@@ -1,0 +1,55 @@
+# GRPO memory measurement (Q-004, D-055): the base config every measurement cell composes.
+#
+# Each cell is a short training run with the approved GRPO settings (D-054) on the longest
+# training articles that fit one prompt cap. The per-cap article lists are frozen next to this
+# file, as grpo_xsum_memory_<cap>.yaml, by `python -m agent_evals.rl.memory select`; the
+# sweep, `python -m agent_evals.rl.memory sweep`, sets the group size per cell.
+defaults: [../base]
+name: grpo_xsum_memory
+
+data:
+  name: tier1_xsum
+  hf_path: EdinburghNLP/xsum
+  hf_revision: 7d4d486c2f8ef850b1a11aead99b894ff3dd7da9
+  split: train
+  # The D-005 floor; duplicate articles dropped, as for CNN/DailyMail (D-035); no training
+  # article may also be a test article (D-055). No ceiling: each cap's article list sets length.
+  min_source_words: 20
+  max_source_words: null
+  dedupe_sources: true
+  exclude_sources_from_split: test
+  # One prompt per optimizer step, so the training.max_steps steps of a cell use this many
+  # articles, each once.
+  n_samples: 10
+  n_strata: 1
+
+reward:
+  name: alignscore
+
+training:
+  # num_generations = per_device_train_batch_size = G, so every forward pass holds one prompt's
+  # whole group. 2 is the grid's first cell; the sweep overrides both for every cell. Gradient
+  # accumulation adds no memory, so it stays 1.
+  num_generations: 2
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 1
+  # Ten steps; step 1 is left out of the seconds-per-step average (D-055).
+  max_steps: 10
+  # One checkpoint at the end of the cell. The sweep deletes adapters; it keeps only the run.
+  save_steps: 10
+
+measurement:
+  # Llama first (the largest model), then Mistral (the longest prompts), then Qwen.
+  backbones: [llama-3.1-8b-instruct, mistral-7b-instruct-v0.3, qwen2.5-7b-instruct]
+  # Prompt tokens, chat template included. 1,024 / 1,536 / 2,048 keep about 88-91% / 97-98% /
+  # 99.2-99.5% of eligible training articles across the three backbones (measured 2026-10-09).
+  prompt_caps: [1024, 1536, 2048]
+  group_sizes: [2, 4, 8]
+  # Timing cells: articles closest to the median prompt of the training pool, i.e. prompts within
+  # the proposed 1,536-token cap, at the proposed G = 8. They time a typical step, where the cells
+  # above time the longest one (D-056).
+  typical_within_cap: 1536
+  typical_group_size: 8
+  # Forced-length cells: the longest 1,536-token articles at G = 8 with every summary forced to
+  # the 256-token completion cap, the most memory any training step can need (D-059).
+  forced_cap: 1536

@@ -1,0 +1,30 @@
+# Measurement articles for a 4096-token prompt cap -- evidence, not a parameter (D-055).
+#
+# The 10 longest eligible training articles whose T0 prompt, chat template
+# included, fits 4096 tokens under every measured backbone's tokenizer: the worst case
+# for memory at this cap. Produced by `python -m agent_evals.rl.memory select`.
+#
+# adapter:          tier2_asqa_train
+# hf_revision:      None
+# split:            train
+# dedupe_sources:   False
+# exclude sources:  None
+# min_source_words: 0
+# prompt tokens:    1216 to 1415 (longest over backbones)
+# selected_on:      2026-10-24
+
+defaults: [grpo_asqa_memory_zeroshot]
+name: grpo_asqa_memory_zeroshot_4096
+
+data:
+  sample_ids:
+    - "-6014612644221244434"
+    - "9143358019149769534"
+    - "3021670305169097977"
+    - "4345449801623056735"
+    - "7850210182029158521"
+    - "1797196083988800208"
+    - "3579305903070298684"
+    - "309326971063268558"
+    - "-7708737981856410881"
+    - "-2802058105781423785"
