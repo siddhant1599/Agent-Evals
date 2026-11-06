@@ -1,0 +1,4036 @@
+{
+  "settings": {
+    "baseline": "t0_single_agent",
+    "pass_threshold": 0.5,
+    "bootstrap": {
+      "n_resamples": 10000,
+      "seed": 123,
+      "ci_level": 0.95
+    },
+    "headline_metrics": {
+      "tier1_cnndm": "minicheck",
+      "tier1_samsum": "minicheck",
+      "tier1_xsum": "minicheck",
+      "tier2_asqa": "minicheck"
+    }
+  },
+  "agents": {
+    "t0_single_agent": {
+      "code": "T0",
+      "name": "Single agent",
+      "pattern": "single call (baseline)",
+      "roles": [
+        "generator"
+      ],
+      "uses_tool": false,
+      "adaptation": "none"
+    },
+    "t1_self_refine": {
+      "code": "T1",
+      "name": "Self-Refine",
+      "pattern": "reflection loop: draft -> self-feedback -> refine",
+      "roles": [
+        "generator",
+        "self_feedback",
+        "refiner"
+      ],
+      "uses_tool": false,
+      "adaptation": "inference-time"
+    },
+    "t2_critique_revise": {
+      "code": "T2",
+      "name": "Critique-Revise + NLI tool",
+      "pattern": "multi-agent critique with a tool-using Critic",
+      "roles": [
+        "generator",
+        "critic"
+      ],
+      "uses_tool": true,
+      "adaptation": "inference-time"
+    },
+    "t2_critique_revise_no_nli": {
+      "code": "T2-noTool",
+      "name": "Critique-Revise (no tool)",
+      "pattern": "multi-agent critique, tool removed (ablation)",
+      "roles": [
+        "generator",
+        "critic"
+      ],
+      "uses_tool": false,
+      "adaptation": "inference-time"
+    },
+    "t5_rl_agent": {
+      "code": "T5",
+      "name": "RL-trained agent (GRPO)",
+      "pattern": "single call by a policy trained with a judge-based reward",
+      "roles": [
+        "generator"
+      ],
+      "uses_tool": false,
+      "adaptation": "training-time"
+    }
+  },
+  "tasks": {
+    "tier1_xsum": {
+      "name": "XSum",
+      "kind": "one-sentence news summary",
+      "headline": "minicheck",
+      "secondary": [
+        "alignscore",
+        "rouge_l_f1",
+        "bertscore_f1"
+      ]
+    },
+    "tier1_cnndm": {
+      "name": "CNN/DM",
+      "kind": "multi-sentence news summary",
+      "headline": "minicheck",
+      "secondary": [
+        "alignscore",
+        "rouge_l_f1",
+        "bertscore_f1"
+      ]
+    },
+    "tier1_samsum": {
+      "name": "SAMSum",
+      "kind": "dialogue summary",
+      "headline": "minicheck",
+      "secondary": [
+        "alignscore",
+        "rouge_l_f1",
+        "bertscore_f1"
+      ]
+    },
+    "tier2_asqa": {
+      "name": "ASQA",
+      "kind": "grounded long-form QA with citations",
+      "headline": "minicheck",
+      "secondary": [
+        "alignscore",
+        "str_em",
+        "citation_recall",
+        "citation_precision"
+      ]
+    }
+  },
+  "cells": [
+    {
+      "task": "tier1_cnndm",
+      "topology": "t0_single_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7724623058567031,
+        "headline_seed_sd": 0.009044490175121465,
+        "secondary": {
+          "alignscore": 0.8037474095225333,
+          "rouge_l_f1": 0.225133067775681,
+          "bertscore_f1": 0.8723154975573223
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.9246666666666666,
+        "pass@k": 0.992,
+        "pass^k": 0.826,
+        "consistency_gap": 0.16600000000000004,
+        "runs_launched": 6,
+        "runs_failed": 3,
+        "run_completion_rate": 0.5,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1015.2593333333333,
+        "completion_tokens_per_task": 125.81533333333333,
+        "latency_s_per_task": 1.9563161261333493,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_223824_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed0",
+          "20260930_230857_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed1",
+          "20260930_233844_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "fd0fd65560c3f4344a488b9930f4c99aaa9ce968686b52f9abf389fbe1a7f20a",
+          "b6ea968a2ad0998bc49dbf218a8f58d8fb751bf53be021b73b27d87ff6feeb05",
+          "a73ed921de592e7ed943455a4c885af3a6ed12b15f236d8ce06c36c6912f201a"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": [
+          "20260930_175334_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed0",
+          "20260930_190331_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed1",
+          "20260930_201324_t0_single_agent_tier1_cnndm_llama-3.1-8b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t0_single_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.775322656592787,
+        "headline_seed_sd": 0.004493878626275864,
+        "secondary": {
+          "alignscore": 0.8280472587148348,
+          "rouge_l_f1": 0.2097821365340754,
+          "bertscore_f1": 0.8712864692211152
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.9093333333333333,
+        "pass@k": 0.984,
+        "pass^k": 0.802,
+        "consistency_gap": 0.18199999999999994,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.013333333333333334,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1111.948,
+        "completion_tokens_per_task": 152.518,
+        "latency_s_per_task": 2.0790677963606723,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_171441_t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed0",
+          "20260930_182547_t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed1",
+          "20260930_193530_t0_single_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "4f586f77f30ce1f715326231f0b288bb1897eba7949f6c0047486c9578beeef9",
+          "d54dc1e3b885cd9d3b752708c51506d52e77ff2ffb4d7e18b08dd9f88678f53c",
+          "90269a19c6d9343f1293bab3dd7c7c33f7deba10d6ce1ff6bc0b95469e9323d4"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t0_single_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7929200020338305,
+        "headline_seed_sd": 0.0037623552991602797,
+        "secondary": {
+          "alignscore": 0.8225719401439031,
+          "rouge_l_f1": 0.2155146262928155,
+          "bertscore_f1": 0.8734874471426011
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.928,
+        "pass@k": 0.992,
+        "pass^k": 0.828,
+        "consistency_gap": 0.16400000000000003,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1000.5553333333334,
+        "completion_tokens_per_task": 102.19333333333333,
+        "latency_s_per_task": 1.6215141658266718,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_164611_t0_single_agent_tier1_cnndm_qwen2.5-7b-instruct_seed0",
+          "20260930_175628_t0_single_agent_tier1_cnndm_qwen2.5-7b-instruct_seed1",
+          "20260930_190625_t0_single_agent_tier1_cnndm_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "5a17685e8844c2c8dfbadba588529cca6a4384ae4ddb3d26fcbfa6b2198122f4",
+          "d75e8dbe3edb7248478160eeacb41be2cfa33281b8178bf1f68ffe72cc986ade",
+          "50a21ac2e433451dbcbc602738f95930c2e811043598fecf362b4bb8cba4cfbb"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t5_rl_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8017064849296762,
+        "headline_seed_sd": 0.0008440079437964317,
+        "secondary": {
+          "alignscore": 0.8314186449448268,
+          "rouge_l_f1": 0.22696755438012375,
+          "bertscore_f1": 0.8722522588173548
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.9433333333333334,
+        "pass@k": 0.988,
+        "pass^k": 0.868,
+        "consistency_gap": 0.12,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1015.6086666666666,
+        "completion_tokens_per_task": 126.16466666666666,
+        "latency_s_per_task": 2.2322946062887348,
+        "training_gpu_hours": 36.1303,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_184340_t5_rl_agent_tier1_cnndm_llama-3.1-8b-instruct_seed0",
+          "20261023_202957_t5_rl_agent_tier1_cnndm_llama-3.1-8b-instruct_seed1",
+          "20261023_221601_t5_rl_agent_tier1_cnndm_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "db9de8246baeec8c2c297bdeaf0b401d8f48224fd02478dca7faf2bcf1ca1730",
+          "2f7dc104eb33cdc228068997890c2afb65f104f33fc8ef79312d41c4babaf54a",
+          "a3d30fcf44699500792af0e363ea162b951f1b4c8c990de88025680b0ee1b103"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.029244179072973154,
+          "ci_low": 0.0208862336732904,
+          "ci_high": 0.037460037998722356,
+          "verdict": "better",
+          "items_improved": 0.606,
+          "items_hurt": 0.394
+        },
+        "secondary_delta": {
+          "alignscore": 0.02767123542229344,
+          "rouge_l_f1": 0.0018344866044427421,
+          "bertscore_f1": -6.323873996749718e-05
+        },
+        "pass^k_delta": 0.04200000000000004,
+        "token_multiplier": 1.0003440828583041,
+        "latency_multiplier": 1.141070492886472,
+        "extra_tokens_per_task": 0.34933333333333394,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t5_rl_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.805503314887514,
+        "headline_seed_sd": 0.002283982003994585,
+        "secondary": {
+          "alignscore": 0.8529169754385948,
+          "rouge_l_f1": 0.20995502545668523,
+          "bertscore_f1": 0.8712374527454375
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.94,
+        "pass@k": 0.996,
+        "pass^k": 0.858,
+        "consistency_gap": 0.138,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.009333333333333334,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1110.0153333333333,
+        "completion_tokens_per_task": 150.58533333333332,
+        "latency_s_per_task": 2.373348336289353,
+        "training_gpu_hours": 57.9602,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_180301_t5_rl_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed0",
+          "20261023_194907_t5_rl_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed1",
+          "20261023_213544_t5_rl_agent_tier1_cnndm_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "439a748a8f4605c86b6067b95fdfc5cb18d1ca2e0cf7a2d6b281f494439c699b",
+          "de4ef83e90e5e81bb00f2943b45de2f2c9d9c7df0c3edc8f67421fd865e70baf",
+          "f2548d631d9897e07f871476ac7f1a625b2c4814b60f0f685351216501c22674"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.03018065829472699,
+          "ci_low": 0.021620756277609385,
+          "ci_high": 0.03867251586269472,
+          "verdict": "better",
+          "items_improved": 0.626,
+          "items_hurt": 0.374
+        },
+        "secondary_delta": {
+          "alignscore": 0.024869716723760038,
+          "rouge_l_f1": 0.0001728889226098318,
+          "bertscore_f1": -4.901647567767675e-05
+        },
+        "pass^k_delta": 0.05599999999999994,
+        "token_multiplier": 0.9982619091300431,
+        "latency_multiplier": 1.1415444654781375,
+        "extra_tokens_per_task": -1.9326666666668189,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t5_rl_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8029392667501131,
+        "headline_seed_sd": 0.0049635110865887035,
+        "secondary": {
+          "alignscore": 0.8351917445212602,
+          "rouge_l_f1": 0.21608310959021385,
+          "bertscore_f1": 0.8735901851654052
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.934,
+        "pass@k": 0.988,
+        "pass^k": 0.85,
+        "consistency_gap": 0.138,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1001.1773333333333,
+        "completion_tokens_per_task": 102.81533333333333,
+        "latency_s_per_task": 1.8461827257699273,
+        "training_gpu_hours": 33.0424,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_173133_t5_rl_agent_tier1_cnndm_qwen2.5-7b-instruct_seed0",
+          "20261023_191814_t5_rl_agent_tier1_cnndm_qwen2.5-7b-instruct_seed1",
+          "20261023_210442_t5_rl_agent_tier1_cnndm_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "ba1caaa5e1f2ce8ad86e5d92691aecffbfbedc7395d016e21ed259c29a366637",
+          "745a61bae39b7420f7ca342b4d22f8e59b731197b9af21b78528320a21ea4664",
+          "89a19f905bb3a41320e7be04a8728102899719a828ba8fcab2d7b225b792d9e7"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.010019264716282492,
+          "ci_low": 0.002258127370482941,
+          "ci_high": 0.017876192277614035,
+          "verdict": "better",
+          "items_improved": 0.548,
+          "items_hurt": 0.45
+        },
+        "secondary_delta": {
+          "alignscore": 0.012619804377357102,
+          "rouge_l_f1": 0.0005684832973983367,
+          "bertscore_f1": 0.00010273802280413857
+        },
+        "pass^k_delta": 0.02200000000000002,
+        "token_multiplier": 1.0006216547743818,
+        "latency_multiplier": 1.1385547932162012,
+        "extra_tokens_per_task": 0.6219999999999573,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t0_single_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.5818989942677552,
+        "headline_seed_sd": 0.009623775648506099,
+        "secondary": {
+          "alignscore": 0.8858695351472125,
+          "rouge_l_f1": 0.23541879419070888,
+          "bertscore_f1": 0.8915386216243109
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.6566666666666666,
+        "pass@k": 0.842,
+        "pass^k": 0.454,
+        "consistency_gap": 0.38799999999999996,
+        "runs_launched": 5,
+        "runs_failed": 2,
+        "run_completion_rate": 0.6,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 273.49333333333334,
+        "completion_tokens_per_task": 77.09933333333333,
+        "latency_s_per_task": 1.113168320451319,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_161914_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed0",
+          "20261001_000802_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed1",
+          "20261001_002248_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "d2a36f6168c7f4e0347f701dabe2b3f7d3ce0d1c5e60452a5b91603229668606",
+          "76686643593267563a1426e676a8465df0f2dec6c242cbffc82b6bdd3a82c570",
+          "1c7b7d361060b9dd17fa13262dbce59f94b8faacaed46b2fcdc43628515ca7eb"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": [
+          "20260930_213411_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed1",
+          "20260930_221531_t0_single_agent_tier1_samsum_llama-3.1-8b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t0_single_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6033349724819398,
+        "headline_seed_sd": 0.006059185234845042,
+        "secondary": {
+          "alignscore": 0.8979567112425962,
+          "rouge_l_f1": 0.20428061882975576,
+          "bertscore_f1": 0.8848126988808315
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7006666666666667,
+        "pass@k": 0.908,
+        "pass^k": 0.482,
+        "consistency_gap": 0.42600000000000005,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.006666666666666667,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 296.058,
+        "completion_tokens_per_task": 106.63,
+        "latency_s_per_task": 1.3240410894960004,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_203516_t0_single_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed0",
+          "20260930_211350_t0_single_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed1",
+          "20260930_215537_t0_single_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "4e012e9207fabc703a2e6683bccfe6cb0e6149b62cdc3de8dc2fbc8d618e65c6",
+          "579ff5ce6032d996669c8a18f2f21b7cf9b9072a40105e780ae953067782ec53",
+          "e351d69b166abc95a428874d795158927a6a11aa12f112a175cb6c5bc8bd9133"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t0_single_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6249946047015781,
+        "headline_seed_sd": 0.003259317293820949,
+        "secondary": {
+          "alignscore": 0.8994689570988218,
+          "rouge_l_f1": 0.2256775510060017,
+          "bertscore_f1": 0.8888385864496232
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7146666666666667,
+        "pass@k": 0.868,
+        "pass^k": 0.534,
+        "consistency_gap": 0.33399999999999996,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0006666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 270.476,
+        "completion_tokens_per_task": 79.596,
+        "latency_s_per_task": 1.1384861103940227,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260930_201627_t0_single_agent_tier1_samsum_qwen2.5-7b-instruct_seed0",
+          "20260930_205524_t0_single_agent_tier1_samsum_qwen2.5-7b-instruct_seed1",
+          "20260930_213709_t0_single_agent_tier1_samsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "5628abb7d1768196ce4d5ccad11c0b537ab24de2d51f71a536cadf7962e69eb4",
+          "08c201ec7e20d2947b040a81137c4d06a8ec7350d894f4c408b7923601c8f140",
+          "c4629636b899e1e108e6b63a5bec6cb8abf2a10b79d2aa0a0228eff3713186c4"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t5_rl_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6023386534861915,
+        "headline_seed_sd": 0.013760672292581926,
+        "secondary": {
+          "alignscore": 0.9025222239494325,
+          "rouge_l_f1": 0.23415592724638998,
+          "bertscore_f1": 0.8915081365505855
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.6913333333333334,
+        "pass@k": 0.858,
+        "pass^k": 0.504,
+        "consistency_gap": 0.354,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 273.1173333333333,
+        "completion_tokens_per_task": 76.72333333333333,
+        "latency_s_per_task": 1.2678885137666753,
+        "training_gpu_hours": 36.1303,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_233312_t5_rl_agent_tier1_samsum_llama-3.1-8b-instruct_seed0",
+          "20261024_003444_t5_rl_agent_tier1_samsum_llama-3.1-8b-instruct_seed1",
+          "20261024_013556_t5_rl_agent_tier1_samsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "75e380564cfdfebec14131202097a14c0b6ca682ecfa055e80fcc08b96d19fa0",
+          "91d9d7f7014d0da0db52247d9c4f7327d6f51c32745c30fd0c01f23d28fec099",
+          "221d4dcc58b941e2127d6a759389cafcb8a526a2b6dbba852a21027a2679746a"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.02043965921843641,
+          "ci_low": 0.011470337176453432,
+          "ci_high": 0.029346575029099677,
+          "verdict": "better",
+          "items_improved": 0.58,
+          "items_hurt": 0.404
+        },
+        "secondary_delta": {
+          "alignscore": 0.01665268880222004,
+          "rouge_l_f1": -0.0012628669443189022,
+          "bertscore_f1": -3.048507372538367e-05
+        },
+        "pass^k_delta": 0.04999999999999999,
+        "token_multiplier": 0.9986251950078002,
+        "latency_multiplier": 1.1389908340659813,
+        "extra_tokens_per_task": -0.3760000000000332,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t5_rl_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6189162651221657,
+        "headline_seed_sd": 0.00259773248337885,
+        "secondary": {
+          "alignscore": 0.9009193175242594,
+          "rouge_l_f1": 0.20453630876025988,
+          "bertscore_f1": 0.8850594380696615
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.72,
+        "pass@k": 0.908,
+        "pass^k": 0.514,
+        "consistency_gap": 0.394,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.008666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 294.67,
+        "completion_tokens_per_task": 105.242,
+        "latency_s_per_task": 1.520434095507318,
+        "training_gpu_hours": 57.9602,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_231052_t5_rl_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed0",
+          "20261024_001222_t5_rl_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed1",
+          "20261024_011344_t5_rl_agent_tier1_samsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "9dcfefa3ea7c6b0ba82b11bfb9ba034e34ad42646ded2bc1544bbcfd124cac96",
+          "e787b078094826b19a0731ad7de3024c99f54405fcd74429f04ac54df9c1d179",
+          "1bb537e4deb03f3b7a5e08bf6302bf6107af6d82771018180849593f614af05e"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.015581292640225975,
+          "ci_low": 0.007627326950733887,
+          "ci_high": 0.023454783586506198,
+          "verdict": "better",
+          "items_improved": 0.564,
+          "items_hurt": 0.434
+        },
+        "secondary_delta": {
+          "alignscore": 0.002962606281663116,
+          "rouge_l_f1": 0.0002556899305041216,
+          "bertscore_f1": 0.000246739188830003
+        },
+        "pass^k_delta": 0.03200000000000003,
+        "token_multiplier": 0.9953117294584171,
+        "latency_multiplier": 1.148328482831356,
+        "extra_tokens_per_task": -1.3879999999999768,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t5_rl_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6314722777120226,
+        "headline_seed_sd": 0.001722895647393751,
+        "secondary": {
+          "alignscore": 0.9065399237064025,
+          "rouge_l_f1": 0.22297349154079624,
+          "bertscore_f1": 0.8882479220628738
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.73,
+        "pass@k": 0.86,
+        "pass^k": 0.57,
+        "consistency_gap": 0.29000000000000004,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 272.034,
+        "completion_tokens_per_task": 81.154,
+        "latency_s_per_task": 1.320974966149879,
+        "training_gpu_hours": 33.0424,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": true
+      },
+      "provenance": {
+        "runs": [
+          "20261023_225111_t5_rl_agent_tier1_samsum_qwen2.5-7b-instruct_seed0",
+          "20261023_235217_t5_rl_agent_tier1_samsum_qwen2.5-7b-instruct_seed1",
+          "20261024_005342_t5_rl_agent_tier1_samsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "873faba31f08d4a8e59db4e4c07d189247c4a762a4386e1ee92dc772f421b225",
+          "e4969094a28d26c04d9fe197047fa71c31fc72b4941c01ef0e59d7abde9020f8",
+          "74592c0df1f59edfc281326324d080093dc560e937afea2734492c8192a2a0ff"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.006477673010444569,
+          "ci_low": -0.00048200551449528115,
+          "ci_high": 0.013080536809543887,
+          "verdict": "no clear difference",
+          "items_improved": 0.534,
+          "items_hurt": 0.446
+        },
+        "secondary_delta": {
+          "alignscore": 0.007070966607580664,
+          "rouge_l_f1": -0.002704059465205466,
+          "bertscore_f1": -0.0005906643867493733
+        },
+        "pass^k_delta": 0.03599999999999992,
+        "token_multiplier": 1.0057602153240952,
+        "latency_multiplier": 1.160290805561693,
+        "extra_tokens_per_task": 1.5579999999999927,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t0_single_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6794041521480928,
+        "headline_seed_sd": 0.004233022735090065,
+        "secondary": {
+          "alignscore": 0.8760606035580859,
+          "rouge_l_f1": 0.19597525679878727,
+          "bertscore_f1": 0.8859458666642507
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.6986666666666667,
+        "pass@k": 0.86,
+        "pass^k": 0.52,
+        "consistency_gap": 0.33999999999999997,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 566.2286666666666,
+        "completion_tokens_per_task": 50.49466666666667,
+        "latency_s_per_task": 0.8528136512946488,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260914_033225_t0_single_agent_tier1_xsum_llama-3.1-8b-instruct_seed0",
+          "20260914_034653_t0_single_agent_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20260914_040115_t0_single_agent_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "59b4039eec24b98e0dda2b0520a2ee0167d678ceb53460650201e29dd49f19b2",
+          "49d10e7037e3fa76544662feaa0d9ffbfda9191a7fe25fdcd33ce6d8119a402a",
+          "2dfda68df1e54a13f8968e9b30aa403be67540c7ae44ac6883adc01d4b35cecd"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t0_single_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.682833664889988,
+        "headline_seed_sd": 0.0028627205730041797,
+        "secondary": {
+          "alignscore": 0.886297861632891,
+          "rouge_l_f1": 0.14247139831463945,
+          "bertscore_f1": 0.8712146863540013
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7486666666666667,
+        "pass@k": 0.926,
+        "pass^k": 0.522,
+        "consistency_gap": 0.404,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0026666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 655.208,
+        "completion_tokens_per_task": 98.494,
+        "latency_s_per_task": 1.3344925654580013,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260914_012709_t0_single_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20260914_014838_t0_single_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20260914_020955_t0_single_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "df3b22c23dd76c65bee892b74c0f64353549f4cbf3d1cf5b91eb12e81b6b5f07",
+          "fd27171862ec99be8b5d1bdbebd02f46bbdd56a8d07b7edfbf3a585caa0ac12a",
+          "f395c47b1410e9ad3c1baa645159fdb38a28f2e5adb39c9fae659233b1151039"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t0_single_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6468326708730311,
+        "headline_seed_sd": 0.007588302826062162,
+        "secondary": {
+          "alignscore": 0.85610021832531,
+          "rouge_l_f1": 0.18835448167700253,
+          "bertscore_f1": 0.8854383976856868
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.6733333333333333,
+        "pass@k": 0.844,
+        "pass^k": 0.48,
+        "consistency_gap": 0.364,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 565.8746666666667,
+        "completion_tokens_per_task": 47.028666666666666,
+        "latency_s_per_task": 0.7997142656419868,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20260913_180527_t0_single_agent_tier1_xsum_qwen2.5-7b-instruct_seed0",
+          "20260913_181546_t0_single_agent_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20260913_182607_t0_single_agent_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "808eed37443a2deb31242a4ad3bbb23d919bebc433caa63ae43283e64495126a",
+          "4b41e5528eddecc0858b497489c3e2f4210296445defbe62733510baebf23688",
+          "6f7ab44fceca5b5aaad4d799961258730847a846d80dc24f8060b5c2934271c3"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t1_self_refine",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7184044605325908,
+        "headline_seed_sd": 0.005806580677670438,
+        "secondary": {
+          "alignscore": 0.8771041527016786,
+          "rouge_l_f1": 0.18165530571835184,
+          "bertscore_f1": 0.8809093432823817
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7453333333333333,
+        "pass@k": 0.906,
+        "pass^k": 0.538,
+        "consistency_gap": 0.368,
+        "runs_launched": 9,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 6.08,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 3.04,
+        "self_termination_rate": 0.6566666666666666,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 13169.846666666666,
+        "completion_tokens_per_task": 390.754,
+        "latency_s_per_task": 6.196543283004661,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261019_222000_t1_self_refine_tier1_xsum_llama-3.1-8b-instruct_seed0",
+          "20261019_232219_t1_self_refine_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20261020_001623_t1_self_refine_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "855076a6ae4e8ab268ef9833a0769063e95a96d95d9f03106b894c4a0783301f",
+          "40d7ca9f0effc2c097744927bfe31413aa588c7396d11fc5967b31f1f4ac09f9",
+          "4d5f53355358284ad284218f340936e33e0e616114ae5c7e3b26b7077ab32499"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.03900030838449796,
+          "ci_low": 0.021468026728788385,
+          "ci_high": 0.05698910964629611,
+          "verdict": "better",
+          "items_improved": 0.47,
+          "items_hurt": 0.442
+        },
+        "secondary_delta": {
+          "alignscore": 0.0010435491435927258,
+          "rouge_l_f1": -0.014319951080435434,
+          "bertscore_f1": -0.005036523381868996
+        },
+        "pass^k_delta": 0.018000000000000016,
+        "token_multiplier": 23.25888363123026,
+        "latency_multiplier": 7.265999170625076,
+        "extra_tokens_per_task": 12603.618,
+        "gain_per_1k_extra_tokens": 0.003094374042794534
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t1_self_refine",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6775320295843104,
+        "headline_seed_sd": 0.005453118959995138,
+        "secondary": {
+          "alignscore": 0.875719915190246,
+          "rouge_l_f1": 0.14514212367348137,
+          "bertscore_f1": 0.8716624251206717
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.742,
+        "pass@k": 0.934,
+        "pass^k": 0.514,
+        "consistency_gap": 0.42000000000000004,
+        "runs_launched": 12,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 4.0,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 2.0,
+        "self_termination_rate": 0.8686666666666667,
+        "length_cap_rate": 0.0006666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 9653.114,
+        "completion_tokens_per_task": 394.29333333333335,
+        "latency_s_per_task": 5.539700725627338,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261020_011129_t1_self_refine_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20261020_020741_t1_self_refine_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20261020_030140_t1_self_refine_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "7b21bd854b2c24fcecb2e35ef6f354f0a117d1e7e0ac6e44f1b244e9ff6765ec",
+          "44f499e892d2fc1269b62b8f0dfc6d23a7619e46290d3f5a5650221cabbb517b",
+          "278dd9e4390df7b48ec386f82d3bf7df2c920d198558790d934c36de52df6684"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": -0.0053016353056775925,
+          "ci_low": -0.016065029914038582,
+          "ci_high": 0.005207705436660629,
+          "verdict": "no clear difference",
+          "items_improved": 0.462,
+          "items_hurt": 0.456
+        },
+        "secondary_delta": {
+          "alignscore": -0.010577946442645092,
+          "rouge_l_f1": 0.0026707253588419133,
+          "bertscore_f1": 0.00044773876667036916
+        },
+        "pass^k_delta": -0.008000000000000007,
+        "token_multiplier": 14.732900086690028,
+        "latency_multiplier": 4.15116642011872,
+        "extra_tokens_per_task": 8997.905999999999,
+        "gain_per_1k_extra_tokens": -0.0005892076785062651
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t1_self_refine",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6667542637300987,
+        "headline_seed_sd": 0.010229534437271101,
+        "secondary": {
+          "alignscore": 0.8739467073450021,
+          "rouge_l_f1": 0.18858549971918867,
+          "bertscore_f1": 0.8852757689555486
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.6933333333333334,
+        "pass@k": 0.86,
+        "pass^k": 0.504,
+        "consistency_gap": 0.356,
+        "runs_launched": 9,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 2.2293333333333334,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 1.1146666666666667,
+        "self_termination_rate": 0.9926666666666667,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 3357.196,
+        "completion_tokens_per_task": 68.55933333333333,
+        "latency_s_per_task": 1.3190708645620277,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261020_035418_t1_self_refine_tier1_xsum_qwen2.5-7b-instruct_seed0",
+          "20261020_041142_t1_self_refine_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20261020_042733_t1_self_refine_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "838a6560da62bc53c49ab8efae10c07b61641e95ad647dda8ba46186a5cdf162",
+          "a2cc5825ab633eb814e090f3321af39ed35e81c4e208b4b4c7eef98c9c97dce7",
+          "1eae5bbf5dddaf690cfd0c9323a7ee98e089f46355fd55a2900121af7b8f67f3"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.019921592857067787,
+          "ci_low": 0.011502964042779059,
+          "ci_high": 0.028952248539775606,
+          "verdict": "better",
+          "items_improved": 0.112,
+          "items_hurt": 0.04
+        },
+        "secondary_delta": {
+          "alignscore": 0.017846489019692102,
+          "rouge_l_f1": 0.00023101804218614297,
+          "bertscore_f1": -0.00016262873013817014
+        },
+        "pass^k_delta": 0.02400000000000002,
+        "token_multiplier": 5.932755427585849,
+        "latency_multiplier": 1.6494277034099385,
+        "extra_tokens_per_task": 2791.3213333333333,
+        "gain_per_1k_extra_tokens": 0.007136975818286699
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T2",
+        "name": "Critique-Revise + NLI tool",
+        "pattern": "multi-agent critique with a tool-using Critic",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": true,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7645821680345882,
+        "headline_seed_sd": 0.019239358347272417,
+        "secondary": {
+          "alignscore": 0.8942224325410401,
+          "rouge_l_f1": 0.1896319179972138,
+          "bertscore_f1": 0.8823818928400676
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.792,
+        "pass@k": 0.944,
+        "pass^k": 0.596,
+        "consistency_gap": 0.348,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2106.46,
+        "completion_tokens_per_task": 186.346,
+        "latency_s_per_task": 10.64916537870406,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261018_095133_t2_critique_revise_tier1_xsum_llama-3.1-8b-instruct_seed0",
+          "20261018_112730_t2_critique_revise_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20261018_130050_t2_critique_revise_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "f56c9d666955a13ba06255f4b947d03f4f2ab3167f5697c43a4aa0bf3539bb2f",
+          "b273f7e356c1ec35cc97dea440fff4973ceb2f831376d00e24b25704d65da0a6",
+          "69eb04952e71d9de1df0f58e8bfe3a7e4f84490c71bd09efc558658ce2ef11fe"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.0851780158864955,
+          "ci_low": 0.06336538286313105,
+          "ci_high": 0.10773103178390302,
+          "verdict": "better",
+          "items_improved": 0.64,
+          "items_hurt": 0.36
+        },
+        "secondary_delta": {
+          "alignscore": 0.018161828982954153,
+          "rouge_l_f1": -0.006343338801573478,
+          "bertscore_f1": -0.003563973824183053
+        },
+        "pass^k_delta": 0.07599999999999996,
+        "token_multiplier": 3.7201578161002096,
+        "latency_multiplier": 12.487095349069117,
+        "extra_tokens_per_task": 1540.2313333333334,
+        "gain_per_1k_extra_tokens": 0.05530209264224952
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T2",
+        "name": "Critique-Revise + NLI tool",
+        "pattern": "multi-agent critique with a tool-using Critic",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": true,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6821796515415436,
+        "headline_seed_sd": 0.018997269890798144,
+        "secondary": {
+          "alignscore": 0.8796622446269419,
+          "rouge_l_f1": 0.1470984604043182,
+          "bertscore_f1": 0.8709623146851858
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.762,
+        "pass@k": 0.938,
+        "pass^k": 0.528,
+        "consistency_gap": 0.4099999999999999,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0026666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2588.02,
+        "completion_tokens_per_task": 332.25466666666665,
+        "latency_s_per_task": 17.79517668547208,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261018_020441_t2_critique_revise_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20261018_044236_t2_critique_revise_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20261018_071740_t2_critique_revise_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "f052986a160103de21baab87ec6fa60b3de261b869fd0e7c7d70e20ee615522b",
+          "26ac4f0a3b7ba1fc94260de5913ac1d8a17bb4484ab88ae7626a3a320129e075",
+          "a04094a74c936f0138064afdccb49577cc7ec97db90f14fdee2cfef47b6fe83c"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": -0.0006540133484442108,
+          "ci_low": -0.018266413447115323,
+          "ci_high": 0.016424496229685802,
+          "verdict": "no clear difference",
+          "items_improved": 0.488,
+          "items_hurt": 0.512
+        },
+        "secondary_delta": {
+          "alignscore": -0.006635617005949168,
+          "rouge_l_f1": 0.004627062089678752,
+          "bertscore_f1": -0.00025237166881553197
+        },
+        "pass^k_delta": 0.006000000000000005,
+        "token_multiplier": 3.949921246382828,
+        "latency_multiplier": 13.334788927328889,
+        "extra_tokens_per_task": 1932.812,
+        "gain_per_1k_extra_tokens": -0.0003383740107388669
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T2",
+        "name": "Critique-Revise + NLI tool",
+        "pattern": "multi-agent critique with a tool-using Critic",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": true,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6799413867915671,
+        "headline_seed_sd": 0.0014715468353873674,
+        "secondary": {
+          "alignscore": 0.8920267066080512,
+          "rouge_l_f1": 0.18350033043088643,
+          "bertscore_f1": 0.8844717277288437
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.702,
+        "pass@k": 0.858,
+        "pass^k": 0.54,
+        "consistency_gap": 0.31799999999999995,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1931.2253333333333,
+        "completion_tokens_per_task": 93.42,
+        "latency_s_per_task": 9.125935393287346,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261017_220116_t2_critique_revise_tier1_xsum_qwen2.5-7b-instruct_seed0",
+          "20261017_232446_t2_critique_revise_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20261018_004433_t2_critique_revise_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "e970c501b4657ae4f1988335b9976a8090a508445e767c0b45e782c33e92477c",
+          "318b15f07ac948ce95e74cdf0766df88f724e4b5d3c8fc08204179f7382e0461",
+          "662ba1ccaf914f9fdc12c89d3105796b46d0097f84661b212774fe6b42ff4d67"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.033108715918535994,
+          "ci_low": 0.011551820411176118,
+          "ci_high": 0.055043561823867874,
+          "verdict": "better",
+          "items_improved": 0.554,
+          "items_hurt": 0.444
+        },
+        "secondary_delta": {
+          "alignscore": 0.03592648828274114,
+          "rouge_l_f1": -0.004854151246116101,
+          "bertscore_f1": -0.0009666699568430248
+        },
+        "pass^k_delta": 0.06000000000000005,
+        "token_multiplier": 3.4128146161929847,
+        "latency_multiplier": 11.41149506187853,
+        "extra_tokens_per_task": 1365.3506666666667,
+        "gain_per_1k_extra_tokens": 0.024249239940217552
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise_no_nli",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T2-noTool",
+        "name": "Critique-Revise (no tool)",
+        "pattern": "multi-agent critique, tool removed (ablation)",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6833141837498795,
+        "headline_seed_sd": 0.012029075021062584,
+        "secondary": {
+          "alignscore": 0.8611603855238062,
+          "rouge_l_f1": 0.18337700011910096,
+          "bertscore_f1": 0.8800362172524134
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7086666666666667,
+        "pass@k": 0.904,
+        "pass^k": 0.474,
+        "consistency_gap": 0.43000000000000005,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2081.428,
+        "completion_tokens_per_task": 208.98066666666668,
+        "latency_s_per_task": 3.3860985842306013,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261018_215959_t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct_seed0",
+          "20261018_223512_t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20261018_230710_t2_critique_revise_no_nli_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "2333f90870084401a310e5e4596f3dd82afbf4a90610149e1b908d0c2d3c08cb",
+          "cffbeb9081fdd059d60fa5c3aa0556fef4ce31a2d5548fa0bec456c15c270faf",
+          "714b16c45c74084e14b67928739bb3d8aee95c5b5931debac6081df8cde9ff07"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.003910031601786617,
+          "ci_low": -0.019003893460364386,
+          "ci_high": 0.027385932194488125,
+          "verdict": "no clear difference",
+          "items_improved": 0.462,
+          "items_hurt": 0.538
+        },
+        "secondary_delta": {
+          "alignscore": -0.014900218034279655,
+          "rouge_l_f1": -0.01259825667968631,
+          "bertscore_f1": -0.005909649411837248
+        },
+        "pass^k_delta": -0.04600000000000004,
+        "token_multiplier": 3.675949528046973,
+        "latency_multiplier": 3.970502323796289,
+        "extra_tokens_per_task": 1515.1993333333332,
+        "gain_per_1k_extra_tokens": 0.0025805394153552183
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise_no_nli",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T2-noTool",
+        "name": "Critique-Revise (no tool)",
+        "pattern": "multi-agent critique, tool removed (ablation)",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6786311462559343,
+        "headline_seed_sd": 0.02003722465217924,
+        "secondary": {
+          "alignscore": 0.8663176052872634,
+          "rouge_l_f1": 0.14721748884402328,
+          "bertscore_f1": 0.8709188148578009
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7486666666666667,
+        "pass@k": 0.93,
+        "pass^k": 0.524,
+        "consistency_gap": 0.406,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.004,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2369.6086666666665,
+        "completion_tokens_per_task": 278.4866666666667,
+        "latency_s_per_task": 3.8967993457585886,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261018_195744_t2_critique_revise_no_nli_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20261018_204036_t2_critique_revise_no_nli_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20261018_212115_t2_critique_revise_no_nli_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "b24786f3818d7422cbda3ed9d11d9d3e64cc119797f49c6c8fe4bf4c951c98c8",
+          "258b32006e3d1c25d2897e1032fe8c676dae68504a1c976a4ad3db64fd08784d",
+          "513ffae00af7e6335c307f32061c9a8e65d69a2857df1de8ddc46983627bd093"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": -0.004202518634053643,
+          "ci_low": -0.022185380701381242,
+          "ci_high": 0.013827082113790093,
+          "verdict": "no clear difference",
+          "items_improved": 0.48,
+          "items_hurt": 0.52
+        },
+        "secondary_delta": {
+          "alignscore": -0.01998025634562761,
+          "rouge_l_f1": 0.004746090529383823,
+          "bertscore_f1": -0.0002958714962004727
+        },
+        "pass^k_delta": 0.0020000000000000018,
+        "token_multiplier": 3.616574685697773,
+        "latency_multiplier": 2.9200607381587,
+        "extra_tokens_per_task": 1714.4006666666664,
+        "gain_per_1k_extra_tokens": -0.002451304829590774
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise_no_nli",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T2-noTool",
+        "name": "Critique-Revise (no tool)",
+        "pattern": "multi-agent critique, tool removed (ablation)",
+        "roles": [
+          "generator",
+          "critic"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6753233242320519,
+        "headline_seed_sd": 0.0038971037410913743,
+        "secondary": {
+          "alignscore": 0.8903449209103128,
+          "rouge_l_f1": 0.18363891874606286,
+          "bertscore_f1": 0.8845402739842733
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.694,
+        "pass@k": 0.852,
+        "pass^k": 0.532,
+        "consistency_gap": 0.31999999999999995,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": false,
+        "llm_calls_per_task": 3.0,
+        "max_llm_calls": 3.0,
+        "rounds_per_task": 3.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 1865.0626666666667,
+        "completion_tokens_per_task": 92.21733333333333,
+        "latency_s_per_task": 1.7902716787205815,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261018_185951_t2_critique_revise_no_nli_tier1_xsum_qwen2.5-7b-instruct_seed0",
+          "20261018_192055_t2_critique_revise_no_nli_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20261018_193922_t2_critique_revise_no_nli_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "e2edc3bb533660a3f09a0ce4bbdec27eb88efc4c9f001917e96cfcd858026755",
+          "9659066c022239305339171310b3d23658f039c40b9811e609b607e7abc01a9d",
+          "8ff3d2670dd3ff9f90a215bb10a6620860a0e1bc40d72bdecd5db8efe58a831d"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": false,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.02849065335902075,
+          "ci_low": 0.007339495980801682,
+          "ci_high": 0.050306643045740194,
+          "verdict": "better",
+          "items_improved": 0.554,
+          "items_hurt": 0.444
+        },
+        "secondary_delta": {
+          "alignscore": 0.034244702585002784,
+          "rouge_l_f1": -0.004715562930939665,
+          "bertscore_f1": -0.0008981237014135113
+        },
+        "pass^k_delta": 0.052000000000000046,
+        "token_multiplier": 3.29589355475653,
+        "latency_multiplier": 2.238639168557791,
+        "extra_tokens_per_task": 1299.188,
+        "gain_per_1k_extra_tokens": 0.021929584755263094
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t5_rl_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.732940668069447,
+        "headline_seed_sd": 0.004708972770008431,
+        "secondary": {
+          "alignscore": 0.9174170812803011,
+          "rouge_l_f1": 0.19671833285367046,
+          "bertscore_f1": 0.8860719281832378
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.764,
+        "pass@k": 0.888,
+        "pass^k": 0.614,
+        "consistency_gap": 0.274,
+        "runs_launched": 5,
+        "runs_failed": 2,
+        "run_completion_rate": 0.6,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 564.8953333333334,
+        "completion_tokens_per_task": 49.16133333333333,
+        "latency_s_per_task": 0.9481303209353209,
+        "training_gpu_hours": 36.1303,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261020_044314_t5_rl_agent_tier1_xsum_llama-3.1-8b-instruct_seed0",
+          "20261020_112244_t5_rl_agent_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20261020_113822_t5_rl_agent_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "76893143866dd62105dab82921c6cb8611a02eec3f0eccf984f9cf52f556167b",
+          "9073a3e4b89f3f6315dd9fe6f294cfef5180f264641b6e89f30ab85b391e4071",
+          "1e4bc37f5d845baedc6561e6313eac9fa6d22968b4be438adc9dd7446d8c081f"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261011_064822_grpo_xsum_llama-3.1-8b-instruct_seed0"
+        ],
+        "failed_attempts": [
+          "20261020_045933_t5_rl_agent_tier1_xsum_llama-3.1-8b-instruct_seed1",
+          "20261020_050124_t5_rl_agent_tier1_xsum_llama-3.1-8b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.05353651592135429,
+          "ci_low": 0.038234052086512864,
+          "ci_high": 0.0688456998939781,
+          "verdict": "better",
+          "items_improved": 0.648,
+          "items_hurt": 0.336
+        },
+        "secondary_delta": {
+          "alignscore": 0.04135647772221518,
+          "rouge_l_f1": 0.0007430760548831905,
+          "bertscore_f1": 0.00012606151898708617
+        },
+        "pass^k_delta": 0.09399999999999997,
+        "token_multiplier": 0.9976452387315844,
+        "latency_multiplier": 1.1117672887810517,
+        "extra_tokens_per_task": -1.3333333333332575,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t5_rl_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7097548535494665,
+        "headline_seed_sd": 0.009899725369409878,
+        "secondary": {
+          "alignscore": 0.9043435970532397,
+          "rouge_l_f1": 0.14217663794149893,
+          "bertscore_f1": 0.871306652188301
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7806666666666666,
+        "pass@k": 0.938,
+        "pass^k": 0.596,
+        "consistency_gap": 0.34199999999999997,
+        "runs_launched": 6,
+        "runs_failed": 3,
+        "run_completion_rate": 0.5,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0006666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 656.6713333333333,
+        "completion_tokens_per_task": 99.95733333333334,
+        "latency_s_per_task": 1.5637518249725835,
+        "training_gpu_hours": 57.9602,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261020_115056_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20261020_121424_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20261020_123542_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "5802cd63804b860fd0b04a7cac0115aea52637e8ef01b0b0189fe05b2d550432",
+          "9e5f3c6fb56d0a0bb485dd02de12be8b5380f82b744692d3b849c1c031938566",
+          "c79bf24a9723d1bc92b4d27d6e898fde4c550fb59922a88a772edb4b92947560"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261012_185905_grpo_xsum_mistral-7b-instruct-v0.3_seed0"
+        ],
+        "failed_attempts": [
+          "20261020_050303_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed0",
+          "20261020_050703_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed1",
+          "20261020_050837_t5_rl_agent_tier1_xsum_mistral-7b-instruct-v0.3_seed2"
+        ]
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.026921188659478644,
+          "ci_low": 0.012856284061789876,
+          "ci_high": 0.04066889170978017,
+          "verdict": "better",
+          "items_improved": 0.572,
+          "items_hurt": 0.426
+        },
+        "secondary_delta": {
+          "alignscore": 0.018045735420348707,
+          "rouge_l_f1": -0.0002947603731405235,
+          "bertscore_f1": 9.196583429960103e-05
+        },
+        "pass^k_delta": 0.07399999999999995,
+        "token_multiplier": 1.0022333874637266,
+        "latency_multiplier": 1.171795081852629,
+        "extra_tokens_per_task": 1.4633333333333667,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t5_rl_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.6772946622893214,
+        "headline_seed_sd": 0.008543485991619337,
+        "secondary": {
+          "alignscore": 0.8936887718344417,
+          "rouge_l_f1": 0.18607389620207837,
+          "bertscore_f1": 0.8847876017888386
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.7046666666666667,
+        "pass@k": 0.876,
+        "pass^k": 0.5,
+        "consistency_gap": 0.376,
+        "runs_launched": 5,
+        "runs_failed": 2,
+        "run_completion_rate": 0.6,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 566.356,
+        "completion_tokens_per_task": 47.51,
+        "latency_s_per_task": 0.9120510240252625,
+        "training_gpu_hours": 33.0424,
+        "trained_on": [
+          "tier1_xsum"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261020_051011_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed0",
+          "20261020_125719_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20261020_131141_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "be6cb6399ab93ec6ef90b4c2624dad08bc3c32f816d9cbbf32371d541de5237c",
+          "732b91d32bff58ec960ad1b58a5b763fa66fc5518e48ba39fb71eb4e469a52f8",
+          "80fa904188d65a52b05697a6b281050f382073ce9dda92b62f01ff18f1f361f0"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261009_214506_grpo_xsum_qwen2.5-7b-instruct_seed0"
+        ],
+        "failed_attempts": [
+          "20261020_052602_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed1",
+          "20261020_052917_t5_rl_agent_tier1_xsum_qwen2.5-7b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.030461991416290402,
+          "ci_low": 0.016798964241969715,
+          "ci_high": 0.044107998718336844,
+          "verdict": "better",
+          "items_improved": 0.574,
+          "items_hurt": 0.404
+        },
+        "secondary_delta": {
+          "alignscore": 0.037588553509131706,
+          "rouge_l_f1": -0.002280585474924157,
+          "bertscore_f1": -0.0006507958968481331
+        },
+        "pass^k_delta": 0.020000000000000018,
+        "token_multiplier": 1.0008506006041384,
+        "latency_multiplier": 1.140471119760625,
+        "extra_tokens_per_task": 0.4813333333332821,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t0_single_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7679126170139021,
+        "headline_seed_sd": 0.00682346552462113,
+        "secondary": {
+          "alignscore": 0.7862648843290905,
+          "str_em": 0.38835555555555556,
+          "citation_recall": 0.5776730158730158,
+          "citation_precision": 0.6019777777777778
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.8393333333333334,
+        "pass@k": 0.944,
+        "pass^k": 0.708,
+        "consistency_gap": 0.236,
+        "runs_launched": 6,
+        "runs_failed": 3,
+        "run_completion_rate": 0.5,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2814.4473333333335,
+        "completion_tokens_per_task": 67.554,
+        "latency_s_per_task": 1.2209267718284584,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261026_132201_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed0",
+          "20261026_134546_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+          "20261026_140655_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "07b1b1e20f2ce75afea194d3dd02d749709c144d4942ca4c687268237b4c6e3c",
+          "647ebb1e706fb2856f7a15deb8dad8f6aefc5a031d447eb7c5f84447b693ca05",
+          "b1d9cb66ed4515f0dfb89d14b41152b07a70d1314289ed4204c1f76345270d2d"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": [
+          "20261023_153655_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed0",
+          "20261023_163448_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+          "20261023_172833_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t0_single_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7313786574984271,
+        "headline_seed_sd": 0.01579553827690093,
+        "secondary": {
+          "alignscore": 0.7585356500868996,
+          "str_em": 0.38913333333333333,
+          "citation_recall": 0.5191880952380953,
+          "citation_precision": 0.49682730602730607
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.814,
+        "pass@k": 0.938,
+        "pass^k": 0.648,
+        "consistency_gap": 0.2899999999999999,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0026666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 3160.2153333333335,
+        "completion_tokens_per_task": 103.66533333333334,
+        "latency_s_per_task": 1.5818805266393217,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261023_150629_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+          "20261023_160249_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+          "20261023_165920_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "469b53649b2497d9f842c083286f8b871a88c58e16869b72378f9ee102e3400e",
+          "16b268577ac7458ef7d0678b491d916b286a8058bb3c291cf40992cda8b5f369",
+          "3b6e7c0629dcbdf5ad84ced01be4d82c8fb87ce47ed862159842ff5de4f041c3"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t0_single_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T0",
+        "name": "Single agent",
+        "pattern": "single call (baseline)",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "none"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8221195076248761,
+        "headline_seed_sd": 0.003094075655231727,
+        "secondary": {
+          "alignscore": 0.8166909020721601,
+          "str_em": 0.3578666666666666,
+          "citation_recall": 0.6757593073593074,
+          "citation_precision": 0.6171775335775336
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.88,
+        "pass@k": 0.944,
+        "pass^k": 0.812,
+        "consistency_gap": 0.1319999999999999,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2904.656,
+        "completion_tokens_per_task": 57.292,
+        "latency_s_per_task": 1.04130233726934,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261023_144555_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+          "20261023_153956_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+          "20261023_163758_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "afca9ab8e712d5533c73455170102c553edabe9e0f4a30529329782c1c450124",
+          "bd31ce270068028843385e3d9c75a237bc3d96c0d703721e97b01fa791f975d6",
+          "244456185d071bb5d6dc022fb667a6e0ce9ec55404cdddb7ef9e5a0a80220e8a"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": null,
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t1_self_refine",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8031396729330429,
+        "headline_seed_sd": 0.004304669584707474,
+        "secondary": {
+          "alignscore": 0.8181459755709706,
+          "str_em": 0.3759111111111111,
+          "citation_recall": 0.604473202614379,
+          "citation_precision": 0.614388888888889
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.876,
+        "pass@k": 0.956,
+        "pass^k": 0.772,
+        "consistency_gap": 0.18399999999999994,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 9.962666666666667,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 4.981333333333334,
+        "self_termination_rate": 0.007333333333333333,
+        "length_cap_rate": 0.002,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 40416.282666666666,
+        "completion_tokens_per_task": 979.3486666666666,
+        "latency_s_per_task": 15.492028256227165,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261027_015610_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed0",
+          "20261027_041612_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed1",
+          "20261027_064127_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "5f1f1dedc48e6a060b76ceeb2049e794a8e4d19a3ef3007f2a7bd1b7a8ef9a68",
+          "65de25fc236683b05f4d5049ecfab8f36df439c75e87b659f64b0dde7a951ae8",
+          "41eda4289328e657e4675355ebad4d7ad85dd8865124421367151eb7b6c0602d"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.03522705591914067,
+          "ci_low": 0.021216806664888805,
+          "ci_high": 0.049457489308408716,
+          "verdict": "better",
+          "items_improved": 0.572,
+          "items_hurt": 0.422
+        },
+        "secondary_delta": {
+          "alignscore": 0.0318810912418801,
+          "str_em": -0.01244444444444448,
+          "citation_recall": 0.026800186741363197,
+          "citation_precision": 0.01241111111111115
+        },
+        "pass^k_delta": 0.06400000000000006,
+        "token_multiplier": 14.360290984304555,
+        "latency_multiplier": 12.688744823759022,
+        "extra_tokens_per_task": 37601.835333333336,
+        "gain_per_1k_extra_tokens": 0.0009368440557983226
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t1_self_refine",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.7000686506092565,
+        "headline_seed_sd": 0.0135803400074467,
+        "secondary": {
+          "alignscore": 0.7212493713538474,
+          "str_em": 0.3731777777777778,
+          "citation_recall": 0.44896691622217944,
+          "citation_precision": 0.4469803040097158
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.786,
+        "pass@k": 0.934,
+        "pass^k": 0.584,
+        "consistency_gap": 0.3500000000000001,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 6.465333333333334,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 3.232666666666667,
+        "self_termination_rate": 0.6206666666666667,
+        "length_cap_rate": 0.05733333333333333,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 29042.555333333334,
+        "completion_tokens_per_task": 792.3886666666667,
+        "latency_s_per_task": 11.443183520640538,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261026_201800_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+          "20261026_220654_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+          "20261027_000618_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "5b6c22a75d2b08d3f07336d03d7025ad37115f4cd0340d6ec320901d86e37c6c",
+          "33e61a6343ad2d15626f80a30ce4d9ccf35db51385581914c0198d39ca68652e",
+          "f629badeba38245a01dc0d17230c7691b98f2ff7e3db43b1149b4b577a29d871"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": -0.03131000688917082,
+          "ci_low": -0.041603277769325306,
+          "ci_high": -0.02088392201952886,
+          "verdict": "worse",
+          "items_improved": 0.376,
+          "items_hurt": 0.6
+        },
+        "secondary_delta": {
+          "alignscore": -0.037286278733052236,
+          "str_em": -0.015955555555555556,
+          "citation_recall": -0.07022117901591585,
+          "citation_precision": -0.04984700201759029
+        },
+        "pass^k_delta": -0.06400000000000006,
+        "token_multiplier": 9.190055825309793,
+        "latency_multiplier": 7.233911365576633,
+        "extra_tokens_per_task": 25882.34,
+        "gain_per_1k_extra_tokens": -0.0012097054164797627
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t1_self_refine",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T1",
+        "name": "Self-Refine",
+        "pattern": "reflection loop: draft -> self-feedback -> refine",
+        "roles": [
+          "generator",
+          "self_feedback",
+          "refiner"
+        ],
+        "uses_tool": false,
+        "adaptation": "inference-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8261875028373722,
+        "headline_seed_sd": 0.004148878499098502,
+        "secondary": {
+          "alignscore": 0.8177989466393677,
+          "str_em": 0.35250000000000004,
+          "citation_recall": 0.6817481962481963,
+          "citation_precision": 0.6220725071225071
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.88,
+        "pass@k": 0.94,
+        "pass^k": 0.818,
+        "consistency_gap": 0.122,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": true,
+        "adaptive_length": true,
+        "llm_calls_per_task": 3.4186666666666667,
+        "max_llm_calls": 10.0,
+        "rounds_per_task": 1.7093333333333334,
+        "self_termination_rate": 0.846,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 12928.418,
+        "completion_tokens_per_task": 188.634,
+        "latency_s_per_task": 3.272386890755578,
+        "training_gpu_hours": null,
+        "trained_on": null,
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261026_182356_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed0",
+          "20261026_190239_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed1",
+          "20261026_194132_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "7b86bbee4f36c37a500558717123cb94ddc0a1357e27a8f23892671f138ba4b4",
+          "33940ee8b1d2c3e7c0a1ff73b8d7ae21834a198d84c80c04472b5b026075267a",
+          "97365f6f5bff43fc4dfa8c799cd126be33a0fa41e2041fa5169ad1131f6c04c7"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.004067995212496156,
+          "ci_low": -0.003716345363071499,
+          "ci_high": 0.01178449356036623,
+          "verdict": "no clear difference",
+          "items_improved": 0.186,
+          "items_hurt": 0.12
+        },
+        "secondary_delta": {
+          "alignscore": 0.001108044567207589,
+          "str_em": -0.005366666666666575,
+          "citation_recall": 0.005988888888888821,
+          "citation_precision": 0.00489497354497348
+        },
+        "pass^k_delta": 0.005999999999999894,
+        "token_multiplier": 4.450929128957095,
+        "latency_multiplier": 3.142590555723638,
+        "extra_tokens_per_task": 10023.761999999999,
+        "gain_per_1k_extra_tokens": 0.0004058351757051051
+      },
+      "pareto_optimal": false
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t5_rl_agent",
+      "backbone": "llama-3.1-8b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.9083692604353031,
+        "headline_seed_sd": 0.008380247602645875,
+        "secondary": {
+          "alignscore": 0.9087851294452945,
+          "str_em": 0.3700222222222222,
+          "citation_recall": 0.8182666666666667,
+          "citation_precision": 0.8266666666666667
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.9646666666666667,
+        "pass@k": 0.988,
+        "pass^k": 0.934,
+        "consistency_gap": 0.05399999999999994,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2804.768,
+        "completion_tokens_per_task": 57.87466666666667,
+        "latency_s_per_task": 1.2193475261593378,
+        "training_gpu_hours": 39.5485,
+        "trained_on": [
+          "tier2_asqa_train"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261027_205944_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed0",
+          "20261027_212417_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed1",
+          "20261027_214458_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "15d8615a33cf6fadeb10893bc46093cbdd28b1801805e194e60b56f4d9599a01",
+          "cb0abeac99f91b5bd0b75dfb4e44571e1248a974684468d05683cbeb918909b1",
+          "1142a4b09400ba2ef5fce3af6893d247478741a9d91d00beacaed6126dd5fb1e"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261025_190010_grpo_asqa_llama-3.1-8b-instruct_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.14045664342140085,
+          "ci_low": 0.12390763812976124,
+          "ci_high": 0.1575017865631889,
+          "verdict": "better",
+          "items_improved": 0.836,
+          "items_hurt": 0.156
+        },
+        "secondary_delta": {
+          "alignscore": 0.12252024511620407,
+          "str_em": -0.018333333333333368,
+          "citation_recall": 0.24059365079365091,
+          "citation_precision": 0.22468888888888883
+        },
+        "pass^k_delta": 0.2260000000000001,
+        "token_multiplier": 0.9965608404823587,
+        "latency_multiplier": 0.9987065189284403,
+        "extra_tokens_per_task": -9.679333333333489,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t5_rl_agent",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8867118088731237,
+        "headline_seed_sd": 0.008252845835268113,
+        "secondary": {
+          "alignscore": 0.8886281426660716,
+          "str_em": 0.40726666666666667,
+          "citation_recall": 0.8056946608946608,
+          "citation_precision": 0.8011752636252636
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.976,
+        "pass@k": 0.994,
+        "pass^k": 0.944,
+        "consistency_gap": 0.050000000000000044,
+        "runs_launched": 3,
+        "runs_failed": 0,
+        "run_completion_rate": 1.0,
+        "failure_statuses": []
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0006666666666666666,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 3165.7406666666666,
+        "completion_tokens_per_task": 109.19066666666667,
+        "latency_s_per_task": 1.883218107459989,
+        "training_gpu_hours": 49.6285,
+        "trained_on": [
+          "tier2_asqa_train"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261029_131518_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0",
+          "20261029_135144_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1",
+          "20261029_142439_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2"
+        ],
+        "metrics_sha256": [
+          "067cccb3622815ad1d484076aa17c35c6ce34f2495bb1c6f28c2eee80abba49f",
+          "e97b97399f9a9247a6a0d266c53f608e7ad43770116f365f999abb7efde4e31d",
+          "e2e89909994a261eb899c56f29832bcdc80c1d69a7d279df6123680d3c9191dd"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261025_202728_grpo_asqa_mistral-7b-instruct-v0.3_seed0"
+        ],
+        "failed_attempts": []
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.15533315137469658,
+          "ci_low": 0.1402381373934218,
+          "ci_high": 0.17045165007494062,
+          "verdict": "better",
+          "items_improved": 0.862,
+          "items_hurt": 0.138
+        },
+        "secondary_delta": {
+          "alignscore": 0.130092492579172,
+          "str_em": 0.018133333333333335,
+          "citation_recall": 0.2865065656565655,
+          "citation_precision": 0.3043479575979575
+        },
+        "pass^k_delta": 0.29599999999999993,
+        "token_multiplier": 1.0017484040644486,
+        "latency_multiplier": 1.1904932614986126,
+        "extra_tokens_per_task": 5.5253333333330374,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t5_rl_agent",
+      "backbone": "qwen2.5-7b-instruct",
+      "agent": {
+        "code": "T5",
+        "name": "RL-trained agent (GRPO)",
+        "pattern": "single call by a policy trained with a judge-based reward",
+        "roles": [
+          "generator"
+        ],
+        "uses_tool": false,
+        "adaptation": "training-time"
+      },
+      "n_seeds": 3,
+      "n_items": 500,
+      "outcome": {
+        "headline_metric": "minicheck",
+        "headline": 0.8647478184482457,
+        "headline_seed_sd": 0.0033813539073322746,
+        "secondary": {
+          "alignscore": 0.8568832430013766,
+          "str_em": 0.35825555555555555,
+          "citation_recall": 0.7858860269360269,
+          "citation_precision": 0.7363787638287639
+        }
+      },
+      "reliability": {
+        "pass_threshold": 0.5,
+        "k": 3,
+        "pass@1": 0.924,
+        "pass@k": 0.97,
+        "pass^k": 0.874,
+        "consistency_gap": 0.09599999999999997,
+        "runs_launched": 6,
+        "runs_failed": 3,
+        "run_completion_rate": 0.5,
+        "failure_statuses": [
+          "failed"
+        ]
+      },
+      "trajectory": {
+        "multi_step": false,
+        "adaptive_length": false,
+        "llm_calls_per_task": 1.0,
+        "max_llm_calls": 1.0,
+        "rounds_per_task": 1.0,
+        "self_termination_rate": null,
+        "length_cap_rate": 0.0,
+        "blank_output_rate": 0.0
+      },
+      "efficiency": {
+        "tokens_per_task": 2901.2373333333335,
+        "completion_tokens_per_task": 53.873333333333335,
+        "latency_s_per_task": 1.1157507760968293,
+        "training_gpu_hours": 35.1205,
+        "trained_on": [
+          "tier2_asqa_train"
+        ],
+        "transfer": false
+      },
+      "provenance": {
+        "runs": [
+          "20261026_160800_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+          "20261026_163028_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+          "20261026_165035_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed2"
+        ],
+        "metrics_sha256": [
+          "64cd1e5b5e55dcf2d97a055de288182c489be4553d32dc95edccd80442513143",
+          "0d7762a83e7c14c0abda4b901d7d64a1a8b048ff996b81b273705df47b3d65f9",
+          "1cf7047416a99c92bd975d996218527d284454f6769fe7266e5b8863805f6eff"
+        ],
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "all_clean_tree": true,
+        "adapters": [
+          "20261024_213959_grpo_asqa_qwen2.5-7b-instruct_seed0"
+        ],
+        "failed_attempts": [
+          "20261026_160404_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed0",
+          "20261026_160409_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed1",
+          "20261026_160414_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed2"
+        ]
+      },
+      "value_over_baseline": {
+        "baseline": "t0_single_agent",
+        "headline": {
+          "metric": "minicheck",
+          "n_items": 500,
+          "gain": 0.042628310823369674,
+          "ci_low": 0.031358020793475924,
+          "ci_high": 0.05403871531558013,
+          "verdict": "better",
+          "items_improved": 0.638,
+          "items_hurt": 0.29
+        },
+        "secondary_delta": {
+          "alignscore": 0.04019234092921653,
+          "str_em": 0.0003888888888889386,
+          "citation_recall": 0.11012671957671949,
+          "citation_precision": 0.1192012302512303
+        },
+        "pass^k_delta": 0.061999999999999944,
+        "token_multiplier": 0.9988230390563748,
+        "latency_multiplier": 1.071495507272863,
+        "extra_tokens_per_task": -3.418666666666468,
+        "gain_per_1k_extra_tokens": null
+      },
+      "pareto_optimal": true
+    }
+  ],
+  "architectures": [
+    {
+      "task": "tier1_cnndm",
+      "topology": "t0_single_agent",
+      "code": "T0",
+      "name": "Single agent",
+      "backbones": 3,
+      "headline": 0.7802349881611068,
+      "pass^k": 0.8186666666666667,
+      "run_completion_rate": 0.8333333333333334,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 1042.5875555555556,
+      "latency_s_per_task": 1.8856326961068979,
+      "mean_gain": null,
+      "mean_token_multiplier": null,
+      "backbones_better": 0,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_cnndm",
+      "topology": "t5_rl_agent",
+      "code": "T5",
+      "name": "RL-trained agent (GRPO)",
+      "backbones": 3,
+      "headline": 0.8033830221891011,
+      "pass^k": 0.8586666666666667,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 1042.267111111111,
+      "latency_s_per_task": 2.1506085561160053,
+      "mean_gain": 0.023148034027994212,
+      "mean_token_multiplier": 0.9997425489209096,
+      "backbones_better": 3,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t0_single_agent",
+      "code": "T0",
+      "name": "Single agent",
+      "backbones": 3,
+      "headline": 0.603409523817091,
+      "pass^k": 0.49,
+      "run_completion_rate": 0.8666666666666667,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 280.0091111111111,
+      "latency_s_per_task": 1.1918985067804473,
+      "mean_gain": null,
+      "mean_token_multiplier": null,
+      "backbones_better": 0,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_samsum",
+      "topology": "t5_rl_agent",
+      "code": "T5",
+      "name": "RL-trained agent (GRPO)",
+      "backbones": 3,
+      "headline": 0.6175757321067933,
+      "pass^k": 0.5293333333333333,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 279.94044444444444,
+      "latency_s_per_task": 1.369765858474624,
+      "mean_gain": 0.014166208289702317,
+      "mean_token_multiplier": 0.9998990465967709,
+      "backbones_better": 2,
+      "backbones_no_difference": 1,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t0_single_agent",
+      "code": "T0",
+      "name": "Single agent",
+      "backbones": 3,
+      "headline": 0.6696901626370373,
+      "pass^k": 0.5073333333333333,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 595.7704444444444,
+      "latency_s_per_task": 0.9956734941315456,
+      "mean_gain": null,
+      "mean_token_multiplier": null,
+      "backbones_better": 0,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t1_self_refine",
+      "code": "T1",
+      "name": "Self-Refine",
+      "backbones": 3,
+      "headline": 0.6875635846156666,
+      "pass^k": 0.5186666666666667,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 4.103111111111111,
+      "tokens_per_task": 8726.718888888889,
+      "latency_s_per_task": 4.351771624398009,
+      "mean_gain": 0.017873421978629383,
+      "mean_token_multiplier": 14.641513048502043,
+      "backbones_better": 2,
+      "backbones_no_difference": 1,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise",
+      "code": "T2",
+      "name": "Critique-Revise + NLI tool",
+      "backbones": 3,
+      "headline": 0.708901068789233,
+      "pass^k": 0.5546666666666668,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 3.0,
+      "tokens_per_task": 2208.5684444444446,
+      "latency_s_per_task": 12.523425819154497,
+      "mean_gain": 0.03921090615219576,
+      "mean_token_multiplier": 3.6942978928920076,
+      "backbones_better": 2,
+      "backbones_no_difference": 1,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t2_critique_revise_no_nli",
+      "code": "T2-noTool",
+      "name": "Critique-Revise (no tool)",
+      "backbones": 3,
+      "headline": 0.679089551412622,
+      "pass^k": 0.51,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 3.0,
+      "tokens_per_task": 2105.3664444444444,
+      "latency_s_per_task": 3.0243898695699234,
+      "mean_gain": 0.009399388775584574,
+      "mean_token_multiplier": 3.5294725895004255,
+      "backbones_better": 1,
+      "backbones_no_difference": 2,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier1_xsum",
+      "topology": "t5_rl_agent",
+      "code": "T5",
+      "name": "RL-trained agent (GRPO)",
+      "backbones": 3,
+      "headline": 0.7066633946360783,
+      "pass^k": 0.57,
+      "run_completion_rate": 0.5666666666666668,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 595.9742222222222,
+      "latency_s_per_task": 1.141311056644389,
+      "mean_gain": 0.03697323199904111,
+      "mean_token_multiplier": 1.0002430755998164,
+      "backbones_better": 3,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t0_single_agent",
+      "code": "T0",
+      "name": "Single agent",
+      "backbones": 3,
+      "headline": 0.7738035940457352,
+      "pass^k": 0.7226666666666667,
+      "run_completion_rate": 0.8333333333333334,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 2959.7728888888887,
+      "latency_s_per_task": 1.28136987857904,
+      "mean_gain": null,
+      "mean_token_multiplier": null,
+      "backbones_better": 0,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t1_self_refine",
+      "code": "T1",
+      "name": "Self-Refine",
+      "backbones": 3,
+      "headline": 0.7764652754598905,
+      "pass^k": 0.7246666666666667,
+      "run_completion_rate": 1.0,
+      "llm_calls_per_task": 6.615555555555556,
+      "tokens_per_task": 27462.41866666667,
+      "latency_s_per_task": 10.069199555874427,
+      "mean_gain": 0.002661681414155336,
+      "mean_token_multiplier": 9.33375864619048,
+      "backbones_better": 1,
+      "backbones_no_difference": 1,
+      "backbones_worse": 1
+    },
+    {
+      "task": "tier2_asqa",
+      "topology": "t5_rl_agent",
+      "code": "T5",
+      "name": "RL-trained agent (GRPO)",
+      "backbones": 3,
+      "headline": 0.8866096292522241,
+      "pass^k": 0.9173333333333334,
+      "run_completion_rate": 0.8333333333333334,
+      "llm_calls_per_task": 1.0,
+      "tokens_per_task": 2957.2486666666664,
+      "latency_s_per_task": 1.4061054699053852,
+      "mean_gain": 0.11280603520648903,
+      "mean_token_multiplier": 0.9990440945343941,
+      "backbones_better": 3,
+      "backbones_no_difference": 0,
+      "backbones_worse": 0
+    }
+  ],
+  "tool_value": [
+    {
+      "task": "tier1_xsum",
+      "backbone": "llama-3.1-8b-instruct",
+      "metric": "minicheck",
+      "n_items": 500,
+      "gain": 0.08126798428470891,
+      "ci_low": 0.06365495368156893,
+      "ci_high": 0.09899197128278514,
+      "verdict": "better",
+      "items_improved": 0.654,
+      "items_hurt": 0.344,
+      "latency_multiplier": 3.144966135451072,
+      "token_multiplier": 1.0120263588267286
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "metric": "minicheck",
+      "n_items": 500,
+      "gain": 0.0035485052856094336,
+      "ci_low": -0.012302504215118118,
+      "ci_high": 0.019075083811163483,
+      "verdict": "no clear difference",
+      "items_improved": 0.53,
+      "items_hurt": 0.47,
+      "latency_multiplier": 4.5666135478186645,
+      "token_multiplier": 1.0921719001140273
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "qwen2.5-7b-instruct",
+      "metric": "minicheck",
+      "n_items": 500,
+      "gain": 0.004618062559515238,
+      "ci_low": 0.0010348109500172243,
+      "ci_high": 0.008726795115601269,
+      "verdict": "better",
+      "items_improved": 0.04,
+      "items_hurt": 0.02,
+      "latency_multiplier": 5.097514249797662,
+      "token_multiplier": 1.0354747686762267
+    }
+  ],
+  "break_even": [
+    {
+      "task": "tier1_xsum",
+      "backbone": "llama-3.1-8b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 36.1303,
+      "transfer": false,
+      "loop_extra_s_per_request": 5.24841296206934,
+      "break_even_requests": 24782.554448367275,
+      "rl_headline": 0.732940668069447,
+      "loop_headline": 0.7184044605325908,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "llama-3.1-8b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise",
+      "training_gpu_hours": 36.1303,
+      "transfer": false,
+      "loop_extra_s_per_request": 9.701035057768738,
+      "break_even_requests": 13407.752804257589,
+      "rl_headline": 0.732940668069447,
+      "loop_headline": 0.7645821680345882,
+      "rl_matches_quality": false
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "llama-3.1-8b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise_no_nli",
+      "training_gpu_hours": 36.1303,
+      "transfer": false,
+      "loop_extra_s_per_request": 2.4379682632952804,
+      "break_even_requests": 53351.42460968384,
+      "rl_headline": 0.732940668069447,
+      "loop_headline": 0.6833141837498795,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 57.9602,
+      "transfer": false,
+      "loop_extra_s_per_request": 3.975948900654754,
+      "break_even_requests": 52479.72879270121,
+      "rl_headline": 0.7097548535494665,
+      "loop_headline": 0.6775320295843104,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise",
+      "training_gpu_hours": 57.9602,
+      "transfer": false,
+      "loop_extra_s_per_request": 16.231424860499494,
+      "break_even_requests": 12855.108026146445,
+      "rl_headline": 0.7097548535494665,
+      "loop_headline": 0.6821796515415436,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise_no_nli",
+      "training_gpu_hours": 57.9602,
+      "transfer": false,
+      "loop_extra_s_per_request": 2.333047520786005,
+      "break_even_requests": 89435.26359450382,
+      "rl_headline": 0.7097548535494665,
+      "loop_headline": 0.6786311462559343,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "qwen2.5-7b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 33.0424,
+      "transfer": false,
+      "loop_extra_s_per_request": 0.4070198405367652,
+      "break_even_requests": 292252.68194083346,
+      "rl_headline": 0.6772946622893214,
+      "loop_headline": 0.6667542637300987,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "qwen2.5-7b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise",
+      "training_gpu_hours": 33.0424,
+      "transfer": false,
+      "loop_extra_s_per_request": 8.213884369262084,
+      "break_even_requests": 14481.898533310668,
+      "rl_headline": 0.6772946622893214,
+      "loop_headline": 0.6799413867915671,
+      "rl_matches_quality": false
+    },
+    {
+      "task": "tier1_xsum",
+      "backbone": "qwen2.5-7b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t2_critique_revise_no_nli",
+      "training_gpu_hours": 33.0424,
+      "transfer": false,
+      "loop_extra_s_per_request": 0.878220654695319,
+      "break_even_requests": 135447.3267783348,
+      "rl_headline": 0.6772946622893214,
+      "loop_headline": 0.6753233242320519,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier2_asqa",
+      "backbone": "llama-3.1-8b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 39.5485,
+      "transfer": false,
+      "loop_extra_s_per_request": 14.272680730067828,
+      "break_even_requests": 9975.322974895927,
+      "rl_headline": 0.9083692604353031,
+      "loop_headline": 0.8031396729330429,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier2_asqa",
+      "backbone": "mistral-7b-instruct-v0.3",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 49.6285,
+      "transfer": false,
+      "loop_extra_s_per_request": 9.55996541318055,
+      "break_even_requests": 18688.624098333417,
+      "rl_headline": 0.8867118088731237,
+      "loop_headline": 0.7000686506092565,
+      "rl_matches_quality": true
+    },
+    {
+      "task": "tier2_asqa",
+      "backbone": "qwen2.5-7b-instruct",
+      "rl_agent": "t5_rl_agent",
+      "inference_loop": "t1_self_refine",
+      "training_gpu_hours": 35.1205,
+      "transfer": false,
+      "loop_extra_s_per_request": 2.156636114658749,
+      "break_even_requests": 58625.4672916882,
+      "rl_headline": 0.8647478184482457,
+      "loop_headline": 0.8261875028373722,
+      "rl_matches_quality": true
+    }
+  ],
+  "counts": {
+    "agent_eval_attempts": 147,
+    "agent_eval_scored_runs": 108,
+    "training_runs": 57,
+    "cells": 36
+  }
+}
