@@ -1,0 +1,56 @@
+# ASQA diagnostics (D-154): T1 and T5 against T0 on the 500 ASQA dev questions, read from results/.
+#
+#   python3 src/run_analysis.py --config src/configs/analysis/asqa_diagnostics.yaml \
+#       --set run.owner=sameer
+#
+# CPU only; generates nothing. Every run below must be in results/ with status success and a clean
+# tree, so this runs only once the T5 ASQA runs are merged into the branch.
+defaults: [../base]
+name: asqa_diagnostics
+
+analysis:
+  # Every run must have answered this task.
+  task: tier2_asqa
+  # The topology the others are compared with, question by question, seeds averaged (D-115).
+  baseline: t0_single_agent
+  # Paired gain over T0 on the headline, the second primary and the ASQA metrics (D-115, D-120).
+  metrics: [minicheck, alignscore, citation_recall, citation_precision, str_em]
+  # Also reported with answer length held fixed: exact-match recall rises with length (D-119).
+  length_metrics: [str_em]
+  # D-115's interval: 10,000 resamples, seed 123, 95%.
+  bootstrap:
+    n_resamples: 10000
+    seed: 123
+    ci_level: 0.95
+  # 3 backbones x seeds 0-2 for each topology.
+  runs:
+    # T0 (D-130)
+    - 20261023_144555_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed0
+    - 20261023_153956_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed1
+    - 20261023_163758_t0_single_agent_tier2_asqa_qwen2.5-7b-instruct_seed2
+    - 20261023_150629_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0
+    - 20261023_160249_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1
+    - 20261023_165920_t0_single_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2
+    - 20261026_132201_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed0
+    - 20261026_134546_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed1
+    - 20261026_140655_t0_single_agent_tier2_asqa_llama-3.1-8b-instruct_seed2
+    # T1 (D-153)
+    - 20261026_182356_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed0
+    - 20261026_190239_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed1
+    - 20261026_194132_t1_self_refine_tier2_asqa_qwen2.5-7b-instruct_seed2
+    - 20261026_201800_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed0
+    - 20261026_220654_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed1
+    - 20261027_000618_t1_self_refine_tier2_asqa_mistral-7b-instruct-v0.3_seed2
+    - 20261027_015610_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed0
+    - 20261027_041612_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed1
+    - 20261027_064127_t1_self_refine_tier2_asqa_llama-3.1-8b-instruct_seed2
+    # T5 (D-141, D-142)
+    - 20261026_160800_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed0
+    - 20261026_163028_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed1
+    - 20261026_165035_t5_rl_agent_tier2_asqa_qwen2.5-7b-instruct_seed2
+    - 20261029_131518_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed0
+    - 20261029_135144_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed1
+    - 20261029_142439_t5_rl_agent_tier2_asqa_mistral-7b-instruct-v0.3_seed2
+    - 20261027_205944_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed0
+    - 20261027_212417_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed1
+    - 20261027_214458_t5_rl_agent_tier2_asqa_llama-3.1-8b-instruct_seed2
