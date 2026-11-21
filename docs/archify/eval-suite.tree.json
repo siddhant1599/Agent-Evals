@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "diagram_type": "tree",
+  "meta": {
+    "title": "The evaluation suite",
+    "output": "eval-suite.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/siddhant1599/Agent-Evals.git",
+      "revision": "0a814df9f668bd6fb22c9f7e081e5e2adeae544e"
+    }
+  },
+  "layout": {
+    "direction": "right",
+    "gapY": 24,
+    "gapX": 34,
+    "nodeW": 124,
+    "nodeMaxW": 216
+  },
+  "nodes": [
+    {
+      "id": "suite",
+      "label": "Evaluation suite",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 11,
+          "end_line": 22
+        }
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Answer quality",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 15,
+          "end_line": 16
+        }
+      ],
+      "parent": "suite"
+    },
+    {
+      "id": "outcome",
+      "label": "Outcome",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 15,
+          "end_line": 15
+        }
+      ],
+      "parent": "output"
+    },
+    {
+      "id": "grounding",
+      "label": "Grounding & citation",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 16,
+          "end_line": 16
+        }
+      ],
+      "parent": "output"
+    },
+    {
+      "id": "execution",
+      "label": "Run behavior",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 17,
+          "end_line": 18
+        }
+      ],
+      "parent": "suite"
+    },
+    {
+      "id": "reliability",
+      "label": "Reliability",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 17,
+          "end_line": 17
+        }
+      ],
+      "parent": "execution"
+    },
+    {
+      "id": "trajectory",
+      "label": "Trajectory",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 18,
+          "end_line": 18
+        }
+      ],
+      "parent": "execution"
+    },
+    {
+      "id": "value",
+      "label": "Cost and benefit",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 19,
+          "end_line": 20
+        }
+      ],
+      "parent": "suite"
+    },
+    {
+      "id": "efficiency",
+      "label": "Efficiency",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 19,
+          "end_line": 19
+        }
+      ],
+      "parent": "value"
+    },
+    {
+      "id": "comparative",
+      "label": "Comparative",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 20,
+          "end_line": 20
+        }
+      ],
+      "parent": "value"
+    },
+    {
+      "id": "validation",
+      "label": "Attribution and trust",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 21,
+          "end_line": 22
+        }
+      ],
+      "parent": "suite"
+    },
+    {
+      "id": "ablation",
+      "label": "Ablation",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 21,
+          "end_line": 21
+        }
+      ],
+      "parent": "validation"
+    },
+    {
+      "id": "integrity",
+      "label": "Integrity",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 22,
+          "end_line": 22
+        },
+        {
+          "path": "README.md",
+          "line": 59,
+          "end_line": 64
+        }
+      ],
+      "parent": "validation"
+    }
+  ],
+  "cards": [
+    {
+      "title": "Outcome",
+      "dot": "slate",
+      "items": [
+        "Is the answer faithful to its evidence?",
+        "MiniCheck (headline), AlignScore, SummaC and FactCC score faithfulness.",
+        "ROUGE-L and BERTScore measure summary quality."
+      ]
+    },
+    {
+      "title": "Grounding & citation",
+      "dot": "slate",
+      "items": [
+        "Do the cited sources support the claims?",
+        "On ASQA, ALCE citation recall and precision, plus exact-match answer recall."
+      ]
+    },
+    {
+      "title": "Reliability",
+      "dot": "slate",
+      "items": [
+        "How consistently does the agent succeed?",
+        "pass@1, pass@k, pass^k, seed-to-seed standard deviation and run-completion rate."
+      ]
+    },
+    {
+      "title": "Trajectory",
+      "dot": "slate",
+      "items": [
+        "How did the agent produce the answer?",
+        "Per-call traces, LLM calls and rounds per task, self-termination, completion-cap and blank-output rates."
+      ]
+    },
+    {
+      "title": "Efficiency",
+      "dot": "slate",
+      "items": [
+        "What did the answer cost?",
+        "Tokens and seconds per task, plus GPU-hours spent training."
+      ]
+    },
+    {
+      "title": "Comparative",
+      "dot": "slate",
+      "items": [
+        "Did the added agent steps pay off?",
+        "Paired gain over baseline with a 95% CI, token multiplier, gain per 1k extra tokens, Pareto frontier and break-even point."
+      ]
+    },
+    {
+      "title": "Ablation",
+      "dot": "slate",
+      "items": [
+        "Which component accounts for the gain?",
+        "Compare T2 with T2-noTool to isolate the contribution of the critic’s tool."
+      ]
+    },
+    {
+      "title": "Integrity",
+      "dot": "slate",
+      "items": [
+        "Can we trust the evaluation?",
+        "Validate judges against human labels, check judge agreement and worked-example leaks, and test for reward exploitation on held-out data (in progress)."
+      ]
+    }
+  ]
+}

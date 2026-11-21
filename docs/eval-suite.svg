@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" width="960" height="853" viewBox="0 0 960 853">
+  <title id="title">The evaluation suite</title>
+  <desc id="desc">Outcome. Is the answer faithful to its evidence? MiniCheck (headline), AlignScore, SummaC and FactCC score faithfulness. ROUGE-L and BERTScore measure summary quality. Grounding &amp; citation. Do the cited sources support the claims? On ASQA, ALCE citation recall and precision, plus exact-match answer recall. Reliability. How consistently does the agent succeed? pass@1, pass@k, pass^k, seed-to-seed standard deviation and run-completion rate. Trajectory. How did the agent produce the answer? Per-call traces, LLM calls and rounds per task, self-termination, completion-cap and blank-output rates. Efficiency. What did the answer cost? Tokens and seconds per task, plus GPU-hours spent training. Comparative. Did the added agent steps pay off? Paired gain over baseline with a 95% CI, token multiplier, gain per 1k extra tokens, Pareto frontier and break-even point. Ablation. Which component accounts for the gain? Compare T2 with T2-noTool to isolate the contribution of the critic’s tool. Integrity. Can we trust the evaluation? Validate judges against human labels, check judge agreement and worked-example leaks, and test for reward exploitation on held-out data (in progress).</desc>
+  <metadata>Archify tree. Source revision 0a814df9f668bd6fb22c9f7e081e5e2adeae544e. Layout adapted for GitHub README images.</metadata>
+  <rect x="0" y="0" width="100%" height="100%" rx="0" fill="#000000" stroke="none" />
+  <g id="suite">
+    <rect x="16" y="12" width="190" height="44" rx="9" fill="#181818" stroke="#686868" />
+    <text x="35" y="42" fill="#ffffff" font-size="22" text-anchor="start" font-weight="bold">Evaluation suite</text>
+  </g>
+  <g id="output">
+    <path d="M 32 56 V 83 H 49" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="suite" data-to="output" />
+    <text x="60" y="89" fill="#ffffff" font-size="20" text-anchor="start" font-weight="bold">Answer quality</text>
+    <path d="M 219 83 H 274.5 V 107" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="output" data-to="outcome" />
+    <path d="M 219 83 H 724.5 V 107" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="output" data-to="grounding" />
+    <g id="outcome">
+      <rect x="58" y="107" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="74" y="137" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Outcome</text>
+      <text x="74" y="163" fill="#eaeaea" font-size="17" text-anchor="start">Is the answer faithful to its evidence?</text>
+      <text x="74" y="188" fill="#bdbdbd" font-size="16" text-anchor="start">MiniCheck (headline), AlignScore, SummaC and</text>
+      <text x="74" y="208" fill="#bdbdbd" font-size="16" text-anchor="start">FactCC score faithfulness. ROUGE-L and BERTScore</text>
+      <text x="74" y="228" fill="#bdbdbd" font-size="16" text-anchor="start">measure summary quality.</text>
+    </g>
+    <g id="grounding">
+      <rect x="508" y="107" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="524" y="137" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Grounding &amp; citation</text>
+      <text x="524" y="163" fill="#eaeaea" font-size="17" text-anchor="start">Do the cited sources support the claims?</text>
+      <text x="524" y="188" fill="#bdbdbd" font-size="16" text-anchor="start">On ASQA, ALCE citation recall and precision, plus</text>
+      <text x="524" y="208" fill="#bdbdbd" font-size="16" text-anchor="start">exact-match answer recall.</text>
+    </g>
+  </g>
+  <g id="execution">
+    <path d="M 32 83 V 283 H 49" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="suite" data-to="execution" />
+    <text x="60" y="289" fill="#ffffff" font-size="20" text-anchor="start" font-weight="bold">Run behavior</text>
+    <path d="M 203 283 H 274.5 V 307" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="execution" data-to="reliability" />
+    <path d="M 203 283 H 724.5 V 307" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="execution" data-to="trajectory" />
+    <g id="reliability">
+      <rect x="58" y="307" width="433" height="127" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="74" y="337" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Reliability</text>
+      <text x="74" y="363" fill="#eaeaea" font-size="17" text-anchor="start">How consistently does the agent succeed?</text>
+      <text x="74" y="388" fill="#bdbdbd" font-size="16" text-anchor="start">pass@1, pass@k, pass^k, seed-to-seed standard</text>
+      <text x="74" y="408" fill="#bdbdbd" font-size="16" text-anchor="start">deviation and run-completion rate.</text>
+    </g>
+    <g id="trajectory">
+      <rect x="508" y="307" width="433" height="127" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="524" y="337" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Trajectory</text>
+      <text x="524" y="363" fill="#eaeaea" font-size="17" text-anchor="start">How did the agent produce the answer?</text>
+      <text x="524" y="388" fill="#bdbdbd" font-size="16" text-anchor="start">Per-call traces, LLM calls and rounds per task,</text>
+      <text x="524" y="408" fill="#bdbdbd" font-size="16" text-anchor="start">self-termination, completion-cap and blank-output rates.</text>
+    </g>
+  </g>
+  <g id="value">
+    <path d="M 32 283 V 463 H 49" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="suite" data-to="value" />
+    <text x="60" y="469" fill="#ffffff" font-size="20" text-anchor="start" font-weight="bold">Cost and benefit</text>
+    <path d="M 233 463 H 274.5 V 487" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="value" data-to="efficiency" />
+    <path d="M 233 463 H 724.5 V 487" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="value" data-to="comparative" />
+    <g id="efficiency">
+      <rect x="58" y="487" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="74" y="517" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Efficiency</text>
+      <text x="74" y="543" fill="#eaeaea" font-size="17" text-anchor="start">What did the answer cost?</text>
+      <text x="74" y="568" fill="#bdbdbd" font-size="16" text-anchor="start">Tokens and seconds per task, plus GPU-hours spent</text>
+      <text x="74" y="588" fill="#bdbdbd" font-size="16" text-anchor="start">training.</text>
+    </g>
+    <g id="comparative">
+      <rect x="508" y="487" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="524" y="517" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Comparative</text>
+      <text x="524" y="543" fill="#eaeaea" font-size="17" text-anchor="start">Did the added agent steps pay off?</text>
+      <text x="524" y="568" fill="#bdbdbd" font-size="16" text-anchor="start">Paired gain over baseline with a 95% CI, token</text>
+      <text x="524" y="588" fill="#bdbdbd" font-size="16" text-anchor="start">multiplier, gain per 1k extra tokens, Pareto frontier and</text>
+      <text x="524" y="608" fill="#bdbdbd" font-size="16" text-anchor="start">break-even point.</text>
+    </g>
+  </g>
+  <g id="validation">
+    <path d="M 32 463 V 663 H 49" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="suite" data-to="validation" />
+    <text x="60" y="669" fill="#ffffff" font-size="20" text-anchor="start" font-weight="bold">Attribution and trust</text>
+    <path d="M 271 663 H 274.5 V 687" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="validation" data-to="ablation" />
+    <path d="M 271 663 H 724.5 V 687" fill="none" stroke="#727272" stroke-width="1.4" stroke-linejoin="round" data-from="validation" data-to="integrity" />
+    <g id="ablation">
+      <rect x="58" y="687" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="74" y="717" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Ablation</text>
+      <text x="74" y="743" fill="#eaeaea" font-size="17" text-anchor="start">Which component accounts for the gain?</text>
+      <text x="74" y="768" fill="#bdbdbd" font-size="16" text-anchor="start">Compare T2 with T2-noTool to isolate the contribution of</text>
+      <text x="74" y="788" fill="#bdbdbd" font-size="16" text-anchor="start">the critic’s tool.</text>
+    </g>
+    <g id="integrity">
+      <rect x="508" y="687" width="433" height="147" rx="9" fill="#0c0c0c" stroke="#4a4a4a" />
+      <text x="524" y="717" fill="#ffffff" font-size="21" text-anchor="start" font-weight="bold">Integrity</text>
+      <text x="524" y="743" fill="#eaeaea" font-size="17" text-anchor="start">Can we trust the evaluation?</text>
+      <text x="524" y="768" fill="#bdbdbd" font-size="16" text-anchor="start">Validate judges against human labels, check judge</text>
+      <text x="524" y="788" fill="#bdbdbd" font-size="16" text-anchor="start">agreement and worked-example leaks, and test for</text>
+      <text x="524" y="808" fill="#bdbdbd" font-size="16" text-anchor="start">reward exploitation on held-out data (in progress).</text>
+    </g>
+  </g>
+</svg>

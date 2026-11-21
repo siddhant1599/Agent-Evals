@@ -10,16 +10,7 @@ Most agent benchmarks report one number: did the final answer look right? Agent-
 
 ## The eval suite
 
-| # | Eval | Question it answers | What it measures |
-|---|---|---|---|
-| 1 | **Outcome** | Is the final output faithful to its evidence? | MiniCheck (headline), AlignScore, SummaC, FactCC; ROUGE-L and BERTScore for quality |
-| 2 | **Grounding & citation** | Does the agent cite sources that actually support what it says? | citation recall and precision (ALCE), exact-match answer recall, on ASQA |
-| 3 | **Reliability** | Does the agent succeed *every* time, or only sometimes? | pass@1, pass@k, **pass^k**, seed-to-seed SD, run-completion rate |
-| 4 | **Trajectory** | What did the agent do to produce the answer? | LLM calls and rounds per task, self-termination rate, completion-cap rate, blank-output rate, per-call trace |
-| 5 | **Efficiency** | What did the answer cost? | tokens and seconds per task, training GPU-hours |
-| 6 | **Comparative** | Did the extra agent machinery pay off? | paired gain over baseline with 95% CI, token multiplier, gain per 1k extra tokens, Pareto frontier, break-even |
-| 7 | **Ablation** | Which component is responsible for the gain? | the same agent with one component removed (T2 vs T2-noTool isolates the tool) |
-| 8 | **Integrity** | Can the eval itself be trusted? | judge validation against human labels, worked-example leak checks, judge agreement, reward-exploitation check on held-out data |
+![Eight evals grouped by the question they answer. Outcome and grounding assess answer quality. Reliability and trajectory describe run behavior. Efficiency and comparative evals measure cost and benefit. Ablation and integrity test attribution and trust. Each branch lists its metrics.](docs/eval-suite.svg)
 
 ### 1. Outcome evals: is the answer faithful?
 Each output is checked against the evidence it was given (the article, the dialogue or the retrieved passages) by NLI-based fact-checking judges. **MiniCheck** is the headline judge, and every comparison is made on it. **AlignScore** serves as a second, independent judge. SummaC and FactCC are reported for continuity with summarization work, and ROUGE-L and BERTScore track whether faithfulness came at the expense of content. Outputs are scored in full, never cut short.
@@ -77,12 +68,7 @@ An eval is only as good as its judge and its data, so the suite checks itself:
 
 ![XSum results averaged across three backbones. Relative to the single-agent baseline, Self-Refine gained 0.018 MiniCheck at 14.6× the inference tokens, Critique-Revise gained 0.039 at 3.7×, and the RL-trained agent gained 0.037 at 1.0×.](docs/xsum-architecture-comparison.svg)
 
-| XSum eval | Agentic loops (Self-Refine and Critique-Revise) | RL-trained agent (GRPO) |
-|---|---|---|
-| Faithfulness | Each loop beat the single-agent baseline on 2 of 3 backbones | Beat the baseline on all 3 backbones |
-| Reliability | 52–55% of articles passed on all three seeds | 57% passed on all three seeds |
-| Cost | 3.0–4.1 model calls and 4.35–12.52 seconds per summary | 1 call and 1.14 seconds per summary after 33–58 GPU-hours of training per backbone |
-| Evaluation runs completed | 39 of 39 attempts | 9 of 16 attempts |
+![XSum comparison. Each agentic loop beat the baseline on 2 of 3 backbones, versus 3 of 3 for GRPO. Across all three seeds, 52–55% of articles passed for loops and 57% for GRPO. Loops used 3.0–4.1 calls and 4.35–12.52 seconds per summary. GRPO used 1 call and 1.14 seconds after 33–58 GPU-hours of training per backbone. Loops completed 39 of 39 evaluation attempts and GRPO completed 9 of 16.](docs/xsum-eval-results.svg)
 
 Loop ranges span the Self-Refine and Critique-Revise averages. A faithfulness win requires a 95% paired bootstrap interval above zero. [Full scorecard and per-backbone results](evals/SCORECARD.md)
 
