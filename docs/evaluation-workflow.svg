@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="800" viewBox="0 0 960 800" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif">
+  <title id="title">How a system is evaluated</title>
+  <desc id="desc">Run the benchmark. run_benchmark.py runs one agent, backbone model, task and seed on 500 frozen items. Trace each call. Capture every LLM call with its role, token counts and finish reason. Keep the trace with the final output. Judge the outputs. Once all outputs are generated, stop the model server. Validated judges score each nonblank output against its own evidence. Blank outputs count as generation failures. Save run records. results/&lt;run_id&gt;/ holds the resolved config and manifest, including git SHA, library versions, GPU, prompt-template versions and adapter hash when used. metrics.csv stores one row per item. trace.jsonl stores one record per call. Aggregate runs. run_evals.py reads all attempts. Use the latest successful run per agent, backbone, task and seed for scoring. Every attempt counts toward the completion rate. Pair the same items across agents. Across seeds, compute pass@k (any seed) and pass^k (every seed). Report gain over T0 with a paired bootstrap confidence interval, plus token and time costs. Build the scorecard. Regenerate the tables and figures from results/ whenever the runs change. evals/SCORECARD.md evals/leaderboard.csv evals/scorecard.json evals/fig/*.svg</desc>
+  <!-- Static README layout of the six nodes and five connections in the Archify workflow. -->
+  <rect width="960" height="800" fill="#000" />
+  <path d="M 451 100.0 H 504 M 497 96.0 L 504 100.0 L 497 104.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-from="run" data-to="trace" />
+  <path d="M 722.5 178 V 210 M 718.5 203 L 722.5 210 L 726.5 203" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-from="trace" data-to="judge" />
+  <path d="M 509 333.0 H 456 M 463 329.0 L 456 333.0 L 463 337.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-from="judge" data-to="record" />
+  <path d="M 237.5 451 V 483 M 233.5 476 L 237.5 483 L 241.5 476" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-from="record" data-to="aggregate" />
+  <path d="M 451 630.0 H 504 M 497 626.0 L 504 630.0 L 497 634.0" fill="none" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-from="aggregate" data-to="publish" />
+  <g id="node-run" transform="translate(24 22)">
+    <rect width="427" height="156" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">1</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Run the benchmark</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#fff" font-family="monospace" font-size="16">run_benchmark.py</text>
+    <text x="22" y="116" fill="#dedede" font-size="17">One agent × backbone model × task × seed</text>
+    <text x="22" y="140" fill="#dedede" font-size="17">produces outputs for 500 frozen items.</text>
+  </g>
+  <g id="node-trace" transform="translate(509 22)">
+    <rect width="427" height="156" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">2</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Trace each call</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#dedede" font-size="17">For every LLM call, capture the agent’s role,</text>
+    <text x="22" y="107" fill="#dedede" font-size="17">token counts and finish reason.</text>
+    <text x="22" y="140" fill="#dedede" font-size="17">Keep the call history with the final output.</text>
+  </g>
+  <g id="node-judge" transform="translate(509 215)">
+    <rect width="427" height="236" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">3</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Judge the outputs</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#dedede" font-size="17">Once all outputs are generated, stop the</text>
+    <text x="22" y="107" fill="#dedede" font-size="17">model server. Validated judges then score</text>
+    <text x="22" y="131" fill="#dedede" font-size="17">each nonblank output against its own evidence.</text>
+    <text x="22" y="171" fill="#dedede" font-size="17">Blank outputs count as generation failures.</text>
+  </g>
+  <g id="node-record" transform="translate(24 215)">
+    <rect width="427" height="236" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">4</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Save run records</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#fff" font-family="monospace" font-size="16">results/&lt;run_id&gt;/</text>
+    <text x="22" y="115" fill="#dedede" font-size="17">Save the resolved config. The manifest records</text>
+    <text x="22" y="139" fill="#dedede" font-size="17">git SHA, library versions, GPU, prompt-template</text>
+    <text x="22" y="163" fill="#dedede" font-size="17">versions and adapter hash when used.</text>
+    <text x="22" y="200" fill="#fff" font-family="monospace" font-size="16">metrics.csv</text>
+    <text x="155" y="200" fill="#dedede" font-size="17">one row per item</text>
+    <text x="22" y="226" fill="#fff" font-family="monospace" font-size="16">trace.jsonl</text>
+    <text x="155" y="226" fill="#dedede" font-size="17">one record per call</text>
+  </g>
+  <g id="node-aggregate" transform="translate(24 488)">
+    <rect width="427" height="284" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">5</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Aggregate runs</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#fff" font-family="monospace" font-size="16">run_evals.py</text>
+    <text x="22" y="114" fill="#dedede" font-size="17">Score the latest successful run per agent,</text>
+    <text x="22" y="138" fill="#dedede" font-size="17">backbone, task and seed. Count every attempt</text>
+    <text x="22" y="162" fill="#dedede" font-size="17">toward the run-completion rate.</text>
+    <text x="22" y="199" fill="#dedede" font-size="17">Pair matching items across agents. Compute</text>
+    <text x="22" y="223" fill="#dedede" font-size="17">pass@k (any seed) and pass^k (every seed),</text>
+    <text x="22" y="247" fill="#dedede" font-size="17">gain over T0 with a paired bootstrap 95% CI,</text>
+    <text x="22" y="271" fill="#dedede" font-size="17">and cost in tokens and time.</text>
+  </g>
+  <g id="node-publish" transform="translate(509 488)">
+    <rect width="427" height="284" rx="12" fill="#090909" stroke="#585858" stroke-width="1.3" />
+    <circle cx="34" cy="33" r="14" fill="#181818" stroke="#747474" />
+    <text x="34" y="38" fill="#e8e8e8" font-family="monospace" font-size="15" text-anchor="middle">6</text>
+    <text x="60" y="41" fill="#fff" font-size="23" font-weight="bold">Build the scorecard</text>
+    <path d="M 22 59 H 405" stroke="#383838" fill="none" />
+    <text x="22" y="83" fill="#dedede" font-size="17">Regenerate tables and figures from results/</text>
+    <text x="22" y="107" fill="#dedede" font-size="17">whenever the underlying runs change.</text>
+    <text x="22" y="153" fill="#fff" font-family="monospace" font-size="16">evals/SCORECARD.md</text>
+    <text x="22" y="183" fill="#fff" font-family="monospace" font-size="16">evals/leaderboard.csv</text>
+    <text x="22" y="213" fill="#fff" font-family="monospace" font-size="16">evals/scorecard.json</text>
+    <text x="22" y="243" fill="#fff" font-family="monospace" font-size="16">evals/fig/*.svg</text>
+  </g>
+</svg>

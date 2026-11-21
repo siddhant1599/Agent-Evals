@@ -67,34 +67,7 @@ An eval is only as good as its judge and its data, so the suite checks itself:
 
 ## How a system is evaluated
 
-```
- run            trace              judge                 aggregate                 scorecard
- ───            ─────              ─────                 ─────────                 ─────────
- agent × model  every LLM call  →  validated judges   →  per item, per seed:    →  evals/SCORECARD.md
- × task × seed  logged with        score each output     pass@k / pass^k,          evals/leaderboard.csv
- on 500 frozen  role, tokens,      against its own       paired gain vs T0,        evals/scorecard.json
- items          finish reason      evidence              bootstrap CI, cost        evals/fig/*.svg
-```
-
-1. **Run**: `run_benchmark.py` runs an agent on frozen items and writes `results/<run_id>/`, which holds the resolved config, a manifest (git SHA, library versions, GPU, prompt-template versions, adapter hash), per-item `metrics.csv` and per-call `trace.jsonl`.
-2. **Judge**: scoring runs as a separate phase on the saved outputs, so judges never influence generation.
-3. **Aggregate**: `run_evals.py` collects every run. It scores the latest successful run per (agent, backbone, task, seed), counts all attempts toward reliability, and pairs items across agents.
-4. **Report**: the scorecard tables and figures are regenerated from `results/`. They are never edited by hand.
-
-## What makes these evals successful
-
-| Property | How it is enforced |
-|---|---|
-| **Valid judges** | Judges are reproduced against human labels before use. Two independent judges are reported. |
-| **Fair comparisons** | Every comparison is paired, on the same items, backbone and task, against a fixed baseline. |
-| **Statistical honesty** | Bootstrap CIs are computed over items, 3 seeds per configuration, and "no clear difference" is a reported outcome. A pre-declared headline metric avoids metric-shopping. |
-| **Reliability, not just accuracy** | pass^k and the consistency gap are reported next to the mean. Failed runs are counted, not dropped. |
-| **Process visibility** | Full trajectories are logged, so *why* a score changed can be checked, not only *that* it changed. |
-| **Cost awareness** | Every quality number has a token, latency or GPU-hour cost next to it. |
-| **Causal attribution** | Ablations isolate individual components, such as the tool. |
-| **Contamination & gaming checks** | Outputs are tested for worked-example leakage. The reward judge is kept separate from the evaluation judge. A held-out set is never trained on. |
-| **Reproducibility** | Item samples are frozen, seeds and datasets/models are pinned to exact revisions, and every result traces to a run id and the SHA-256 of the file it was read from. |
-| **Auditability** | Every eval design choice is recorded with its reason in an append-only decision log ([`src/docs/decisions.md`](src/docs/decisions.md)). |
+![Evaluation workflow. Run an agent on 500 frozen items, trace each model call, judge completed outputs against their evidence, and save the run records. Aggregate matched items across agents and seeds to regenerate the scorecard, leaderboard, and figures.](docs/evaluation-workflow.svg)
 
 ---
 
