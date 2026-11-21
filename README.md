@@ -73,19 +73,18 @@ An eval is only as good as its judge and its data, so the suite checks itself:
 
 ## Results
 
-From **108 scored runs** (147 launched) and **57 training runs**. Full tables: **[`evals/SCORECARD.md`](evals/SCORECARD.md)**.
+**On XSum, the RL-trained agent scored 0.707 on MiniCheck faithfulness in one model call per summary.** Critique-Revise, the strongest inference-time loop on average, scored 0.709 in three calls. All architectures were evaluated on the same 500 articles, three backbones and three seeds.
 
-![Gain over the single-agent baseline](evals/fig/gain_over_baseline.svg)
+![XSum results averaged across three backbones. Relative to the single-agent baseline, Self-Refine gained 0.018 MiniCheck at 14.6× the inference tokens, Critique-Revise gained 0.039 at 3.7×, and the RL-trained agent gained 0.037 at 1.0×.](docs/xsum-architecture-comparison.svg)
 
-| Eval | Finding |
-|---|---|
-| Comparative | The RL-trained agent beats the baseline in **11 / 12** configurations at **1.0×** tokens. Self-Refine wins only **3 / 6** and loses **1**, at **4.5–23×** tokens. |
-| Ablation | The NLI tool carries the critic's gain: **+0.039** with the tool vs **+0.009** without it (XSum). It costs ~1.0× tokens but 3–5× latency. |
-| Reliability | pass@k is **84–100%**, but pass^k is only **45–94%**, a mean consistency gap of **28 points**. On ASQA the RL agent lifts pass^k from **72% → 92%**. |
-| Trajectory | Self-Refine's self-termination rate ranges from **1% to 99%** across backbones. Llama on ASQA almost never stops refining on its own and uses ~10 calls per task. |
-| Efficiency | One RL training run (**33–58 GPU-h**) breaks even with the critic loop after **~13–14k requests**. |
+| XSum eval | Agentic loops (Self-Refine and Critique-Revise) | RL-trained agent (GRPO) |
+|---|---|---|
+| Faithfulness | Each loop beat the single-agent baseline on 2 of 3 backbones | Beat the baseline on all 3 backbones |
+| Reliability | 52–55% of articles passed on all three seeds | 57% passed on all three seeds |
+| Cost | 3.0–4.1 model calls and 4.35–12.52 seconds per summary | 1 call and 1.14 seconds per summary after 33–58 GPU-hours of training per backbone |
+| Evaluation runs completed | 39 of 39 attempts | 9 of 16 attempts |
 
-<img src="evals/fig/reliability_pass_k.svg" alt="pass@k vs pass^k" width="100%">
+Loop ranges span the Self-Refine and Critique-Revise averages. A faithfulness win requires a 95% paired bootstrap interval above zero. [Full scorecard and per-backbone results](evals/SCORECARD.md)
 
 ---
 

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="255.6pt" viewBox="0 0 720 255.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>XSum faithfulness gain and inference tokens by architecture</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>XSum faithfulness gain and inference tokens by architecture</dc:title>
+    <dc:description>Mean paired MiniCheck gains and inference token multipliers for Self-Refine, Critique-Revise, and GRPO relative to the single agent on XSum.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:source>evals/scorecard.json, architectures for tier1_xsum</dc:source>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 255.6
+L 720 255.6
+L 720 0
+L 0 0
+z
+"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 208.8 214.704
+L 532.8 214.704
+L 532.8 48.564
+L 208.8 48.564
+z
+"/>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 208.8 214.704
+L 208.8 91.986955
+" clip-path="url(#p0a07114c5a)" style="fill: none; stroke: #383838; stroke-width: 0.7"/>
+    <path d="M 280.8 214.704
+L 280.8 91.986955
+" clip-path="url(#p0a07114c5a)" style="fill: none; stroke: #383838; stroke-width: 0.7"/>
+    <path d="M 352.8 214.704
+L 352.8 91.986955
+" clip-path="url(#p0a07114c5a)" style="fill: none; stroke: #383838; stroke-width: 0.7"/>
+    <path d="M 424.8 214.704
+L 424.8 91.986955
+" clip-path="url(#p0a07114c5a)" style="fill: none; stroke: #383838; stroke-width: 0.7"/>
+    <path d="M 496.8 214.704
+L 496.8 91.986955
+" clip-path="url(#p0a07114c5a)" style="fill: none; stroke: #383838; stroke-width: 0.7"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1"/>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #adadad" x="208.8" y="229.302437" transform="rotate(-0 208.8 229.302437)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2"/>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #adadad" x="280.8" y="229.302437" transform="rotate(-0 280.8 229.302437)">+0.01</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3"/>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #adadad" x="352.8" y="229.302437" transform="rotate(-0 352.8 229.302437)">+0.02</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4"/>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #adadad" x="424.8" y="229.302437" transform="rotate(-0 424.8 229.302437)">+0.03</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5"/>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #adadad" x="496.8" y="229.302437" transform="rotate(-0 496.8 229.302437)">+0.04</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2"/>
+   <g id="patch_3">
+    <path d="M 208.8 122.571818
+L 337.488638 122.571818
+L 337.488638 112.754455
+L 208.8 112.754455
+z
+" clip-path="url(#p0a07114c5a)" style="fill: #aaaaaa"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 208.8 149.003182
+L 491.118524 149.003182
+L 491.118524 139.185818
+L 208.8 139.185818
+z
+" clip-path="url(#p0a07114c5a)" style="fill: #aaaaaa"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 208.8 199.977955
+L 475.00727 199.977955
+L 475.00727 190.160591
+L 208.8 190.160591
+z
+" clip-path="url(#p0a07114c5a)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="343.488638" y="120.698449" transform="rotate(-0 343.488638 120.698449)">+0.018</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="497.118524" y="147.129813" transform="rotate(-0 497.118524 147.129813)">+0.039</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="481.00727" y="198.104585" transform="rotate(-0 481.00727 198.104585)">+0.037</text>
+   </g>
+  </g>
+  <g id="text_9">
+   <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="25.2" y="25.56" transform="rotate(-0 25.2 25.56)">XSum</text>
+  </g>
+  <g id="text_10">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #dedede" x="25.2" y="48.564" transform="rotate(-0 25.2 48.564)">The single-agent baseline averaged 0.670 MiniCheck and 596 tokens per summary.</text>
+  </g>
+  <g id="text_11">
+   <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="208.8" y="76.68" transform="rotate(-0 208.8 76.68)">MiniCheck gain</text>
+  </g>
+  <g id="text_12">
+   <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="676.8" y="76.68" transform="rotate(-0 676.8 76.68)">Inference tokens</text>
+  </g>
+  <g id="text_13">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #adadad" x="25.2" y="95.12392" transform="rotate(-0 25.2 95.12392)">Inference-time loops</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #adadad" x="25.2" y="172.907648" transform="rotate(-0 25.2 172.907648)">RL-trained agent</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="36" y="121.250324" transform="rotate(-0 36 121.250324)">Self-Refine</text>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="676.8" y="121.526261" transform="rotate(-0 676.8 121.526261)">14.6×</text>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="36" y="147.681688" transform="rotate(-0 36 147.681688)">Critique-Revise</text>
+  </g>
+  <g id="text_18">
+   <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="676.8" y="147.957625" transform="rotate(-0 676.8 147.957625)">3.7×</text>
+  </g>
+  <g id="text_19">
+   <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #ffffff" x="36" y="198.65646" transform="rotate(-0 36 198.65646)">GRPO</text>
+  </g>
+  <g id="text_20">
+   <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="676.8" y="198.932398" transform="rotate(-0 676.8 198.932398)">1.0×</text>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #adadad" x="25.2" y="247.6764" transform="rotate(-0 25.2 247.6764)">Gains and token ratios are averaged across Llama, Mistral and Qwen, each compared with its own single-agent baseline.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0a07114c5a">
+   <rect x="208.8" y="48.564" width="324" height="166.14"/>
+  </clipPath>
+ </defs>
+</svg>
